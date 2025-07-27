@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Seller Scraper - Amazon Satıcı Analiz Aracı</title>
+    <meta name="description" content="Amazon satıcılarının ürün kategorilerini ve performansını analiz eden güçlü araç. 8 farklı ülke pazarında çalışır.">
+    <meta name="keywords" content="amazon scraper, satıcı analizi, e-ticaret analizi, amazon seller, kategori analizi">
+    <meta name="author" content="Global Seller Scraper">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>Global Seller Scraper</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="#features" class="nav-link">Özellikler</a></li>
+                <li><a href="#trial" class="nav-link">Free Trial</a></li>
+                <li><a href="#pricing" class="nav-link">Fiyatlandırma</a></li>
+                <li><a href="#contact" class="nav-link">İletişim</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Amazon Satıcı Analizinde <span class="highlight">Yeni Dönem</span>
+                </h1>
+                <p class="hero-description">
+                    Global Seller Scraper ile Amazon satıcılarının ürün kategorilerini, fiyatlarını ve performansını 
+                    8 farklı ülke pazarında analiz edin. Rakip analizi artık çok kolay!
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Ülke Pazarı</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">Analiz Edildi</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Güvenli Scraping</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#trial" class="btn btn-primary">
+                        <i class="fas fa-play"></i>
+                        Free Trial Başlat
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <i class="fas fa-info-circle"></i>
+                        Özellikleri İncele
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analiz Sonuçları</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="result-item">
+                            <span class="result-label">Toplam Ürün</span>
+                            <span class="result-value">1,247</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Kategoriler</span>
+                            <span class="result-value">24</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Ortalama Fiyat</span>
+                            <span class="result-value">$45.99</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Ortalama Rating</span>
+                            <span class="result-value">4.2★</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Güçlü Özellikler</h2>
+                <p>Amazon satıcı analizinde ihtiyacınız olan her şey</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>8 Ülke Pazarı</h3>
+                    <p>ABD, İngiltere, Kanada, Avustralya, Meksika, Suudi Arabistan, BAE ve Singapur Amazon pazarlarında çalışır.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Kategori Analizi</h3>
+                    <p>Satıcıların hangi kategorilerde ürün sattığını ve her kategorideki ürün sayısını analiz eder.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Fiyat Analizi</h3>
+                    <p>Ürün fiyatlarını, rating'leri ve review sayılarını detaylı olarak toplar.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Hız Kontrolü</h3>
+                    <p>Yavaş, dengeli ve hızlı modlar ile ihtiyacınıza göre scraping hızını ayarlayın.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-csv"></i>
+                    </div>
+                    <h3>CSV Export</h3>
+                    <p>Tüm analiz sonuçlarını CSV formatında indirin ve Excel'de analiz edin.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Güvenli Scraping</h3>
+                    <p>Akıllı delay'ler ve user-agent rotasyonu ile güvenli scraping yapın.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Free Trial Section -->
+    <section id="trial" class="trial">
+        <div class="container">
+            <div class="section-header">
+                <h2>Free Trial</h2>
+                <p>Özelliklerimizi ücretsiz deneyin</p>
+            </div>
+            
+            <div class="trial-container">
+                <div class="trial-form">
+                    <h3>Satıcı Analizi Başlat</h3>
+                    <p class="trial-info">1 ücretsiz analiz hakkınız var. Premium'a geçerek sınırsız analiz yapın!</p>
+                    
+                    <form id="trialForm" class="trial-form-content">
+                        <div class="form-group">
+                            <label for="sellerId">Satıcı ID</label>
+                            <input type="text" id="sellerId" name="sellerId" placeholder="Örnek: A1F83G8C2ARO7P" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="country">Ülke</label>
+                            <select id="country" name="country" required>
+                                <option value="">Ülke seçin</option>
+                                <option value="US">🇺🇸 ABD</option>
+                                <option value="UK">🇬🇧 İngiltere</option>
+                                <option value="CA">🇨🇦 Kanada</option>
+                                <option value="AU">🇦🇺 Avustralya</option>
+                                <option value="MX">🇲🇽 Meksika</option>
+                                <option value="SA">🇸🇦 Suudi Arabistan</option>
+                                <option value="AE">🇦🇪 BAE</option>
+                                <option value="SG">🇸🇬 Singapur</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="speed">Hız Modu</label>
+                            <select id="speed" name="speed">
+                                <option value="yavas">🐌 Yavaş (Güvenli)</option>
+                                <option value="dengeli" selected>⚖️ Dengeli</option>
+                                <option value="hizli">🚀 Hızlı</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-search"></i>
+                            Analizi Başlat
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="trial-results" id="trialResults">
+                    <div class="results-placeholder">
+                        <i class="fas fa-chart-bar"></i>
+                        <h4>Analiz Sonuçları</h4>
+                        <p>Formu doldurup "Analizi Başlat" butonuna tıklayın</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Fiyatlandırma</h2>
+                <p>İhtiyacınıza uygun plan seçin</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Ücretsiz</h3>
+                        <div class="price">
+                            <span class="currency">₺</span>
+                            <span class="amount">0</span>
+                            <span class="period">/ay</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 5 analiz/ay</li>
+                        <li><i class="fas fa-check"></i> 3 ülke pazarı</li>
+                        <li><i class="fas fa-check"></i> CSV export</li>
+                        <li><i class="fas fa-check"></i> Email desteği</li>
+                        <li class="disabled"><i class="fas fa-times"></i> API erişimi</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Öncelikli destek</li>
+                    </ul>
+                    <button class="btn btn-outline">Mevcut Plan</button>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Popüler</div>
+                    <div class="pricing-header">
+                        <h3>Premium</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">199</span>
+                            <span class="period">Tek Ödeme</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Sınırsız analiz</li>
+                        <li><i class="fas fa-check"></i> Tüm ülke pazarları</li>
+                        <li><i class="fas fa-check"></i> CSV export</li>
+                        <li><i class="fas fa-check"></i> API erişimi</li>
+                        <li><i class="fas fa-check"></i> Öncelikli destek</li>
+                        <li><i class="fas fa-check"></i> Ömür boyu erişim</li>
+                    </ul>
+                    <button class="btn btn-primary">Premium'a Geç</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>İletişim</h2>
+                <p>Sorularınız için bizimle iletişime geçin</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@globalsellerscraper.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Telefon</h4>
+                            <p>+90 (555) 123 45 67</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Adres</h4>
+                            <p>İstanbul, Türkiye</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="contactName">Ad Soyad</label>
+                        <input type="text" id="contactName" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactEmail">Email</label>
+                        <input type="email" id="contactEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactSubject">Konu</label>
+                        <input type="text" id="contactSubject" name="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactMessage">Mesaj</label>
+                        <textarea id="contactMessage" name="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-paper-plane"></i>
+                        Mesaj Gönder
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-globe-americas"></i>
+                        <span>Global Seller Scraper</span>
+                    </div>
+                    <p>Amazon satıcı analizinde güvenilir çözüm ortağınız.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Linkler</h4>
+                    <ul>
+                        <li><a href="#home">Ana Sayfa</a></li>
+                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="#trial">Free Trial</a></li>
+                        <li><a href="#pricing">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Desteklenen Ülkeler</h4>
+                    <ul>
+                        <li>🇺🇸 ABD</li>
+                        <li>🇬🇧 İngiltere</li>
+                        <li>🇨🇦 Kanada</li>
+                        <li>🇦🇺 Avustralya</li>
+                        <li>🇲🇽 Meksika</li>
+                        <li>🇸🇦 Suudi Arabistan</li>
+                        <li>🇦🇪 BAE</li>
+                        <li>🇸🇬 Singapur</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Global Seller Scraper. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html> 
