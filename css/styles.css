@@ -126,13 +126,14 @@ a:hover {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-2xl);
     font-weight: 600;
-    color: var(--primary-color);
+    color: #39efd7 !important;
 }
 
 .nav-logo i {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-3xl);
+    color: #39efd7 !important;
 }
 
 .nav-menu {
