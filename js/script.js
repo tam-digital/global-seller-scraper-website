@@ -236,10 +236,12 @@ document.querySelectorAll('.nav-link').forEach(link => {
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
     if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(24, 27, 31, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        navbar.style.background = 'rgba(24, 27, 31, 0.95)';
+        navbar.style.backdropFilter = 'blur(10px)';
+        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
     } else {
         navbar.style.background = 'transparent';
+        navbar.style.backdropFilter = 'none';
         navbar.style.boxShadow = 'none';
     }
 });
