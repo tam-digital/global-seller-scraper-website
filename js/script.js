@@ -5,6 +5,34 @@ const navMenu = document.getElementById('nav-menu');
 const trialForm = document.getElementById('trialForm');
 const trialResults = document.getElementById('trialResults');
 const contactForm = document.getElementById('contactForm');
+const heroSection = document.querySelector('.hero');
+
+// ===== SMOOTH GRADIENT ANIMATION =====
+let gradientTime = 0;
+const gradientSpeed = 0.008; // Daha hızlı ama smooth animasyon
+
+function updateGradient() {
+    if (!heroSection) return;
+    
+    const heroBefore = heroSection.querySelector('::before') || heroSection;
+    
+    // Smooth circular motion
+    const x1 = 30 + 40 * Math.sin(gradientTime);
+    const y1 = 20 + 30 * Math.cos(gradientTime * 0.7);
+    const x2 = 70 + 30 * Math.sin(gradientTime * 1.3);
+    const y2 = 80 + 20 * Math.cos(gradientTime * 0.5);
+    
+    const gradient = `radial-gradient(circle at ${x1}% ${y1}%, rgba(57, 239, 215, 0.1) 0%, transparent 50%), radial-gradient(circle at ${x2}% ${y2}%, rgba(57, 239, 215, 0.05) 0%, transparent 50%)`;
+    
+    heroSection.style.setProperty('--gradient-bg', gradient);
+    heroSection.style.background = `linear-gradient(135deg, var(--background-dark) 0%, rgba(57, 239, 215, 0.05) 25%, rgba(57, 239, 215, 0.02) 50%, rgba(57, 239, 215, 0.08) 75%, var(--background-dark) 100%), ${gradient}`;
+    
+    gradientTime += gradientSpeed;
+    requestAnimationFrame(updateGradient);
+}
+
+// Start gradient animation
+updateGradient();
 
 // ===== NAVIGATION =====
 
@@ -28,7 +56,7 @@ window.addEventListener('scroll', () => {
         navbar.style.background = 'rgba(24, 27, 31, 0.98)';
         navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
     } else {
-        navbar.style.background = 'rgba(24, 27, 31, 0.95)';
+        navbar.style.background = 'transparent';
         navbar.style.boxShadow = 'none';
     }
 });
