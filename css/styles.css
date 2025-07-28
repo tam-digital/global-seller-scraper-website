@@ -106,8 +106,7 @@ a:hover {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(24, 27, 31, 0.1);
-    backdrop-filter: blur(5px);
+    background: transparent;
     z-index: 1000;
     padding: var(--spacing-sm) 0;
     transition: all 0.3s ease;
@@ -935,14 +934,6 @@ section.feature-section .feature-content.reverse .feature-visual {
     min-height: 60vh;
     display: flex;
     align-items: center;
-}
-
-/* Trial sayfası için navbar düzenlemesi */
-.trial-hero ~ .navbar,
-.trial-hero + .navbar {
-    background: rgba(24, 27, 31, 0.95) !important;
-    backdrop-filter: blur(10px) !important;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
 }
 
 .trial-steps {

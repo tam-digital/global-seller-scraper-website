@@ -217,13 +217,6 @@ function updateGradient() {
 // Start gradient animation
 updateGradient();
 
-// Trial sayfasında navbar'ı koyu yap
-if (window.location.pathname.includes('trial.html')) {
-    navbar.style.background = 'rgba(24, 27, 31, 0.95)';
-    navbar.style.backdropFilter = 'blur(10px)';
-    navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
-}
-
 // ===== NAVIGATION =====
 
 // Mobile menu toggle
@@ -242,22 +235,10 @@ document.querySelectorAll('.nav-link').forEach(link => {
 
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
-    // Trial sayfasında navbar'ı her zaman koyu yap
-    if (window.location.pathname.includes('trial.html')) {
+    if (window.scrollY > 50) {
         navbar.style.background = 'rgba(24, 27, 31, 0.95)';
-        navbar.style.backdropFilter = 'blur(10px)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
-        return;
-    }
-    
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(24, 27, 31, 0.95)';
-        navbar.style.backdropFilter = 'blur(10px)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
     } else {
-        navbar.style.background = 'rgba(24, 27, 31, 0.1)';
-        navbar.style.backdropFilter = 'blur(5px)';
-        navbar.style.boxShadow = 'none';
+        navbar.style.background = 'transparent';
     }
 });
 
