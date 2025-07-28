@@ -937,6 +937,14 @@ section.feature-section .feature-content.reverse .feature-visual {
     align-items: center;
 }
 
+/* Trial sayfası için navbar düzenlemesi */
+.trial-hero ~ .navbar,
+.trial-hero + .navbar {
+    background: rgba(24, 27, 31, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
 .trial-steps {
     display: flex;
     flex-direction: column;
