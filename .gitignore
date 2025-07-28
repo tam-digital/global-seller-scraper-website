@@ -1,0 +1,55 @@
+# Tüm dosyaları ignore et
+*
+
+# Sadece website klasörünü dahil et
+!website/
+!website/**
+!README.md
+!.gitignore
+
+# Website içinde hassas dosyaları ignore et
+website/.env
+website/admin/
+website/firebase-config.js
+
+# Yazılım dosyalarını kesinlikle ignore et
+*.py
+*.pyc
+__pycache__/
+helpers/
+fonts/
+*.spec
+*.json
+!website/**/*.json
+!package.json
+!package-lock.json
+
+# Firebase ve kullanıcı verileri
+globalsellerscraper-firebase-adminsdk-*.json
+user_data/
+*.csv
+*.txt
+!website/**/*.txt
+
+# Build dosyaları
+dist/
+build/
+*.exe
+*.dmg
+*.app
+
+# OS dosyaları
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE dosyaları
+.vscode/
+.idea/
+*.swp
+*.swo
+*~ 
