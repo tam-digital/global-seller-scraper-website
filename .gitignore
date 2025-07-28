@@ -1,16 +1,24 @@
 # Tüm dosyaları ignore et
 *
 
-# Sadece website klasörünü dahil et
-!website/
-!website/**
+# Sadece website dosyalarını dahil et
+!index.html
+!trial.html
+!favicon.png
+!favicon.svg
+!css/
+!css/**
+!js/
+!js/**
+!images/
+!images/**
 !README.md
 !.gitignore
 
 # Website içinde hassas dosyaları ignore et
-website/.env
-website/admin/
-website/firebase-config.js
+.env
+admin/
+firebase-config.js
 
 # Yazılım dosyalarını kesinlikle ignore et
 *.py
@@ -20,7 +28,6 @@ helpers/
 fonts/
 *.spec
 *.json
-!website/**/*.json
 !package.json
 !package-lock.json
 
@@ -29,7 +36,6 @@ globalsellerscraper-firebase-adminsdk-*.json
 user_data/
 *.csv
 *.txt
-!website/**/*.txt
 
 # Build dosyaları
 dist/
@@ -52,4 +58,19 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
-*~ 
+*~
+
+# Diğer dosyalar
+website/
+*.dmg
+*.icns
+*.ico
+*.iconset/
+app_icon/
+dmg_background.png
+extras/
+ids.txt
+links.txt
+ls_snapshot.txt
+remember_me.json
+amazon_cookies.json 
