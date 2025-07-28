@@ -235,10 +235,12 @@ document.querySelectorAll('.nav-link').forEach(link => {
 
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.style.background = '#181b1f';
+    if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(24, 27, 31, 0.98)';
+        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
     } else {
         navbar.style.background = 'transparent';
+        navbar.style.boxShadow = 'none';
     }
 });
 
