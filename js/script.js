@@ -479,4 +479,30 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         document.body.style.opacity = '1';
     }, 100);
+    
+    // FAQ accordion functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+    console.log('FAQ items found:', faqItems.length);
+    
+    faqItems.forEach((item, index) => {
+        const question = item.querySelector('.faq-question');
+        console.log(`FAQ item ${index}:`, question);
+        
+        if (question) {
+            question.addEventListener('click', function() {
+                console.log('FAQ clicked:', index);
+                const isActive = item.classList.contains('active');
+                
+                // Close all other FAQ items
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        }
+    });
 }); 
