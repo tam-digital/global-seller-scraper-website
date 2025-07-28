@@ -129,7 +129,20 @@ a:hover {
     gap: var(--spacing-xs);
     font-size: var(--font-size-2xl);
     font-weight: 600;
+}
+
+.nav-logo a {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
     color: #39efd7 !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-logo a:hover {
+    color: #39efd7 !important;
+    transform: scale(1.05);
 }
 
 .nav-logo i {
