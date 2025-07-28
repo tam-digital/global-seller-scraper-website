@@ -236,7 +236,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(24, 27, 31, 0.95)';
+        navbar.style.background = '#181b1f';
     } else {
         navbar.style.background = 'transparent';
     }
