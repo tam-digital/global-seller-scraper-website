@@ -106,11 +106,31 @@ a:hover {
     position: fixed;
     top: 0;
     width: 100%;
-    background: transparent;
+    background: #181b1f !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
     z-index: 1000;
     padding: var(--spacing-sm) 0;
     transition: all 0.3s ease;
 }
+
+/* Hero section'da transparent olması için */
+.navbar.transparent {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Scroll effect'i kaldırıyorum */
+/* .navbar.scrolled,
+.navbar[style*="background"] {
+    background: #181b1f !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+body .navbar.scrolled,
+html body .navbar.scrolled {
+    background: #181b1f !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+} */
 
 .nav-container {
     max-width: 1200px;

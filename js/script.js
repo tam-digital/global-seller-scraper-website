@@ -233,16 +233,42 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-// Navbar scroll effect
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(24, 27, 31, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.background = 'transparent';
-        navbar.style.boxShadow = 'none';
-    }
-});
+// Navbar scroll effect'i kaldırıyorum
+// window.addEventListener('scroll', () => {
+//     if (window.scrollY > 100) {
+//         navbar.classList.add('scrolled');
+//         navbar.style.background = '#181b1f !important';
+//         navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3) !important';
+//     } else {
+//         navbar.classList.remove('scrolled');
+//         navbar.style.background = 'transparent !important';
+//         navbar.style.boxShadow = 'none !important';
+//     }
+// });
+
+// Hero section'ı izleyip navbar'ı sadece orada transparent yapıyorum
+const heroSectionElement = document.querySelector('.hero-section');
+if (heroSectionElement) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Hero section görünür - navbar transparent
+                navbar.style.background = 'transparent';
+                navbar.style.boxShadow = 'none';
+                navbar.classList.add('transparent');
+            } else {
+                // Hero section görünmez - navbar sabit renk
+                navbar.style.background = '#181b1f';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+                navbar.classList.remove('transparent');
+            }
+        });
+    }, {
+        threshold: 0.1 // Hero section'ın %10'u görünür olduğunda tetikle
+    });
+    
+    observer.observe(heroSectionElement);
+}
 
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
