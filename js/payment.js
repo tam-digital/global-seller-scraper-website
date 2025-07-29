@@ -184,6 +184,15 @@ function createIyzicoForm(paymentData) {
     
     console.log('iyzico options:', options);
     
+    // iyzico SDK kontrolü
+    if (typeof IyzipayCheckoutForm === 'undefined') {
+        console.error('iyzico SDK yüklenmedi!');
+        showError('Ödeme sistemi yüklenemedi. Lütfen sayfayı yenileyin.');
+        return;
+    }
+    
+    console.log('iyzico SDK mevcut, form oluşturuluyor...');
+    
     // iyzico Checkout Form oluştur
     console.log('IyzipayCheckoutForm.init çağrılıyor...');
     IyzipayCheckoutForm.init(options).then(function(result) {
@@ -422,8 +431,20 @@ function showSuccess(message) {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('💳 Payment page loaded successfully!');
     
-    // Ödeme formunu başlat
-    initializePaymentForm();
+    // iyzico SDK yüklenmesini bekle
+    const checkIyzicoSDK = () => {
+        if (typeof IyzipayCheckoutForm !== 'undefined') {
+            console.log('✅ iyzico SDK yüklendi');
+            // Ödeme formunu başlat
+            initializePaymentForm();
+        } else {
+            console.log('⏳ iyzico SDK yükleniyor...');
+            setTimeout(checkIyzicoSDK, 100);
+        }
+    };
+    
+    // SDK kontrolünü başlat
+    checkIyzicoSDK();
     
     // Loading animation
     document.body.style.opacity = '0';
