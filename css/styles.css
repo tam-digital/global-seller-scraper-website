@@ -283,7 +283,8 @@ html body .navbar.scrolled {
     z-index: 0;
 }
 
-.hero-container {
+/* Payment page specific hero styles */
+.payment-page .hero-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: var(--spacing-xl) var(--spacing-sm);
@@ -294,9 +295,26 @@ html body .navbar.scrolled {
     z-index: 1;
 }
 
-.hero-header {
+.payment-page .hero-header {
     text-align: center;
     margin-bottom: var(--spacing-lg);
+}
+
+/* Main site hero styles */
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-sm);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content {
+    text-align: left;
 }
 
 /* Premium Features Horizontal */
@@ -366,17 +384,18 @@ html body .navbar.scrolled {
 
 .auth-form-card {
     background: var(--panel-dark);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-lg);
     text-align: center;
+    max-width: 350px;
 }
 
 .auth-form-card h3 {
     color: var(--primary-color);
     margin-bottom: var(--spacing-xs);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -385,7 +404,7 @@ html body .navbar.scrolled {
 
 .auth-form-card p {
     color: var(--text-gray);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
     font-size: var(--font-size-sm);
 }
 
@@ -1676,6 +1695,14 @@ section.feature-section .feature-content.reverse .feature-visual {
     }
     
     .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: var(--spacing-lg) !important;
+    }
+    
+    .payment-page .hero-container {
         padding: var(--spacing-lg) var(--spacing-sm);
         gap: var(--spacing-lg) !important;
     }
@@ -2497,7 +2524,7 @@ section.feature-section .feature-content.reverse .feature-visual {
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
 }
 
 .auth-form .form-group {
@@ -2509,16 +2536,17 @@ section.feature-section .feature-content.reverse .feature-visual {
     font-weight: 500;
     margin-bottom: var(--spacing-xs);
     display: block;
+    font-size: var(--font-size-sm);
 }
 
 .auth-form .form-group input {
     width: 100%;
-    padding: var(--spacing-sm);
+    padding: var(--spacing-xs);
     background: var(--input-dark);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     color: var(--text-white);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
     transition: all 0.3s ease;
 }
 
@@ -2533,9 +2561,9 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 .auth-form .btn {
-    margin-top: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    font-size: var(--font-size-base);
+    margin-top: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-size-sm);
     font-weight: 500;
     display: flex;
     align-items: center;
