@@ -67,8 +67,19 @@ async function initializePaymentForm() {
 // ===== SHOW PAYMENT FORM =====
 async function showPaymentForm(userEmail) {
     try {
-        // Kullanıcı bilgilerini Firebase'den al
-        const userDoc = await db.collection('users').doc(userEmail).get();
+        console.log('showPaymentForm çağrıldı, email:', userEmail);
+        
+        // Önce current user'ı al
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
+            showError('Kullanıcı oturumu bulunamadı!');
+            return;
+        }
+        
+        console.log('Current user UID:', currentUser.uid);
+        
+        // Kullanıcı bilgilerini Firebase'den al (UID ile)
+        const userDoc = await db.collection('users').doc(currentUser.uid).get();
         if (!userDoc.exists) {
             showError('Kullanıcı bulunamadı! Lütfen önce giriş yapın.');
             return;
@@ -77,7 +88,10 @@ async function showPaymentForm(userEmail) {
         const userData = userDoc.data();
         const userName = userData.name || userEmail.split('@')[0];
         
+        console.log('Kullanıcı verileri alındı:', userData);
+        
         // Formları değiştir
+        console.log('Formları değiştiriyor...');
         authForms.style.display = 'none';
         paymentForm.style.display = 'block';
         
@@ -90,6 +104,8 @@ async function showPaymentForm(userEmail) {
             product: 'Global Seller Scraper Premium'
         };
         
+        console.log('Payment data:', paymentData);
+        console.log('iyzico form oluşturuluyor...');
         createIyzicoForm(paymentData);
         
     } catch (error) {
@@ -106,6 +122,9 @@ function showRegisterForm() {
 
 // ===== iyzico FORM CREATION =====
 function createIyzicoForm(paymentData) {
+    console.log('createIyzicoForm başladı');
+    console.log('Payment data:', paymentData);
+    
     // iyzico Checkout Form parametreleri
     const options = {
         locale: 'tr',
@@ -158,9 +177,14 @@ function createIyzicoForm(paymentData) {
         ]
     };
     
+    console.log('iyzico options:', options);
+    
     // iyzico Checkout Form oluştur
+    console.log('IyzipayCheckoutForm.init çağrılıyor...');
     IyzipayCheckoutForm.init(options).then(function(result) {
+        console.log('iyzico result:', result);
         if (result.status === 'success') {
+            console.log('iyzico form başarılı, form gösteriliyor...');
             // Ödeme formunu göster
             const iyzicoForm = document.getElementById('iyzipay-checkout-form');
             iyzicoForm.innerHTML = result.checkoutFormContent;
