@@ -11,12 +11,12 @@ const registerMessage = document.getElementById('registerMessage');
 
 // ===== FIREBASE CONFIG =====
 const firebaseConfig = {
-    apiKey: "AIzaSyBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", // Firebase Console'dan alınacak
+    apiKey: "AIzaSyCPJay7-9xPVVXh-0FzKsaMw6LxmmLjvws",
     authDomain: "globalsellerscraper.firebaseapp.com",
     projectId: "globalsellerscraper",
     storageBucket: "globalsellerscraper.appspot.com",
-    messagingSenderId: "118250382702769771210",
-    appId: "1:118250382702769771210:web:abcdef123456" // Firebase Console'dan alınacak
+    messagingSenderId: "768895134845",
+    appId: "768895134845:web:9907c4a23f57e0eb0f1514"
 };
 
 // Initialize Firebase
