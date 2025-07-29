@@ -249,14 +249,20 @@ if (signupForm) {
         submitBtn.disabled = true;
         
         try {
+            console.log('Firebase Auth başlatılıyor...');
+            console.log('Email:', email);
+            console.log('Şifre uzunluğu:', password.length);
+            
             // Firebase Auth ile kullanıcı oluştur
             const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            console.log('Kullanıcı oluşturuldu:', userCredential.user.uid);
             
             // Hardware fingerprint oluştur
             const fingerprint = generateHardwareFingerprint();
+            console.log('Hardware fingerprint:', fingerprint);
             
             // Firestore'a kullanıcı verilerini kaydet
-            await db.collection('users').doc(userCredential.user.uid).set({
+            const userData = {
                 email: email,
                 name: name,
                 hardware_fingerprint: fingerprint,
@@ -269,7 +275,11 @@ if (signupForm) {
                     product_scans: 0, 
                     seller_searches: 0 
                 }
-            });
+            };
+            
+            console.log('Firestore\'a kaydediliyor...');
+            await db.collection('users').doc(userCredential.user.uid).set(userData);
+            console.log('Kullanıcı Firestore\'a kaydedildi');
             
             // Başarılı kayıt - ödeme formunu göster
             showPaymentForm(email);
@@ -277,6 +287,8 @@ if (signupForm) {
             
         } catch (error) {
             console.error('Kayıt hatası:', error);
+            console.error('Hata kodu:', error.code);
+            console.error('Hata mesajı:', error.message);
             let errorMessage = 'Hesap oluşturulamadı!';
             
             if (error.code === 'auth/email-already-in-use') {
@@ -285,6 +297,12 @@ if (signupForm) {
                 errorMessage = 'Geçersiz email adresi!';
             } else if (error.code === 'auth/weak-password') {
                 errorMessage = 'Şifre çok zayıf!';
+            } else if (error.code === 'auth/network-request-failed') {
+                errorMessage = 'İnternet bağlantısı hatası!';
+            } else if (error.code === 'auth/operation-not-allowed') {
+                errorMessage = 'Email/şifre kaydı etkin değil!';
+            } else {
+                errorMessage = `Hesap oluşturulamadı: ${error.message}`;
             }
             
             showAuthMessage(errorMessage, 'error');
