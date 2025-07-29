@@ -25,6 +25,10 @@ const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
 const authMessage = document.getElementById('authMessage');
 
+// ===== GLOBAL FLAGS =====
+let isPaymentFormShowing = false;
+let isIyzicoFormCreating = false;
+
 // ===== NAVBAR FUNCTIONALITY =====
 if (hamburger) {
     hamburger.addEventListener('click', () => {
@@ -74,9 +78,19 @@ async function showPaymentForm(userEmail) {
     try {
         console.log('showPaymentForm çağrıldı, email:', userEmail);
         
+        // Global flag kontrolü - zaten çalışıyorsa durdur
+        if (isPaymentFormShowing) {
+            console.log('showPaymentForm zaten çalışıyor, tekrar çağırılmıyor.');
+            return;
+        }
+        
+        // Flag'i true yap
+        isPaymentFormShowing = true;
+        
         // Ödeme formu zaten gösteriliyorsa tekrar çağırma
         if (paymentForm.style.display === 'block') {
             console.log('Ödeme formu zaten gösteriliyor, tekrar çağırılmıyor.');
+            isPaymentFormShowing = false;
             return;
         }
         
@@ -136,10 +150,20 @@ function createIyzicoForm(paymentData) {
     console.log('createIyzicoForm başladı');
     console.log('Payment data:', paymentData);
     
+    // Global flag kontrolü - zaten çalışıyorsa durdur
+    if (isIyzicoFormCreating) {
+        console.log('createIyzicoForm zaten çalışıyor, tekrar çağırılmıyor.');
+        return;
+    }
+    
+    // Flag'i true yap
+    isIyzicoFormCreating = true;
+    
     // Eğer iyzico form zaten oluşturulmuşsa tekrar oluşturma
     const existingForm = document.getElementById('iyzipay-checkout-form');
     if (existingForm && existingForm.innerHTML && !existingForm.innerHTML.includes('loading')) {
         console.log('iyzico form zaten oluşturulmuş, tekrar oluşturulmuyor.');
+        isIyzicoFormCreating = false;
         return;
     }
     
