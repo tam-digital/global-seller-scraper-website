@@ -74,6 +74,12 @@ async function showPaymentForm(userEmail) {
     try {
         console.log('showPaymentForm çağrıldı, email:', userEmail);
         
+        // Ödeme formu zaten gösteriliyorsa tekrar çağırma
+        if (paymentForm.style.display === 'block') {
+            console.log('Ödeme formu zaten gösteriliyor, tekrar çağırılmıyor.');
+            return;
+        }
+        
         // Önce current user'ı al
         const currentUser = auth.currentUser;
         if (!currentUser) {
@@ -129,6 +135,13 @@ function showRegisterForm() {
 function createIyzicoForm(paymentData) {
     console.log('createIyzicoForm başladı');
     console.log('Payment data:', paymentData);
+    
+    // Eğer iyzico form zaten oluşturulmuşsa tekrar oluşturma
+    const existingForm = document.getElementById('iyzipay-checkout-form');
+    if (existingForm && existingForm.innerHTML && !existingForm.innerHTML.includes('loading')) {
+        console.log('iyzico form zaten oluşturulmuş, tekrar oluşturulmuyor.');
+        return;
+    }
     
     // iyzico Checkout Form parametreleri
     const options = {
