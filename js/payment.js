@@ -229,6 +229,13 @@ function createIyzicoForm(paymentData) {
         return;
     }
     
+    // iyzico global objelerini kontrol et
+    console.log('iyzico global objeleri:', {
+        IyzipayCheckoutForm: typeof IyzipayCheckoutForm,
+        IyzipayResource: typeof IyzipayResource,
+        window: Object.keys(window).filter(key => key.includes('iyzi') || key.includes('Iyzi'))
+    });
+    
     // iyzico SDK kontrolü - maksimum 10 saniye bekle
     let attempts = 0;
     const maxAttempts = 100; // 10 saniye (100 * 100ms)
@@ -239,9 +246,15 @@ function createIyzicoForm(paymentData) {
         if (typeof IyzipayCheckoutForm !== 'undefined') {
             console.log('iyzico SDK mevcut, form oluşturuluyor...');
             
-            // iyzico Checkout Form oluştur
-            console.log('IyzipayCheckoutForm.init çağrılıyor...');
-            IyzipayCheckoutForm.init(options).then(function(result) {
+            // iyzico'nun gerçekten çalışıp çalışmadığını test et
+            try {
+                console.log('iyzico test başlatılıyor...');
+                console.log('IyzipayCheckoutForm objesi:', IyzipayCheckoutForm);
+                console.log('IyzipayCheckoutForm.init fonksiyonu:', typeof IyzipayCheckoutForm.init);
+                
+                // iyzico Checkout Form oluştur
+                console.log('IyzipayCheckoutForm.init çağrılıyor...');
+                IyzipayCheckoutForm.init(options).then(function(result) {
                 console.log('iyzico result:', result);
                 if (result.status === 'success') {
                     console.log('iyzico form başarılı, form gösteriliyor...');
