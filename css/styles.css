@@ -1976,3 +1976,317 @@ section.feature-section .feature-content.reverse .feature-visual {
     margin-top: 8px;
     font-style: italic;
 }
+
+/* ===== PAYMENT PAGE STYLES ===== */
+.payment-section {
+    padding: var(--spacing-2xl) 0;
+    background: linear-gradient(135deg, var(--background-dark) 0%, #1a1d21 100%);
+}
+
+.payment-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.payment-info {
+    padding: var(--spacing-lg);
+}
+
+.payment-info h2 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-2xl);
+}
+
+.premium-features {
+    margin-top: var(--spacing-xl);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.feature-item {
+    background: var(--panel-dark);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-glow);
+}
+
+.feature-item i {
+    font-size: var(--font-size-2xl);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.feature-item h3 {
+    color: var(--text-white);
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+}
+
+.feature-item p {
+    color: var(--text-gray);
+    font-size: var(--font-size-xs);
+}
+
+.price-card {
+    background: var(--panel-dark);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    text-align: center;
+}
+
+.price-header h3 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-xl);
+}
+
+.price {
+    margin-bottom: var(--spacing-lg);
+}
+
+.currency {
+    font-size: var(--font-size-lg);
+    color: var(--text-gray);
+    vertical-align: top;
+}
+
+.amount {
+    font-size: var(--font-size-4xl);
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.period {
+    font-size: var(--font-size-sm);
+    color: var(--text-gray);
+    margin-left: var(--spacing-xs);
+}
+
+.price-features {
+    list-style: none;
+    padding: 0;
+}
+
+.price-features li {
+    padding: var(--spacing-xs) 0;
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+}
+
+.price-features li i {
+    color: var(--primary-color);
+    font-size: var(--font-size-sm);
+}
+
+.payment-form-container {
+    background: var(--panel-dark);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    border: 1px solid var(--border-color);
+}
+
+.payment-form h3 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+}
+
+.payment-form p {
+    color: var(--text-gray);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.iyzipay-form {
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading {
+    text-align: center;
+    color: var(--text-gray);
+}
+
+.loading i {
+    font-size: var(--font-size-2xl);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+@media (max-width: 768px) {
+    .payment-container {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== SUCCESS PAGE STYLES ===== */
+.success-section {
+    padding: var(--spacing-2xl) 0;
+    background: linear-gradient(135deg, var(--background-dark) 0%, #1a1d21 100%);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.success-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.success-card {
+    background: var(--panel-dark);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--radius-2xl);
+    padding: var(--spacing-2xl);
+    box-shadow: var(--shadow-glow);
+}
+
+.success-icon {
+    margin-bottom: var(--spacing-lg);
+}
+
+.success-icon i {
+    font-size: 4rem;
+    color: #4caf50;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.success-card h1 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-3xl);
+}
+
+.success-message {
+    color: var(--text-white);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.success-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.detail-item {
+    background: var(--background-dark);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.detail-item i {
+    font-size: var(--font-size-xl);
+    color: var(--primary-color);
+}
+
+.detail-item span {
+    color: var(--text-white);
+    font-weight: 500;
+}
+
+.next-steps {
+    background: var(--background-dark);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+    text-align: left;
+}
+
+.next-steps h3 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.next-steps ol {
+    color: var(--text-white);
+    padding-left: var(--spacing-lg);
+}
+
+.next-steps li {
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-gray);
+}
+
+.action-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.support-info {
+    background: var(--background-dark);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+}
+
+.support-info p {
+    color: var(--text-gray);
+    margin: 0;
+}
+
+.support-info a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.support-info a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .success-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .success-card {
+        padding: var(--spacing-lg);
+    }
+}
