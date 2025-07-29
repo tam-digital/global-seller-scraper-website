@@ -47,14 +47,19 @@ window.addEventListener('scroll', () => {
 // ===== PAYMENT FORM INITIALIZATION =====
 async function initializePaymentForm() {
     try {
+        console.log('initializePaymentForm başladı');
+        
         // Kullanıcının giriş durumunu kontrol et
         const currentUser = auth.currentUser;
+        console.log('Current user:', currentUser);
         
         if (currentUser) {
             // Giriş yapmış kullanıcı - ödeme formunu göster
+            console.log('Kullanıcı giriş yapmış, ödeme formu gösteriliyor...');
             showPaymentForm(currentUser.email);
         } else {
             // Giriş yapmamış kullanıcı - kayıt formunu göster
+            console.log('Kullanıcı giriş yapmamış, kayıt formu gösteriliyor...');
             showRegisterForm();
         }
         
@@ -306,6 +311,7 @@ if (signupForm) {
             console.log('Kullanıcı Firestore\'a kaydedildi');
             
             // Başarılı kayıt - ödeme formunu göster
+            console.log('Kayıt başarılı, ödeme formu gösteriliyor...');
             showPaymentForm(email);
             showAuthMessage('Hesap başarıyla oluşturuldu! Ödeme formu yükleniyor...', 'success');
             
