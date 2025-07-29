@@ -79,6 +79,12 @@ if (registerForm) {
             // Hardware fingerprint oluştur
             const fingerprint = generateHardwareFingerprint();
             
+            // Email verification gönder
+            await userCredential.user.sendEmailVerification({
+                url: window.location.origin + '/trial.html?verified=true',
+                handleCodeInApp: false
+            });
+            
             // Firestore'a kullanıcı verilerini kaydet
             await db.collection('users').doc(userCredential.user.uid).set({
                 email: email,
@@ -88,6 +94,8 @@ if (registerForm) {
                 trial_status: "free",
                 created_at: firebase.firestore.FieldValue.serverTimestamp(),
                 last_login: firebase.firestore.FieldValue.serverTimestamp(),
+                email_verified: false,
+                email_verification_sent: firebase.firestore.FieldValue.serverTimestamp(),
                 monthly_usage: { 
                     asin_scans: 0, 
                     product_scans: 0, 
@@ -110,18 +118,35 @@ if (registerForm) {
             showRegisterMessage(`
                 <div class="success-message">
                     <h3>✅ Hesabınız Başarıyla Oluşturuldu!</h3>
-                    <p>Artık yazılımı indirip giriş yapabilirsiniz.</p>
-                    <div class="download-section">
-                        <a href="#" class="btn btn-primary">
-                            <i class="fas fa-download"></i>
-                            Yazılımı İndir
-                        </a>
+                    <p>📧 Email adresinize doğrulama linki gönderdik. Lütfen email'inizi kontrol edin ve linke tıklayın.</p>
+                    <p><strong>Email doğrulandıktan sonra yazılımı indirebilirsiniz.</strong></p>
+                    <div class="verification-info">
+                        <p><i class="fas fa-info-circle"></i> Email gelmedi mi? Spam klasörünü kontrol edin.</p>
+                        <button id="resendVerification" class="btn btn-secondary" style="margin-top: 10px;">
+                            <i class="fas fa-redo"></i> Tekrar Gönder
+                        </button>
                     </div>
                 </div>
             `, 'success');
             
             // Form'u temizle
             registerForm.reset();
+            
+            // Tekrar gönder butonuna event listener ekle
+            const resendBtn = document.getElementById('resendVerification');
+            if (resendBtn) {
+                resendBtn.addEventListener('click', async () => {
+                    try {
+                        await userCredential.user.sendEmailVerification({
+                            url: window.location.origin + '/trial.html?verified=true',
+                            handleCodeInApp: false
+                        });
+                        showRegisterMessage('✅ Doğrulama emaili tekrar gönderildi!', 'success');
+                    } catch (error) {
+                        showRegisterMessage('❌ Email gönderilemedi. Lütfen tekrar deneyin.', 'error');
+                    }
+                });
+            }
             
         } catch (error) {
             let errorMessage = 'Hesap oluşturulurken bir hata oluştu.';
@@ -143,6 +168,25 @@ if (registerForm) {
             submitBtn.disabled = false;
         }
     });
+}
+
+// ===== EMAIL VERIFICATION CHECK =====
+function checkEmailVerificationStatus() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('verified') === 'true') {
+        showRegisterMessage(`
+            <div class="success-message">
+                <h3>✅ Email Adresiniz Doğrulandı!</h3>
+                <p>Artık yazılımı indirip giriş yapabilirsiniz.</p>
+                <div class="download-section">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-download"></i>
+                        Yazılımı İndir
+                    </a>
+                </div>
+            </div>
+        `, 'success');
+    }
 }
 
 // ===== HARDWARE FINGERPRINT CHECK =====
@@ -680,6 +724,9 @@ document.head.appendChild(styleSheet);
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🌍 Global Seller Scraper Website loaded successfully!');
+    
+    // Email verification durumunu kontrol et
+    checkEmailVerificationStatus();
     
     // Add loading animation to page
     document.body.style.opacity = '0';
