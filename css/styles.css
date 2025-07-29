@@ -295,6 +295,17 @@ html body .navbar.scrolled {
     z-index: 1;
 }
 
+.hero-content {
+    text-align: left;
+}
+
+.hero-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .hero-title {
     font-size: var(--font-size-3xl);
     font-weight: 700;
@@ -1591,6 +1602,11 @@ section.feature-section .feature-content.reverse .feature-visual {
     
     .hero-content {
         order: 2 !important;
+    }
+    
+    .hero-form {
+        order: 1 !important;
+        margin-bottom: var(--spacing-lg);
     }
     
     .hero-image {
