@@ -1923,7 +1923,56 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 .download-section .btn {
+}
+
+/* ===== DOWNLOAD LINK STYLES ===== */
+.download-link {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-xs);
+    gap: 8px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: var(--background-dark);
+    padding: 12px 20px;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+    margin-top: 12px;
+}
+
+.download-link .file-info {
+    font-size: var(--font-size-xs);
+    opacity: 0.8;
+    font-weight: 400;
+}
+
+.download-link.disabled {
+    background: linear-gradient(135deg, #666, #888);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.download-link.disabled:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+}
+
+.download-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: var(--background-dark);
+    text-decoration: none;
+}
+
+.download-link i {
+    font-size: var(--font-size-lg);
+}
+
+.download-note {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-style: italic;
 }

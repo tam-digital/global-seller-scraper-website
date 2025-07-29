@@ -761,4 +761,37 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+    
+    // Download tracking
+    const downloadLinks = document.querySelectorAll('.download-link:not(.disabled)');
+    downloadLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Download tracking
+            console.log('📥 Download started:', this.href);
+            
+            // Analytics tracking (Google Analytics varsa)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'download', {
+                    'event_category': 'software',
+                    'event_label': 'macos_dmg',
+                    'value': 1
+                });
+            }
+            
+            // Firestore'a download kaydı (opsiyonel)
+            try {
+                const downloadData = {
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    platform: 'macos',
+                    file: 'Global.Seller.Scraper.dmg',
+                    user_agent: navigator.userAgent,
+                    referrer: document.referrer
+                };
+                
+                db.collection('downloads').add(downloadData);
+            } catch (error) {
+                console.log('Download tracking error:', error);
+            }
+        });
+    });
 }); 
