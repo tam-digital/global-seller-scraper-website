@@ -4,6 +4,8 @@
 # Sadece website dosyalarını dahil et
 !index.html
 !trial.html
+!payment.html
+!payment-success.html
 !favicon.png
 !favicon.svg
 !css/

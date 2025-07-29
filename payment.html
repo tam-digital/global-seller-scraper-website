@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Yükseltme - Global Seller Scraper</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- iyzico Checkout Form -->
+    <script src="https://www.iyzipay.com/v2/iyzipay.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <i class="fas fa-globe"></i>
+                    <span>Global Seller Scraper</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="trial.html" class="nav-link">Ücretsiz Hesap</a></li>
+                <li><a href="#contact" class="nav-link">İletişim</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    🌟 <span class="highlight">Premium</span> Yükseltme
+                </h1>
+                <p class="hero-description">
+                    Global Seller Scraper Premium ile sınırsız özelliklerin keyfini çıkarın!
+                </p>
+                
+                <!-- Premium Özellikler -->
+                <div class="premium-features">
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <i class="fas fa-infinity"></i>
+                            <h3>Sınırsız ASIN Tarama</h3>
+                            <p>Artık limit yok!</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Sınırsız Ürün Analizi</h3>
+                            <p>Detaylı raporlar</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-search"></i>
+                            <h3>Satıcı Arama</h3>
+                            <p>Gelişmiş filtreler</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-code"></i>
+                            <h3>API Erişimi</h3>
+                            <p>Otomatik entegrasyon</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-headset"></i>
+                            <h3>Öncelikli Destek</h3>
+                            <p>7/24 yardım</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-crown"></i>
+                            <h3>Lifetime Lisans</h3>
+                            <p>Tek seferlik ödeme</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ödeme Formu -->
+    <section class="payment-section">
+        <div class="container">
+            <div class="payment-container">
+                <div class="payment-info">
+                    <h2>💳 Güvenli Ödeme</h2>
+                    <div class="price-card">
+                        <div class="price-header">
+                            <h3>Premium Paket</h3>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount">199</span>
+                                <span class="period">Lifetime</span>
+                            </div>
+                        </div>
+                        <ul class="price-features">
+                            <li><i class="fas fa-check"></i> Sınırsız ASIN tarama</li>
+                            <li><i class="fas fa-check"></i> Sınırsız ürün analizi</li>
+                            <li><i class="fas fa-check"></i> Satıcı arama özelliği</li>
+                            <li><i class="fas fa-check"></i> Gelişmiş filtreler</li>
+                            <li><i class="fas fa-check"></i> API erişimi</li>
+                            <li><i class="fas fa-check"></i> Öncelikli destek</li>
+                            <li><i class="fas fa-check"></i> Lifetime lisans</li>
+                            <li><i class="fas fa-check"></i> Ücretsiz güncellemeler</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="payment-form-container">
+                    <div class="payment-form" id="paymentForm">
+                        <h3>Ödeme Bilgileri</h3>
+                        <p>iyzico ile güvenli ödeme yapın</p>
+                        
+                        <!-- iyzico Checkout Form buraya gelecek -->
+                        <div id="iyzipay-checkout-form" class="iyzipay-form">
+                            <div class="loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Ödeme formu yükleniyor...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Global Seller Scraper</h4>
+                <p>Amazon satıcı analizi ve ürün araştırma aracı</p>
+            </div>
+            <div class="footer-section">
+                <h4>Hızlı Linkler</h4>
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="trial.html">Ücretsiz Hesap</a></li>
+                    <li><a href="#contact">İletişim</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>İletişim</h4>
+                <ul>
+                    <li><a href="mailto:info@globalsellerscraper.com"><i class="fas fa-envelope"></i> info@globalsellerscraper.com</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> +90 535 000 00 00</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Global Seller Scraper. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script src="js/payment.js"></script>
+</body>
+</html> 
