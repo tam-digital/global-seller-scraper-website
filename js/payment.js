@@ -20,7 +20,7 @@ const navbar = document.getElementById('navbar');
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
 const paymentForm = document.getElementById('paymentForm');
-const registerForm = document.getElementById('registerForm');
+const authForms = document.getElementById('authForms');
 const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
 const authMessage = document.getElementById('authMessage');
@@ -78,7 +78,7 @@ async function showPaymentForm(userEmail) {
         const userName = userData.name || userEmail.split('@')[0];
         
         // Formları değiştir
-        registerForm.style.display = 'none';
+        authForms.style.display = 'none';
         paymentForm.style.display = 'block';
         
         // iyzico ödeme formu oluştur
@@ -100,7 +100,7 @@ async function showPaymentForm(userEmail) {
 
 // ===== SHOW REGISTER FORM =====
 function showRegisterForm() {
-    registerForm.style.display = 'block';
+    authForms.style.display = 'grid';
     paymentForm.style.display = 'none';
 }
 

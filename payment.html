@@ -42,54 +42,54 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
-            <!-- Sol Taraf: Premium Özellikler -->
-            <div class="hero-content">
+            <!-- Başlık -->
+            <div class="hero-header">
                 <h1 class="hero-title">
                     🌟 <span class="highlight">Premium</span> Yükseltme
                 </h1>
                 <p class="hero-description">
                     Global Seller Scraper Premium ile sınırsız özelliklerin keyfini çıkarın!
                 </p>
-                
-                <!-- Premium Özellikler -->
-                <div class="premium-features">
-                    <div class="feature-grid">
-                        <div class="feature-item">
-                            <i class="fas fa-infinity"></i>
-                            <h3>Sınırsız ASIN Tarama</h3>
-                            <p>Artık limit yok!</p>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-chart-line"></i>
-                            <h3>Sınırsız Ürün Analizi</h3>
-                            <p>Detaylı raporlar</p>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-search"></i>
-                            <h3>Satıcı Arama</h3>
-                            <p>Gelişmiş filtreler</p>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-code"></i>
-                            <h3>API Erişimi</h3>
-                            <p>Otomatik entegrasyon</p>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-headset"></i>
-                            <h3>Öncelikli Destek</h3>
-                            <p>7/24 yardım</p>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-crown"></i>
-                            <h3>Lifetime Lisans</h3>
-                            <p>Tek seferlik ödeme</p>
-                        </div>
+            </div>
+            
+            <!-- Premium Özellikler (Yatay) -->
+            <div class="premium-features-horizontal">
+                <div class="feature-row">
+                    <div class="feature-item">
+                        <i class="fas fa-infinity"></i>
+                        <h3>Sınırsız ASIN Tarama</h3>
+                        <p>Artık limit yok!</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Sınırsız Ürün Analizi</h3>
+                        <p>Detaylı raporlar</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-search"></i>
+                        <h3>Satıcı Arama</h3>
+                        <p>Gelişmiş filtreler</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-code"></i>
+                        <h3>API Erişimi</h3>
+                        <p>Otomatik entegrasyon</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-headset"></i>
+                        <h3>Öncelikli Destek</h3>
+                        <p>7/24 yardım</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-crown"></i>
+                        <h3>Lifetime Lisans</h3>
+                        <p>Tek seferlik ödeme</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Sağ Taraf: Kayıt Formu -->
-            <div class="hero-form">
+            <!-- Kayıt Formları (Yan Yana) -->
+            <div class="auth-forms-container">
                 <!-- Giriş Yapmış Kullanıcılar İçin Ödeme Formu -->
                 <div class="payment-form" id="paymentForm" style="display: none;">
                     <h3>💳 Ödeme Bilgileri</h3>
@@ -104,14 +104,13 @@
                     </div>
                 </div>
                 
-                <!-- Giriş Yapmamış Kullanıcılar İçin Kayıt Formu -->
-                <div class="register-form" id="registerForm">
-                    <h3>🚀 Premium'a Başlayın</h3>
-                    <p>Premium özellikleri kullanmak için hesap oluşturun veya giriş yapın</p>
-                    
+                <!-- Giriş Yapmamış Kullanıcılar İçin Formlar -->
+                <div class="auth-forms" id="authForms">
                     <!-- Giriş Formu -->
-                    <div class="login-section" id="loginSection">
-                        <h4><i class="fas fa-sign-in-alt"></i> Giriş Yap</h4>
+                    <div class="auth-form-card">
+                        <h3><i class="fas fa-sign-in-alt"></i> Giriş Yap</h3>
+                        <p>Mevcut hesabınızla giriş yapın</p>
+                        
                         <form id="loginForm" class="auth-form">
                             <div class="form-group">
                                 <label for="loginEmail">Email</label>
@@ -126,14 +125,13 @@
                                 Giriş Yap
                             </button>
                         </form>
-                        <div class="form-divider">
-                            <span>veya</span>
-                        </div>
                     </div>
                     
                     <!-- Kayıt Formu -->
-                    <div class="register-section" id="registerSection">
-                        <h4><i class="fas fa-user-plus"></i> Hesap Oluştur</h4>
+                    <div class="auth-form-card">
+                        <h3><i class="fas fa-user-plus"></i> Hesap Oluştur</h3>
+                        <p>Yeni hesap oluşturun ve premium'a başlayın</p>
+                        
                         <form id="signupForm" class="auth-form">
                             <div class="form-group">
                                 <label for="signupName">Ad Soyad</label>
@@ -157,10 +155,10 @@
                             </button>
                         </form>
                     </div>
-                    
-                    <!-- Mesaj Alanı -->
-                    <div id="authMessage" class="auth-message" style="display: none;"></div>
                 </div>
+                
+                <!-- Mesaj Alanı -->
+                <div id="authMessage" class="auth-message" style="display: none;"></div>
             </div>
         </div>
     </section>
