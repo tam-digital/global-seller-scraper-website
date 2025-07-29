@@ -100,7 +100,7 @@ async function showPaymentForm(userEmail) {
 
 // ===== SHOW REGISTER FORM =====
 function showRegisterForm() {
-    authForms.style.display = 'grid';
+    authForms.style.display = 'flex';
     paymentForm.style.display = 'none';
 }
 

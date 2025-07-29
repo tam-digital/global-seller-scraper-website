@@ -375,11 +375,11 @@ html body .navbar.scrolled {
 }
 
 .auth-forms {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: center;
     gap: var(--spacing-xl);
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
 }
 
 .auth-form-card {
@@ -389,7 +389,8 @@ html body .navbar.scrolled {
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-lg);
     text-align: center;
-    max-width: 350px;
+    flex: 1;
+    max-width: 450px;
 }
 
 .auth-form-card h3 {
@@ -1725,12 +1726,14 @@ section.feature-section .feature-content.reverse .feature-visual {
     }
     
     .auth-forms {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: var(--spacing-lg);
+        max-width: 450px;
     }
     
     .auth-form-card {
         padding: var(--spacing-lg);
+        max-width: 100%;
     }
     
     .hero-image {
