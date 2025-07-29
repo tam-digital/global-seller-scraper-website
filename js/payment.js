@@ -104,8 +104,8 @@ async function showPaymentForm(userEmail) {
         const paymentData = {
             email: userEmail,
             name: userName,
-            amount: 199.00,
-            currency: 'USD',
+            amount: 7999.00, // 199 USD = 7999 TL
+            currency: 'TRY', // TL para birimi
             product: 'Global Seller Scraper Premium'
         };
         
@@ -136,7 +136,7 @@ function createIyzicoForm(paymentData) {
         conversationId: `premium_${paymentData.email}_${Date.now()}`,
         price: paymentData.amount.toString(),
         paidPrice: paymentData.amount.toString(),
-        currency: paymentData.currency,
+        currency: 'TRY', // TL para birimi
         basketId: `basket_${Date.now()}`,
         paymentGroup: 'PRODUCT',
         callbackUrl: window.location.origin + '/payment-success.html',
@@ -184,35 +184,39 @@ function createIyzicoForm(paymentData) {
     
     console.log('iyzico options:', options);
     
-    // iyzico SDK kontrolü
-    if (typeof IyzipayCheckoutForm === 'undefined') {
-        console.error('iyzico SDK yüklenmedi!');
-        showError('Ödeme sistemi yüklenemedi. Lütfen sayfayı yenileyin.');
-        return;
-    }
-    
-    console.log('iyzico SDK mevcut, form oluşturuluyor...');
-    
-    // iyzico Checkout Form oluştur
-    console.log('IyzipayCheckoutForm.init çağrılıyor...');
-    IyzipayCheckoutForm.init(options).then(function(result) {
-        console.log('iyzico result:', result);
-        if (result.status === 'success') {
-            console.log('iyzico form başarılı, form gösteriliyor...');
-            // Ödeme formunu göster
-            const iyzicoForm = document.getElementById('iyzipay-checkout-form');
-            iyzicoForm.innerHTML = result.checkoutFormContent;
+    // iyzico SDK kontrolü - tekrar kontrol et
+    const waitForIyzicoSDK = () => {
+        if (typeof IyzipayCheckoutForm !== 'undefined') {
+            console.log('iyzico SDK mevcut, form oluşturuluyor...');
             
-            // Ödeme kaydını Firebase'e ekle
-            savePaymentRecord(options.conversationId, paymentData);
-            
+            // iyzico Checkout Form oluştur
+            console.log('IyzipayCheckoutForm.init çağrılıyor...');
+            IyzipayCheckoutForm.init(options).then(function(result) {
+                console.log('iyzico result:', result);
+                if (result.status === 'success') {
+                    console.log('iyzico form başarılı, form gösteriliyor...');
+                    // Ödeme formunu göster
+                    const iyzicoForm = document.getElementById('iyzipay-checkout-form');
+                    iyzicoForm.innerHTML = result.checkoutFormContent;
+                    
+                    // Ödeme kaydını Firebase'e ekle
+                    savePaymentRecord(options.conversationId, paymentData);
+                    
+                } else {
+                    showError('Ödeme formu oluşturulamadı: ' + result.errorMessage);
+                }
+            }).catch(function(error) {
+                console.error('iyzico form hatası:', error);
+                showError('Ödeme formu yüklenemedi!');
+            });
         } else {
-            showError('Ödeme formu oluşturulamadı: ' + result.errorMessage);
+            console.log('iyzico SDK henüz yüklenmedi, bekleniyor...');
+            setTimeout(waitForIyzicoSDK, 100);
         }
-    }).catch(function(error) {
-        console.error('iyzico form hatası:', error);
-        showError('Ödeme formu yüklenemedi!');
-    });
+    };
+    
+    // SDK kontrolünü başlat
+    waitForIyzicoSDK();
 }
 
 // ===== AUTH FORM HANDLERS =====
