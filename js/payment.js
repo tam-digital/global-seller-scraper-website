@@ -19,7 +19,11 @@ const db = firebase.firestore();
 const navbar = document.getElementById('navbar');
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
-const paymentForm = document.getElementById('iyzipay-checkout-form');
+const paymentForm = document.getElementById('paymentForm');
+const registerForm = document.getElementById('registerForm');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+const authMessage = document.getElementById('authMessage');
 
 // ===== NAVBAR FUNCTIONALITY =====
 if (hamburger) {
@@ -43,16 +47,26 @@ window.addEventListener('scroll', () => {
 // ===== PAYMENT FORM INITIALIZATION =====
 async function initializePaymentForm() {
     try {
-        // URL'den email parametresini al
-        const urlParams = new URLSearchParams(window.location.search);
-        const userEmail = urlParams.get('email');
+        // Kullanıcının giriş durumunu kontrol et
+        const currentUser = auth.currentUser;
         
-        if (!userEmail) {
-            // Email parametresi yoksa login formu göster
-            showLoginForm();
-            return;
+        if (currentUser) {
+            // Giriş yapmış kullanıcı - ödeme formunu göster
+            showPaymentForm(currentUser.email);
+        } else {
+            // Giriş yapmamış kullanıcı - kayıt formunu göster
+            showRegisterForm();
         }
         
+    } catch (error) {
+        console.error('Ödeme formu başlatma hatası:', error);
+        showError('Ödeme formu yüklenemedi!');
+    }
+}
+
+// ===== SHOW PAYMENT FORM =====
+async function showPaymentForm(userEmail) {
+    try {
         // Kullanıcı bilgilerini Firebase'den al
         const userDoc = await db.collection('users').doc(userEmail).get();
         if (!userDoc.exists) {
@@ -62,6 +76,10 @@ async function initializePaymentForm() {
         
         const userData = userDoc.data();
         const userName = userData.name || userEmail.split('@')[0];
+        
+        // Formları değiştir
+        registerForm.style.display = 'none';
+        paymentForm.style.display = 'block';
         
         // iyzico ödeme formu oluştur
         const paymentData = {
@@ -75,30 +93,15 @@ async function initializePaymentForm() {
         createIyzicoForm(paymentData);
         
     } catch (error) {
-        console.error('Ödeme formu başlatma hatası:', error);
+        console.error('Ödeme formu gösterme hatası:', error);
         showError('Ödeme formu yüklenemedi!');
     }
 }
 
-// ===== LOGIN FORM =====
-function showLoginForm() {
-    paymentForm.innerHTML = `
-        <div class="login-form">
-            <h3>Premium Özellikler İçin Giriş Yapın</h3>
-            <p>Premium özellikleri kullanmak için lütfen giriş yapın veya hesap oluşturun.</p>
-            
-            <div class="form-actions">
-                <a href="trial.html" class="btn btn-primary">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Giriş Yap / Hesap Oluştur
-                </a>
-                <a href="index.html" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i>
-                    Ana Sayfaya Dön
-                </a>
-            </div>
-        </div>
-    `;
+// ===== SHOW REGISTER FORM =====
+function showRegisterForm() {
+    registerForm.style.display = 'block';
+    paymentForm.style.display = 'none';
 }
 
 // ===== iyzico FORM CREATION =====
@@ -159,7 +162,8 @@ function createIyzicoForm(paymentData) {
     IyzipayCheckoutForm.init(options).then(function(result) {
         if (result.status === 'success') {
             // Ödeme formunu göster
-            paymentForm.innerHTML = result.checkoutFormContent;
+            const iyzicoForm = document.getElementById('iyzipay-checkout-form');
+            iyzicoForm.innerHTML = result.checkoutFormContent;
             
             // Ödeme kaydını Firebase'e ekle
             savePaymentRecord(options.conversationId, paymentData);
@@ -171,6 +175,156 @@ function createIyzicoForm(paymentData) {
         console.error('iyzico form hatası:', error);
         showError('Ödeme formu yüklenemedi!');
     });
+}
+
+// ===== AUTH FORM HANDLERS =====
+if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(loginForm);
+        const email = formData.get('email');
+        const password = formData.get('password');
+        
+        // Loading state
+        const submitBtn = loginForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Giriş Yapılıyor...';
+        submitBtn.disabled = true;
+        
+        try {
+            // Firebase Auth ile giriş yap
+            await auth.signInWithEmailAndPassword(email, password);
+            
+            // Başarılı giriş - ödeme formunu göster
+            showPaymentForm(email);
+            showAuthMessage('Giriş başarılı! Ödeme formu yükleniyor...', 'success');
+            
+        } catch (error) {
+            console.error('Giriş hatası:', error);
+            let errorMessage = 'Giriş yapılamadı!';
+            
+            if (error.code === 'auth/user-not-found') {
+                errorMessage = 'Bu email adresi ile kayıtlı hesap bulunamadı!';
+            } else if (error.code === 'auth/wrong-password') {
+                errorMessage = 'Hatalı şifre!';
+            } else if (error.code === 'auth/invalid-email') {
+                errorMessage = 'Geçersiz email adresi!';
+            }
+            
+            showAuthMessage(errorMessage, 'error');
+        } finally {
+            // Reset button
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+if (signupForm) {
+    signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(signupForm);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const password = formData.get('password');
+        const confirmPassword = formData.get('confirmPassword');
+        
+        // Şifre kontrolü
+        if (password !== confirmPassword) {
+            showAuthMessage('Şifreler eşleşmiyor!', 'error');
+            return;
+        }
+        
+        if (password.length < 6) {
+            showAuthMessage('Şifre en az 6 karakter olmalıdır!', 'error');
+            return;
+        }
+        
+        // Loading state
+        const submitBtn = signupForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Hesap Oluşturuluyor...';
+        submitBtn.disabled = true;
+        
+        try {
+            // Firebase Auth ile kullanıcı oluştur
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            
+            // Hardware fingerprint oluştur
+            const fingerprint = generateHardwareFingerprint();
+            
+            // Firestore'a kullanıcı verilerini kaydet
+            await db.collection('users').doc(userCredential.user.uid).set({
+                email: email,
+                name: name,
+                hardware_fingerprint: fingerprint,
+                trial_status: "free",
+                created_at: firebase.firestore.FieldValue.serverTimestamp(),
+                last_login: firebase.firestore.FieldValue.serverTimestamp(),
+                email_verified: false,
+                monthly_usage: { 
+                    asin_scans: 0, 
+                    product_scans: 0, 
+                    seller_searches: 0 
+                }
+            });
+            
+            // Başarılı kayıt - ödeme formunu göster
+            showPaymentForm(email);
+            showAuthMessage('Hesap başarıyla oluşturuldu! Ödeme formu yükleniyor...', 'success');
+            
+        } catch (error) {
+            console.error('Kayıt hatası:', error);
+            let errorMessage = 'Hesap oluşturulamadı!';
+            
+            if (error.code === 'auth/email-already-in-use') {
+                errorMessage = 'Bu email adresi zaten kullanılıyor!';
+            } else if (error.code === 'auth/invalid-email') {
+                errorMessage = 'Geçersiz email adresi!';
+            } else if (error.code === 'auth/weak-password') {
+                errorMessage = 'Şifre çok zayıf!';
+            }
+            
+            showAuthMessage(errorMessage, 'error');
+        } finally {
+            // Reset button
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+// ===== HARDWARE FINGERPRINTING =====
+function generateHardwareFingerprint() {
+    const fingerprint = {
+        screen: `${screen.width}x${screen.height}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        language: navigator.language,
+        platform: navigator.platform,
+        userAgent: navigator.userAgent,
+        cookieEnabled: navigator.cookieEnabled,
+        doNotTrack: navigator.doNotTrack,
+        hardwareConcurrency: navigator.hardwareConcurrency,
+        deviceMemory: navigator.deviceMemory
+    };
+    
+    // Hash oluştur
+    const fingerprintString = JSON.stringify(fingerprint);
+    return btoa(fingerprintString);
+}
+
+// ===== AUTH MESSAGE HANDLER =====
+function showAuthMessage(message, type = 'info') {
+    authMessage.textContent = message;
+    authMessage.className = `auth-message ${type}`;
+    authMessage.style.display = 'block';
+    
+    // 5 saniye sonra mesajı gizle
+    setTimeout(() => {
+        authMessage.style.display = 'none';
+    }, 5000);
 }
 
 // ===== FIREBASE PAYMENT RECORD =====
@@ -197,7 +351,8 @@ async function savePaymentRecord(paymentId, paymentData) {
 
 // ===== UTILITY FUNCTIONS =====
 function showError(message) {
-    paymentForm.innerHTML = `
+    const iyzicoForm = document.getElementById('iyzipay-checkout-form');
+    iyzicoForm.innerHTML = `
         <div class="error-message">
             <i class="fas fa-exclamation-triangle"></i>
             <p>${message}</p>

@@ -22,7 +22,7 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="index.html">
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-globe-americas"></i>
                     <span>Global Seller Scraper</span>
                 </a>
             </div>
@@ -89,10 +89,11 @@
         </div>
     </section>
 
-    <!-- Ödeme Formu -->
+    <!-- Ödeme ve Kayıt Formu -->
     <section class="payment-section">
         <div class="container">
             <div class="payment-container">
+                <!-- Sol Taraf: Premium Özellikler ve Fiyat -->
                 <div class="payment-info">
                     <h2>💳 Güvenli Ödeme</h2>
                     <div class="price-card">
@@ -117,8 +118,10 @@
                     </div>
                 </div>
                 
+                <!-- Sağ Taraf: Kayıt Formu ve Ödeme -->
                 <div class="payment-form-container">
-                    <div class="payment-form" id="paymentForm">
+                    <!-- Giriş Yapmış Kullanıcılar İçin Ödeme Formu -->
+                    <div class="payment-form" id="paymentForm" style="display: none;">
                         <h3>Ödeme Bilgileri</h3>
                         <p>iyzico ile güvenli ödeme yapın</p>
                         
@@ -129,6 +132,64 @@
                                 <p>Ödeme formu yükleniyor...</p>
                             </div>
                         </div>
+                    </div>
+                    
+                    <!-- Giriş Yapmamış Kullanıcılar İçin Kayıt Formu -->
+                    <div class="register-form" id="registerForm">
+                        <h3>🚀 Premium'a Başlayın</h3>
+                        <p>Premium özellikleri kullanmak için hesap oluşturun veya giriş yapın</p>
+                        
+                        <!-- Giriş Formu -->
+                        <div class="login-section" id="loginSection">
+                            <h4><i class="fas fa-sign-in-alt"></i> Giriş Yap</h4>
+                            <form id="loginForm" class="auth-form">
+                                <div class="form-group">
+                                    <label for="loginEmail">Email</label>
+                                    <input type="email" id="loginEmail" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loginPassword">Şifre</label>
+                                    <input type="password" id="loginPassword" name="password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-full">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    Giriş Yap
+                                </button>
+                            </form>
+                            <div class="form-divider">
+                                <span>veya</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Kayıt Formu -->
+                        <div class="register-section" id="registerSection">
+                            <h4><i class="fas fa-user-plus"></i> Hesap Oluştur</h4>
+                            <form id="signupForm" class="auth-form">
+                                <div class="form-group">
+                                    <label for="signupName">Ad Soyad</label>
+                                    <input type="text" id="signupName" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signupEmail">Email</label>
+                                    <input type="email" id="signupEmail" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signupPassword">Şifre</label>
+                                    <input type="password" id="signupPassword" name="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signupConfirmPassword">Şifre Tekrar</label>
+                                    <input type="password" id="signupConfirmPassword" name="confirmPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-full">
+                                    <i class="fas fa-user-plus"></i>
+                                    Hesap Oluştur
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <!-- Mesaj Alanı -->
+                        <div id="authMessage" class="auth-message" style="display: none;"></div>
                     </div>
                 </div>
             </div>
