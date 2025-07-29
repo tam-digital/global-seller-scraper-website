@@ -794,4 +794,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    
+    // ===== PAYMENT REDIRECT =====
+    function redirectToPayment() {
+        // Kullanıcının giriş yapmış olup olmadığını kontrol et
+        const currentUser = auth.currentUser;
+        
+        if (currentUser) {
+            // Giriş yapmış kullanıcı - email ile yönlendir
+            const userEmail = currentUser.email;
+            window.location.href = `payment.html?email=${encodeURIComponent(userEmail)}`;
+        } else {
+            // Giriş yapmamış kullanıcı - önce giriş yapmasını iste
+            showRegisterMessage('Premium özellikler için lütfen önce giriş yapın!', 'error');
+            
+            // 2 saniye sonra trial sayfasına yönlendir
+            setTimeout(() => {
+                window.location.href = 'trial.html';
+            }, 2000);
+        }
+    }
+    
+    // Global scope'a fonksiyonu ekle
+    window.redirectToPayment = redirectToPayment;
 }); 

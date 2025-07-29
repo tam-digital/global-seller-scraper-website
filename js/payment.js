@@ -48,14 +48,15 @@ async function initializePaymentForm() {
         const userEmail = urlParams.get('email');
         
         if (!userEmail) {
-            showError('Email parametresi bulunamadı!');
+            // Email parametresi yoksa login formu göster
+            showLoginForm();
             return;
         }
         
         // Kullanıcı bilgilerini Firebase'den al
         const userDoc = await db.collection('users').doc(userEmail).get();
         if (!userDoc.exists) {
-            showError('Kullanıcı bulunamadı!');
+            showError('Kullanıcı bulunamadı! Lütfen önce giriş yapın.');
             return;
         }
         
@@ -77,6 +78,27 @@ async function initializePaymentForm() {
         console.error('Ödeme formu başlatma hatası:', error);
         showError('Ödeme formu yüklenemedi!');
     }
+}
+
+// ===== LOGIN FORM =====
+function showLoginForm() {
+    paymentForm.innerHTML = `
+        <div class="login-form">
+            <h3>Premium Özellikler İçin Giriş Yapın</h3>
+            <p>Premium özellikleri kullanmak için lütfen giriş yapın veya hesap oluşturun.</p>
+            
+            <div class="form-actions">
+                <a href="trial.html" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Giriş Yap / Hesap Oluştur
+                </a>
+                <a href="index.html" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Ana Sayfaya Dön
+                </a>
+            </div>
+        </div>
+    `;
 }
 
 // ===== iyzico FORM CREATION =====
