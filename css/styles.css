@@ -2700,7 +2700,7 @@ section.feature-section .feature-content.reverse .feature-visual {
 /* ===== LOGIN/AUTH STYLES ===== */
 .hero-section .login-container {
     max-width: 500px;
-    margin: 20px auto 0;
+    margin: 40px auto;
     background: var(--panel-dark);
     border-radius: 20px;
     padding: 40px;
@@ -2864,7 +2864,7 @@ section.feature-section .feature-content.reverse .feature-visual {
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .hero-section .login-container {
-        margin: 10px;
+        margin: 20px 10px;
         padding: 25px 20px;
     }
     
@@ -2897,7 +2897,7 @@ section.feature-section .feature-content.reverse .feature-visual {
 
 /* ===== DASHBOARD STYLES ===== */
 .dashboard-section {
-    padding-top: 20px;
+    padding: 40px 0;
     min-height: calc(100vh - 80px);
 }
 

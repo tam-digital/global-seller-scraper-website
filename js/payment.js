@@ -240,4 +240,19 @@ if (logoutBtn) {
     logoutBtn.addEventListener('click', logoutUser);
 }
 
+// ===== AUTH STATE LISTENER =====
+firebase.auth().onAuthStateChanged((user) => {
+    console.log('Auth state changed:', user ? user.email : 'No user');
+    if (user) {
+        showPaymentForm(user);
+    } else {
+        // Kullanıcı giriş yapmamış - formları göster
+        const loginContainer = document.getElementById('loginContainer');
+        const signupContainer = document.getElementById('signupContainer');
+        
+        if (loginContainer) loginContainer.style.display = 'block';
+        if (signupContainer) signupContainer.style.display = 'block';
+    }
+});
+
 console.log('Payment.js yüklendi'); 
