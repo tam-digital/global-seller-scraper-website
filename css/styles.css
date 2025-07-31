@@ -2769,9 +2769,9 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 .user-email {
-    color: #667eea;
+    color: var(--primary-color);
     font-weight: 600;
-    margin-right: 15px;
+    margin: 0 15px;
     font-size: 0.9rem;
 }
 
@@ -2779,6 +2779,26 @@ section.feature-section .feature-content.reverse .feature-visual {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+#userSection .nav-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 25px;
+    background: rgba(57, 239, 215, 0.1);
+    transition: all 0.3s ease;
+}
+
+#userSection .nav-link:hover {
+    background: var(--primary-color);
+    color: var(--bg-dark);
+}
+
+#userSection .nav-link.active {
+    background: var(--primary-color);
+    color: var(--bg-dark);
 }
 
 #userSection .btn {
@@ -2838,11 +2858,17 @@ section.feature-section .feature-content.reverse .feature-visual {
     #userSection {
         flex-direction: column;
         gap: 5px;
+        align-items: stretch;
+    }
+    
+    #userSection .nav-link {
+        text-align: center;
+        margin-bottom: 5px;
     }
     
     .user-email {
-        margin-right: 0;
-        margin-bottom: 5px;
+        margin: 5px 0;
+        text-align: center;
     }
 }
 

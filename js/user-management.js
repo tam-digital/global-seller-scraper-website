@@ -35,19 +35,14 @@ function updateNavbar(user) {
         userSection.style.display = 'flex';
         userEmail.textContent = user.email;
         
-        // Dashboard linkini güncelle (eğer varsa)
+        // Dashboard linkini kontrol et ve aktif sayfayı işaretle
         const dashboardLink = userSection.querySelector('a[href*="dashboard"]');
         if (dashboardLink) {
-            dashboardLink.href = 'dashboard.html';
-        } else {
-            // Dashboard linki yoksa oluştur
-            const existingDashboardLink = userSection.querySelector('.dashboard-link');
-            if (!existingDashboardLink) {
-                const dashboardLinkElement = document.createElement('a');
-                dashboardLinkElement.href = 'dashboard.html';
-                dashboardLinkElement.className = 'nav-link dashboard-link';
-                dashboardLinkElement.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
-                userSection.insertBefore(dashboardLinkElement, userEmail);
+            // Eğer şu anda dashboard sayfasındaysak active class ekle
+            if (window.location.pathname.includes('dashboard.html')) {
+                dashboardLink.classList.add('active');
+            } else {
+                dashboardLink.classList.remove('active');
             }
         }
         
