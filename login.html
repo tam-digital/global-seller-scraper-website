@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - Global Seller Scraper</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-globe"></i>
+                <a href="index.html">Global Seller Scraper</a>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Ana Sayfa</a>
+                <a href="trial.html" class="nav-link">Ücretsiz Hesap</a>
+                <a href="payment.html" class="nav-link">Premium'a Geç</a>
+                <a href="login.html" class="nav-link active">Giriş Yap</a>
+                <div id="userSection" style="display: none;">
+                    <span id="userEmail" class="user-email"></span>
+                    <button id="logoutBtn" class="btn btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i> Çıkış
+                    </button>
+                </div>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="login-section">
+        <div class="container">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1><i class="fas fa-user-circle"></i> Giriş Yap</h1>
+                    <p>Hesabınıza giriş yapın ve premium özelliklerden yararlanın</p>
+                </div>
+
+                <!-- Auth Forms -->
+                <div class="auth-forms" id="authForms">
+                    <!-- Login Form -->
+                    <div class="auth-form" id="loginFormContainer">
+                        <h3>🔐 Giriş Yap</h3>
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="loginEmail">Email:</label>
+                                <input type="email" id="loginEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="loginPassword">Şifre:</label>
+                                <input type="password" id="loginPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt"></i> Giriş Yap
+                            </button>
+                        </form>
+                        <p class="auth-switch">
+                            Hesabınız yok mu? 
+                            <a href="#" id="showSignup">Kayıt Ol</a>
+                        </p>
+                    </div>
+
+                    <!-- Signup Form -->
+                    <div class="auth-form" id="signupFormContainer" style="display: none;">
+                        <h3>📝 Kayıt Ol</h3>
+                        <form id="signupForm">
+                            <div class="form-group">
+                                <label for="signupName">Ad Soyad:</label>
+                                <input type="text" id="signupName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupEmail">Email:</label>
+                                <input type="email" id="signupEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupPassword">Şifre:</label>
+                                <input type="password" id="signupPassword" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupCompany">Şirket (Opsiyonel):</label>
+                                <input type="text" id="signupCompany">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-user-plus"></i> Kayıt Ol
+                            </button>
+                        </form>
+                        <p class="auth-switch">
+                            Zaten hesabınız var mı? 
+                            <a href="#" id="showLogin">Giriş Yap</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- User Dashboard -->
+                <div class="user-dashboard" id="userDashboard" style="display: none;">
+                    <div class="dashboard-header">
+                        <h2>👋 Hoş Geldiniz!</h2>
+                        <div class="user-info">
+                            <p><strong>Email:</strong> <span id="dashboardEmail"></span></p>
+                            <div id="dashboardPlan" class="plan-status"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-actions">
+                        <a href="trial.html" class="btn btn-primary">
+                            <i class="fas fa-download"></i> Ücretsiz Hesap İndir
+                        </a>
+                        <a href="payment.html" class="btn btn-success">
+                            <i class="fas fa-crown"></i> Premium'a Geç
+                        </a>
+                        <button id="dashboardLogout" class="btn btn-secondary">
+                            <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                <div id="authMessage" class="message-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-globe"></i> Global Seller Scraper</h3>
+                    <p>Amazon pazarlarından satıcı verilerini toplamak için profesyonel araç.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <p><i class="fas fa-envelope"></i> hello@tam-digital.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Bağlantılar</h4>
+                    <ul>
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="trial.html">Ücretsiz Hesap</a></li>
+                        <li><a href="payment.html">Premium</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Global Seller Scraper. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="js/login.js"></script>
+</body>
+</html> 
