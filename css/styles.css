@@ -194,6 +194,9 @@ html body .navbar.scrolled {
     flex-direction: column;
     cursor: pointer;
     padding: 6px;
+    pointer-events: auto;
+    z-index: 1000;
+    position: relative;
 }
 
 .bar {
@@ -202,6 +205,7 @@ html body .navbar.scrolled {
     background-color: var(--text-white);
     margin: 2px 0;
     transition: 0.3s;
+    pointer-events: auto;
 }
 
 .hamburger.active .bar:nth-child(1) {
@@ -2093,6 +2097,13 @@ section.feature-section .feature-content.reverse .feature-visual {
     /* Mobilde hamburger göster */
     .hamburger {
         display: flex !important;
+        position: relative !important;
+        z-index: 9999 !important;
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        background: transparent !important;
+        border: none !important;
+        outline: none !important;
     }
     
 
@@ -2103,26 +2114,38 @@ section.feature-section .feature-content.reverse .feature-visual {
         opacity: 1 !important;
     }
     
-    #guestSection.loaded {
-        display: none !important;
-        opacity: 0 !important;
-    }
+    #mobileGuestSection.loaded {
+    display: none !important;
+    opacity: 0 !important;
+}
     
     /* Mobilde guest section'ı göster */
-    #guestSection {
-        display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        position: relative !important;
-        z-index: 999 !important;
-        height: auto !important;
-        min-height: 50px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
+    /* Masaüstü için guest section */
+#desktopGuestSection {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+#desktopGuestSection.loaded {
+    display: block;
+    opacity: 1;
+}
+
+/* Mobil için guest section */
+#mobileGuestSection {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 999 !important;
+    height: auto !important;
+    min-height: 50px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
     
     /* Mobilde user section'ı gizle */
     #userSection {
@@ -2134,27 +2157,27 @@ section.feature-section .feature-content.reverse .feature-visual {
     }
     
     /* Mobilde guest section'ın nav-link'ini göster */
-    #guestSection .nav-link {
-        display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        color: var(--text-white) !important;
-        background: none !important;
-        border: none !important;
-        padding: 15px 20px !important;
-        font-size: 16px !important;
-        font-weight: 500 !important;
-        text-decoration: none !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-        height: auto !important;
-        min-height: 50px !important;
-        margin: 0 !important;
-        line-height: 1.5 !important;
-        text-align: left !important;
-        width: 100% !important;
-        position: relative !important;
-        z-index: 1000 !important;
-    }
+    #mobileGuestSection .nav-link {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: var(--text-white) !important;
+    background: none !important;
+    border: none !important;
+    padding: 15px 20px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    height: auto !important;
+    min-height: 50px !important;
+    margin: 0 !important;
+    line-height: 1.5 !important;
+    text-align: left !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 1000 !important;
+}
     
     /* Mobil kullanıcı menüsü */
     .mobile-user-menu {
@@ -3948,12 +3971,12 @@ section.feature-section .feature-content.reverse .feature-visual {
     opacity: 1;
 }
 
-#guestSection {
+#mobileGuestSection {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-#guestSection.loaded {
+#mobileGuestSection.loaded {
     opacity: 1;
 }
 
@@ -4719,6 +4742,8 @@ section.feature-section .feature-content.reverse .feature-visual {
 @media (min-width: 769px) {
     .hamburger {
         display: none !important;
+        position: absolute !important;
+        left: -9999px !important;
     }
     
     .nav-menu {
@@ -4762,6 +4787,18 @@ section.feature-section .feature-content.reverse .feature-visual {
     
     .mobile-user-menu {
         display: none !important;
+    }
+    
+    /* Masaüstünde mobil guest section'ı gizle */
+    #mobileGuestSection {
+        display: none !important;
+    }
+    
+    /* Masaüstünde desktop guest section'ı göster */
+    #desktopGuestSection {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 }
 

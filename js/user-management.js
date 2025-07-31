@@ -109,15 +109,18 @@ function updateNavbar(user) {
             mobileUserSection.classList.remove('loaded');
         }
         
-        // Guest section'ı tekrar göster
-        if (guestSection) {
-            console.log('👤 Guest section gösteriliyor...');
-            guestSection.style.display = 'block';
-            guestSection.style.opacity = '1';
-            guestSection.classList.add('loaded');
+        // Desktop guest section'ı göster
+        const desktopGuestSection = document.querySelector('#desktopGuestSection');
+        if (desktopGuestSection) {
+            console.log('🖥️ Desktop guest section gösteriliyor...');
+            desktopGuestSection.style.display = 'block';
+            desktopGuestSection.style.opacity = '1';
+            desktopGuestSection.style.visibility = 'visible';
+            desktopGuestSection.classList.add('loaded');
+        }
             
             // Mobil menüde de guest section'ı zorla göster
-            const mobileGuestSection = document.querySelector('#guestSection');
+            const mobileGuestSection = document.querySelector('#mobileGuestSection');
             if (mobileGuestSection) {
                 console.log('📱 Mobil guest section zorla gösteriliyor...');
                 mobileGuestSection.style.display = 'block';
@@ -173,7 +176,6 @@ function updateNavbar(user) {
         
         console.log('✅ Navbar güncellendi - Misafir kullanıcı');
     }
-}
 
 async function logoutUser() {
     try {
