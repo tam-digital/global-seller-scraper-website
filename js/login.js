@@ -8,8 +8,10 @@ const firebaseConfig = {
     appId: "768895134845:web:9907c4a23f57e0eb0f1514"
 };
 
-// Firebase'i başlat
-firebase.initializeApp(firebaseConfig);
+// Firebase'i başlat (eğer başlatılmamışsa)
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 const auth = firebase.auth();
 const db = firebase.firestore();
 
@@ -209,10 +211,17 @@ async function registerUser() {
         const fingerprint = generateFingerprint();
 
         // Email verification gönder
-        await user.sendEmailVerification({
-            url: window.location.origin + '/trial.html?verified=true',
-            handleCodeInApp: false
-        });
+        console.log('📧 Email verification gönderiliyor...');
+        try {
+            await user.sendEmailVerification({
+                url: window.location.origin + '/trial.html?verified=true',
+                handleCodeInApp: false
+            });
+            console.log('✅ Email verification başarıyla gönderildi');
+        } catch (emailError) {
+            console.error('❌ Email verification gönderilemedi:', emailError);
+            // Email gönderilemese bile kullanıcı oluşturmaya devam et
+        }
 
         // Firestore'a kullanıcı verilerini kaydet
         await db.collection('users').doc(user.uid).set({
@@ -244,13 +253,25 @@ async function registerUser() {
         showMessage(`
             <div class="success-message">
                 <h3>✅ Hesabınız Başarıyla Oluşturuldu!</h3>
-                <p>📧 Email adresinize doğrulama linki gönderildi.</p>
+                <p>📧 <strong>Email adresinize doğrulama linki gönderildi!</strong></p>
                 <div class="verification-options">
-                    <p><strong>Seçenek 1:</strong> Email'inizi kontrol edin ve doğrulama linkine tıklayın</p>
-                    <p><strong>Seçenek 2:</strong> Email gelmezse <a href="mailto:hello@tam-digital.com?subject=Email Verification&body=Merhaba, email verification işlemi için yardım istiyorum. Email: ${email}">buraya tıklayarak</a> bize yazın</p>
+                    <p><strong>📬 Email'inizi kontrol edin:</strong></p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>Gelen kutusunu kontrol edin</li>
+                        <li>Spam klasörünü kontrol edin</li>
+                        <li>Email gelmezse aşağıdaki butona tıklayın</li>
+                    </ul>
+                    <p><strong>🔗 Doğrulama linkine tıkladıktan sonra:</strong></p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>Yazılımı indirebilirsiniz</li>
+                        <li>Giriş yapabilirsiniz</li>
+                        <li>Analiz başlatabilirsiniz</li>
+                    </ul>
                 </div>
                 <div class="verification-info">
-                    <p><i class="fas fa-info-circle"></i> Email gelmedi mi? Spam klasörünü de kontrol edin.</p>
+                    <a href="mailto:hello@tam-digital.com?subject=Email Verification&body=Merhaba, email verification işlemi için yardım istiyorum. Email: ${email}" class="btn btn-outline" style="margin-top: 10px;">
+                        <i class="fas fa-envelope"></i> Yardım İste
+                    </a>
                 </div>
             </div>
         `, 'success');
@@ -298,6 +319,23 @@ if (signupForm) {
     signupForm.addEventListener('submit', (e) => {
         e.preventDefault();
         registerUser();
+    });
+}
+
+// Form toggle event listeners
+if (showSignup) {
+    showSignup.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginFormContainer.style.display = 'none';
+        signupFormContainer.style.display = 'block';
+    });
+}
+
+if (showLogin) {
+    showLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        signupFormContainer.style.display = 'none';
+        loginFormContainer.style.display = 'block';
     });
 }
 

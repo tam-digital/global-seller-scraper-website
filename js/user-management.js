@@ -239,7 +239,12 @@ auth.onAuthStateChanged(async (user) => {
         }
     } catch (error) {
         console.error('❌ Auth state işleme hatası:', error);
-        updateNavbar(user);
+        // Hata durumunda sadece navbar'ı güncelle, Firestore işlemi yapma
+        if (user) {
+            updateNavbar({ email: user.email });
+        } else {
+            updateNavbar(null);
+        }
     }
 });
 

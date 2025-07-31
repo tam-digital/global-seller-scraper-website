@@ -10,9 +10,7 @@ const registerForm = document.getElementById('registerForm');
 const registerMessage = document.getElementById('registerMessage');
 
 // ===== FIREBASE REFERENCES =====
-// Firebase zaten user-management.js'de initialize edildi
-const auth = firebase.auth();
-const db = firebase.firestore();
+// Firebase referansları user-management.js'den alınacak
 
 // ===== HARDWARE FINGERPRINTING =====
 function generateHardwareFingerprint() {
@@ -64,19 +62,26 @@ if (registerForm) {
         
         try {
             // Firebase Auth ile kullanıcı oluştur
-            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
             
             // Hardware fingerprint oluştur
             const fingerprint = generateHardwareFingerprint();
             
             // Email verification gönder
-            await userCredential.user.sendEmailVerification({
-                url: window.location.origin + '/trial.html?verified=true',
-                handleCodeInApp: false
-            });
+            console.log('📧 Email verification gönderiliyor...');
+            try {
+                await userCredential.user.sendEmailVerification({
+                    url: window.location.origin + '/trial.html?verified=true',
+                    handleCodeInApp: false
+                });
+                console.log('✅ Email verification başarıyla gönderildi');
+            } catch (emailError) {
+                console.error('❌ Email verification gönderilemedi:', emailError);
+                // Email gönderilemese bile kullanıcı oluşturmaya devam et
+            }
             
             // Firestore'a kullanıcı verilerini kaydet
-            await db.collection('users').doc(userCredential.user.uid).set({
+            await firebase.firestore().collection('users').doc(userCredential.user.uid).set({
                 email: email,
                 name: name,
                 company: company || '',
@@ -108,16 +113,28 @@ if (registerForm) {
             showRegisterMessage(`
                 <div class="success-message">
                     <h3>✅ Hesabınız Başarıyla Oluşturuldu!</h3>
-                    <p>📧 Email adresinize doğrulama linki gönderilmeye çalışıldı.</p>
+                    <p>📧 <strong>Email adresinize doğrulama linki gönderildi!</strong></p>
                     <div class="verification-options">
-                        <p><strong>Seçenek 1:</strong> Email gelirse linke tıklayın</p>
-                        <p><strong>Seçenek 2:</strong> Email gelmezse <a href="mailto:hello@tam-digital.com?subject=Email Verification&body=Merhaba, email verification işlemi için yardım istiyorum. Email: ${email}">buraya tıklayarak</a> bize yazın</p>
+                        <p><strong>📬 Email'inizi kontrol edin:</strong></p>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>Gelen kutusunu kontrol edin</li>
+                            <li>Spam klasörünü kontrol edin</li>
+                            <li>Email gelmezse aşağıdaki butona tıklayın</li>
+                        </ul>
+                        <p><strong>🔗 Doğrulama linkine tıkladıktan sonra:</strong></p>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>Yazılımı indirebilirsiniz</li>
+                            <li>Giriş yapabilirsiniz</li>
+                            <li>Analiz başlatabilirsiniz</li>
+                        </ul>
                     </div>
                     <div class="verification-info">
-                        <p><i class="fas fa-info-circle"></i> Email gelmedi mi? Spam klasörünü de kontrol edin.</p>
                         <button id="resendVerification" class="btn btn-secondary" style="margin-top: 10px;">
-                            <i class="fas fa-redo"></i> Tekrar Gönder
+                            <i class="fas fa-redo"></i> Email Tekrar Gönder
                         </button>
+                        <a href="mailto:hello@tam-digital.com?subject=Email Verification&body=Merhaba, email verification işlemi için yardım istiyorum. Email: ${email}" class="btn btn-outline" style="margin-top: 10px; margin-left: 10px;">
+                            <i class="fas fa-envelope"></i> Yardım İste
+                        </a>
                     </div>
                 </div>
             `, 'success');
@@ -185,7 +202,7 @@ function checkEmailVerificationStatus() {
 // ===== HARDWARE FINGERPRINT CHECK =====
 async function checkHardwareFingerprint(fingerprint, userId) {
     try {
-        const fingerprintRef = db.collection('hardware_fingerprints').doc(fingerprint);
+        const fingerprintRef = firebase.firestore().collection('hardware_fingerprints').doc(fingerprint);
         const fingerprintDoc = await fingerprintRef.get();
         
         if (fingerprintDoc.exists) {

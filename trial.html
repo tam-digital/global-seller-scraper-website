@@ -148,7 +148,7 @@
             <div class="trial-container">
                 <div class="trial-form">
                     <h3>Ücretsiz Hesap Oluşturun</h3>
-                    <div class="trial-form-content" id="registerForm">
+                    <form class="trial-form-content" id="registerForm">
                         <div class="form-group">
                             <label for="registerName">Ad Soyad</label>
                             <input type="text" id="registerName" name="name" required>
@@ -178,9 +178,13 @@
                             <i class="fas fa-user-plus"></i>
                             Ücretsiz Hesap Oluştur
                         </button>
+                        <p style="font-size: 12px; color: #888; text-align: center; margin-top: 10px;">
+                            <i class="fas fa-info-circle"></i> 
+                            Hesap oluşturduktan sonra email adresinize doğrulama linki gönderilecektir.
+                        </p>
                         
                         <div id="registerMessage" class="message-box" style="display: none;"></div>
-                    </div>
+                    </form>
                 </div>
                 
                 <div class="trial-info">
