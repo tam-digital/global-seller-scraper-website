@@ -33,12 +33,11 @@ function updateNavbar(user) {
         // Kullanıcı giriş yapmış
         guestSection.style.display = 'none';
         userSection.style.display = 'flex';
+        userSection.style.opacity = '1';
         userEmail.textContent = user.email;
         
-        // Smooth loading effect
-        setTimeout(() => {
-            userSection.classList.add('loaded');
-        }, 100);
+        // Immediate show
+        userSection.classList.add('loaded');
         
         // Dashboard linkini kontrol et ve aktif sayfayı işaretle
         const dashboardLink = userSection.querySelector('a[href*="dashboard"]');
@@ -55,12 +54,11 @@ function updateNavbar(user) {
     } else if (guestSection && userSection) {
         // Kullanıcı giriş yapmamış
         guestSection.style.display = 'block';
+        guestSection.style.opacity = '1';
         userSection.style.display = 'none';
         
-        // Smooth loading effect
-        setTimeout(() => {
-            guestSection.classList.add('loaded');
-        }, 100);
+        // Immediate show
+        guestSection.classList.add('loaded');
         
         console.log('✅ Navbar güncellendi - Misafir kullanıcı');
     }

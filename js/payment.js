@@ -29,17 +29,25 @@ const authMessage = document.getElementById('authMessage');
 function handlePaymentAuth() {
     console.log('Payment page: Checking auth state...');
     
-    // Kısa bir delay ile auth state'i kontrol et
-    setTimeout(() => {
-        const user = firebase.auth().currentUser;
-        console.log('Payment page: Current user:', user ? user.email : 'No user');
+    const user = firebase.auth().currentUser;
+    console.log('Payment page: Current user:', user ? user.email : 'No user');
+    
+    if (user) {
+        console.log('✅ User found immediately:', user.email);
+        showPaymentForm(user);
+    } else {
+        console.log('⏳ No user found, waiting for auth state...');
+        showAuthForms();
         
-        if (user) {
-            showPaymentForm(user);
-        } else {
-            showAuthForms();
-        }
-    }, 500);
+        // Backup check after delay
+        setTimeout(() => {
+            const delayedUser = firebase.auth().currentUser;
+            if (delayedUser) {
+                console.log('✅ User found after delay:', delayedUser.email);
+                showPaymentForm(delayedUser);
+            }
+        }, 1000);
+    }
 }
 
 // ===== AUTH STATE LISTENER =====
