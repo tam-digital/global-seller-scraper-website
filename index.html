@@ -40,6 +40,13 @@
                 <li id="guestSection" style="display: none; opacity: 0;">
                     <a href="login.html" class="nav-link">Giriş Yap</a>
                 </li>
+                <!-- Mobil için giriş yap butonu - en üstte -->
+                <li id="mobileGuestSection" style="display: none; opacity: 0;">
+                    <a href="login.html" class="nav-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Giriş Yap
+                    </a>
+                </li>
                 <li id="userSection" class="user-dropdown-container" style="display: none; opacity: 0;">
                     <div class="user-profile" id="userProfile">
                         <div class="user-avatar">
@@ -77,6 +84,32 @@
                         </div>
                     </div>
                 </li>
+                <!-- Mobil için basit kullanıcı menüsü -->
+                <li class="mobile-user-menu" id="mobileUserSection" style="display: none; opacity: 0;">
+                    <div class="mobile-user-info">
+                        <i class="fas fa-user"></i>
+                        <span id="mobileUserEmail">Kullanıcı</span>
+                    </div>
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                    <a href="payment.html" class="nav-link">
+                        <i class="fas fa-crown"></i>
+                        Premium'a Geç
+                    </a>
+                    <button id="mobileLogoutBtn" class="nav-link logout-btn" style="background: none; border: none; width: 100%; text-align: left; color: var(--text-white);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Çıkış Yap
+                    </button>
+                </li>
+                <!-- Mobil için giriş yap butonu -->
+                <li id="mobileGuestSection" style="display: none; opacity: 0;">
+                    <a href="login.html" class="nav-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Giriş Yap
+                    </a>
+                </li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span class="bar"></span>
@@ -91,10 +124,10 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
-                    Amazon Dropshipping'de <span class="highlight">Yeni Dönem</span>
+                    Amazon Satıcı Analizinde <span class="highlight">Yeni Dönem</span>
                 </h1>
                 <p class="hero-description">
-                    Piyasadaki tek gerçek sınırsız satıcı analiz yazılımı. 2018'den beri e-ticaret eğitmeni ve <a href="https://www.asinbaba.com" target="_blank" style="color: #39efd7; text-decoration: underline;">Asinbaba</a> kurucu ortağı Baran Yüce'den... 7 farklı Amazon pazarında satıcıların tüm ürünlerini eksiksiz analiz edin!
+                    Piyasadaki tek gerçek sınırsız satıcı analiz yazılımı. 2018'den beri e-ticaret eğitmeni ve <a href="https://www.asinbaba.com" target="_blank" style="color: #39efd7; text-decoration: underline;">Asinbaba</a> kurucu ortağı Baran Yüce'den. 7 farklı Amazon pazarında satıcıların tüm ürünlerini eksiksiz analiz edin!
                 </p>
                 <div class="hero-stats">
                     <div class="stat-item">
@@ -107,7 +140,7 @@
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">Kota Yok</span>
-                        <span class="stat-label">Sınır Yok</span>
+                        <span class="stat-label">Limit Yok</span>
                     </div>
                 </div>
                 <div class="hero-buttons">
@@ -222,11 +255,13 @@
                         </div>
                     </div>
                     <div class="card-content">
-                        <h3>%100 Güvenli</h3>
-                        <p>Bot koruması ve proxy sistemli güvenli masaüstü yazılımı</p>
+                        <h3>%100 Güvenli Masaüstü Yazılımı</h3>
+                        <p>Verileriniz sizin bilgisayarınızda kalır. Web tabanlı araçların aksine, masaüstü yazılımımız ile verileriniz hiçbir zaman sunuculara gönderilmez. Bot koruması ile güvenli analiz yapın.</p>
                         <div class="feature-tags">
+                            <span class="tag">Masaüstü Yazılım</span>
+                            <span class="tag">Veri Güvenliği</span>
                             <span class="tag">Bot Koruması</span>
-                            <span class="tag">Proxy Sistemi</span>
+                            <span class="tag">Hızlı Analiz</span>
                         </div>
                     </div>
                 </div>
@@ -455,14 +490,14 @@
                         </div>
                     </div>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> 5 analiz/ay</li>
-                        <li><i class="fas fa-check"></i> 3 ülke pazarı</li>
+                        <li><i class="fas fa-check"></i> 10,000 ASIN analizi/ay</li>
+                        <li><i class="fas fa-check"></i> Satıcı envanterlerinden 10,000 ürün bulma/ay</li>
                         <li><i class="fas fa-check"></i> CSV export</li>
                         <li><i class="fas fa-check"></i> Email desteği</li>
-                        <li class="disabled"><i class="fas fa-times"></i> API erişimi</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Satıcı arama</li>
                         <li class="disabled"><i class="fas fa-times"></i> Öncelikli destek</li>
                     </ul>
-                    <a href="trial.html" class="btn btn-outline">Ücretsiz Deneme</a>
+                    <a href="trial.html" class="btn btn-outline">Tamamen Ücretsiz</a>
                 </div>
                 
                 <div class="pricing-card featured">
@@ -470,16 +505,16 @@
                     <div class="pricing-header">
                         <h3>Premium</h3>
                         <div class="price">
-                            <span class="currency">$</span>
-                            <span class="amount">199</span>
+                            <span class="currency">₺</span>
+                            <span class="amount">7,999</span>
                             <span class="period">Tek Ödeme</span>
                         </div>
                     </div>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Sınırsız analiz</li>
-                        <li><i class="fas fa-check"></i> Tüm ülke pazarları</li>
+                        <li><i class="fas fa-check"></i> Sınırsız ASIN analizi</li>
+                        <li><i class="fas fa-check"></i> Sınırsız ürün analizi</li>
+                        <li><i class="fas fa-check"></i> Sınırsız satıcı arama</li>
                         <li><i class="fas fa-check"></i> CSV export</li>
-                        <li><i class="fas fa-check"></i> API erişimi</li>
                         <li><i class="fas fa-check"></i> Öncelikli destek</li>
                         <li><i class="fas fa-check"></i> Ömür boyu erişim</li>
                     </ul>
@@ -505,61 +540,61 @@
             <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h4>Global Seller Scraper nasıl çalışır?</h4>
+                        <h4>Global Seller Scraper ile rakiplerimi nasıl analiz edebilirim?</h4>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Yazılımımız Amazon satıcı ID'lerini kullanarak satıcıların tüm ürünlerini analiz eder. Satıcı bulucu, satıcı tarama ve ASIN kontrol özellikleri ile kapsamlı analizler sunar.</p>
+                        <p>Yazılımımız Amazon satıcı ID'lerini kullanarak satıcıların tüm ürünlerini detaylı analiz eder. Satıcı bulucu ile başarılı satıcıları keşfedin, satıcı analizi ile tüm ürünlerini inceleyin ve ASIN kontrol ile aktif ürünleri filtreleyin. Bu sayede rakiplerinizin hangi kategorilerde güçlü olduğunu, en çok satan ürünlerini ve fiyat stratejilerini öğrenebilirsiniz.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h4>Hangi Amazon pazarlarını destekliyor?</h4>
+                        <h4>Hangi Amazon pazarlarında çalışıyor ve neden önemli?</h4>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>ABD, İngiltere, Kanada, Avustralya, Meksika, Suudi Arabistan ve BAE Amazon pazarlarında çalışır. Toplam 7 farklı ülke pazarını destekler.</p>
+                        <p>ABD, İngiltere, Kanada, Avustralya, Meksika, Suudi Arabistan ve BAE Amazon pazarlarında çalışır. Bu 7 pazar, dünya e-ticaretinin %80'ini temsil eder. Her pazarın kendine özgü dinamikleri vardır - örneğin ABD pazarı çok rekabetçiyken, Suudi Arabistan pazarı daha yeni ve büyüme potansiyeli yüksektir. Bu çeşitlilik size farklı pazarlarda fırsatlar sunar.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h4>Ücretsiz deneme süresi ne kadar?</h4>
+                        <h4>Ücretsiz plan ile ne kadar analiz yapabilirim?</h4>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>7 gün boyunca tüm özellikleri ücretsiz deneyebilirsiniz. Kota sınırı olmadan sınırsız analiz yapabilirsiniz.</p>
+                        <p>Ücretsiz plan ile aylık 10,000 ASIN analizi ve 10,000 ürün analizi yapabilirsiniz. Bu, küçük ve orta ölçekli satıcılar için yeterli bir miktardır. Premium plana geçtiğinizde ise sınırsız analiz yapabilir, büyük satıcıları da detaylı inceleyebilirsiniz.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h4>Yazılım güvenli mi?</h4>
+                        <h4>Masaüstü yazılımının web tabanlı araçlardan farkı nedir?</h4>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Evet, masaüstü yazılımımız tamamen güvenlidir. Verileriniz sizin bilgisayarınızda kalır ve bot koruması ile güvenli analiz yapar.</p>
+                        <p>Masaüstü yazılımımızın en büyük avantajı veri güvenliği ve hızdır. Verileriniz hiçbir zaman sunuculara gönderilmez, tamamen sizin bilgisayarınızda kalır. Ayrıca web tabanlı araçlardan çok daha hızlı çalışır ve internet bağlantınızın kalitesine bağımlı değildir. Bot koruması ile güvenli analiz yaparak hesabınızın kapanma riskini ortadan kaldırır.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h4>Premium plan ne kadar?</h4>
+                        <h4>Premium plana geçmek için neden ₺7,999 ödemem gerekiyor?</h4>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Premium plan tek seferlik $199 ödeme ile ömür boyu erişim sağlar. Kota sınırı olmadan sınırsız analiz yapabilirsiniz.</p>
+                        <p>Premium plan tek seferlik ödeme ile ömür boyu erişim sağlar. Bu, aylık veya yıllık abonelik sistemlerinden çok daha ekonomiktir. Sınırsız analiz yapabilir, tüm özelliklere erişebilir ve öncelikli destek alabilirsiniz. Ayrıca yazılım güncellemeleri de ücretsiz olarak sunulur.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h4>Teknik destek alabilir miyim?</h4>
+                        <h4>Yazılımı nasıl kullanmaya başlayabilirim?</h4>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Evet, 24/7 teknik destek hizmetimiz mevcuttur. Email ve canlı destek ile size yardımcı oluyoruz.</p>
+                        <p>Kullanım çok basittir! Önce ücretsiz hesap oluşturun, ardından yazılımı bilgisayarınıza indirin. Satıcı ID'sini girerek analiz başlatabilirsiniz. Yazılım otomatik olarak tüm ürünleri tarayacak ve detaylı raporlar sunacaktır. CSV formatında export edebilir, Excel'de analiz edebilirsiniz.</p>
                     </div>
                 </div>
             </div>
@@ -596,7 +631,7 @@
                             <i class="fas fa-phone"></i>
                             <div>
                                 <h4>Telefon</h4>
-                                <p>+90 (555) 123 45 67</p>
+                                <p>+90 (530) 834 22 67</p>
                             </div>
                         </div>
                         
@@ -604,7 +639,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
                                 <h4>Adres</h4>
-                                <p>İstanbul, Türkiye</p>
+                                <p>30 N Gould St Ste 6541, Sheridan, WY 82801, ABD</p>
                             </div>
                         </div>
                     </div>
@@ -690,5 +725,22 @@
     <!-- JavaScript -->
     <script src="js/user-management.js"></script>
     <script src="js/script.js"></script>
+    <script>
+        // FAQ functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            console.log('FAQ items found:', faqItems.length);
+            
+            faqItems.forEach((item, index) => {
+                const question = item.querySelector('.faq-question');
+                if (question) {
+                    question.addEventListener('click', function() {
+                        console.log('FAQ clicked:', index);
+                        item.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html> 

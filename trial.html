@@ -33,10 +33,10 @@
                 <li><a href="index.html#why-choose" class="nav-link">Özellikler</a></li>
                 <li><a href="trial.html" class="nav-link active">Ücretsiz Deneme</a></li>
                 <li><a href="index.html#pricing" class="nav-link">Fiyatlandırma</a></li>
-                <li id="guestSection">
+                <li id="guestSection" style="display: none; opacity: 0;">
                     <a href="login.html" class="nav-link">Giriş Yap</a>
                 </li>
-                <li id="userSection" class="user-dropdown-container" style="display: none;">
+                <li id="userSection" class="user-dropdown-container" style="display: none; opacity: 0;">
                     <div class="user-profile" id="userProfile">
                         <div class="user-avatar">
                             <i class="fas fa-user"></i>
@@ -73,6 +73,25 @@
                         </div>
                     </div>
                 </li>
+                <!-- Mobil için basit kullanıcı menüsü -->
+                <li class="mobile-user-menu" id="mobileUserSection" style="display: none; opacity: 0;">
+                    <div class="mobile-user-info">
+                        <i class="fas fa-user"></i>
+                        <span id="mobileUserEmail">Kullanıcı</span>
+                    </div>
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                    <a href="payment.html" class="nav-link">
+                        <i class="fas fa-crown"></i>
+                        Premium'a Geç
+                    </a>
+                    <button id="mobileLogoutBtn" class="nav-link logout-btn" style="background: none; border: none; width: 100%; text-align: left; color: var(--text-white);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Çıkış Yap
+                    </button>
+                </li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span class="bar"></span>
@@ -102,11 +121,11 @@
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">10K</div>
-                            <div class="stat-label">Ürün Analizi</div>
+                            <div class="stat-label">Rakiplerden Ürün Araştırma</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">7</div>
-                            <div class="stat-label">Ülke Pazarı</div>
+                            <div class="stat-label">Amazon Pazarı</div>
                         </div>
                     </div>
                 </div>
@@ -116,6 +135,11 @@
 
     <!-- Register Form Section -->
     <section class="trial">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
         <div class="container">
             <div class="trial-container">
                 <div class="trial-form">
@@ -164,7 +188,7 @@
                             </div>
                             <div class="step-content">
                                 <h4>1. Hesap Oluşturma</h4>
-                                <p>Güvenli kayıt ile hesabınızı oluşturun</p>
+                                <p>Kayıt formunu doldurun ve hesabınızı oluşturun</p>
                             </div>
                         </div>
                         

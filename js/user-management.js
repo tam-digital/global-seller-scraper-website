@@ -54,6 +54,27 @@ function updateNavbar(user) {
         // Immediate show
         userSection.classList.add('loaded');
         
+        // Mobil kullanıcı menüsünü de güncelle
+        const mobileUserSection = document.getElementById('mobileUserSection');
+        const mobileUserEmail = document.getElementById('mobileUserEmail');
+        if (mobileUserSection) {
+            mobileUserSection.style.display = 'block';
+            mobileUserSection.style.opacity = '1';
+            mobileUserSection.classList.add('loaded');
+        }
+        if (mobileUserEmail) {
+            mobileUserEmail.textContent = user.email;
+        }
+        
+        // Yeni mobil guest section'ı gizle
+        const newMobileGuestSection = document.querySelector('#mobileGuestSection');
+        if (newMobileGuestSection) {
+            newMobileGuestSection.style.display = 'none';
+            newMobileGuestSection.style.opacity = '0';
+            newMobileGuestSection.style.visibility = 'hidden';
+            newMobileGuestSection.classList.remove('loaded');
+        }
+        
         // Dashboard linkini kontrol et ve aktif sayfayı işaretle
         const dashboardLink = userSection.querySelector('a[href*="dashboard"]');
         if (dashboardLink) {
@@ -68,12 +89,87 @@ function updateNavbar(user) {
         console.log('✅ Navbar güncellendi - Kullanıcı:', user.email);
     } else if (guestSection && userSection) {
         // Kullanıcı giriş yapmamış
+        console.log('🔄 Misafir kullanıcı için navbar güncelleniyor...');
+        
         guestSection.style.display = 'block';
         guestSection.style.opacity = '1';
         userSection.style.display = 'none';
+        userSection.style.opacity = '0';
         
         // Immediate show
         guestSection.classList.add('loaded');
+        userSection.classList.remove('loaded');
+        
+        // Mobil kullanıcı menüsünü gizle
+        const mobileUserSection = document.getElementById('mobileUserSection');
+        if (mobileUserSection) {
+            console.log('📱 Mobil kullanıcı menüsü gizleniyor...');
+            mobileUserSection.style.display = 'none';
+            mobileUserSection.style.opacity = '0';
+            mobileUserSection.classList.remove('loaded');
+        }
+        
+        // Guest section'ı tekrar göster
+        if (guestSection) {
+            console.log('👤 Guest section gösteriliyor...');
+            guestSection.style.display = 'block';
+            guestSection.style.opacity = '1';
+            guestSection.classList.add('loaded');
+            
+            // Mobil menüde de guest section'ı zorla göster
+            const mobileGuestSection = document.querySelector('#guestSection');
+            if (mobileGuestSection) {
+                console.log('📱 Mobil guest section zorla gösteriliyor...');
+                mobileGuestSection.style.display = 'block';
+                mobileGuestSection.style.opacity = '1';
+                mobileGuestSection.style.visibility = 'visible';
+                mobileGuestSection.style.position = 'relative';
+                mobileGuestSection.style.zIndex = '999';
+                mobileGuestSection.style.height = 'auto';
+                mobileGuestSection.style.minHeight = '50px';
+                mobileGuestSection.style.margin = '0';
+                mobileGuestSection.style.padding = '0';
+                mobileGuestSection.style.background = 'transparent';
+                mobileGuestSection.style.border = 'none';
+                mobileGuestSection.style.boxShadow = 'none';
+                mobileGuestSection.classList.add('loaded');
+                
+                // Nav-link'i de zorla göster
+                const guestLink = mobileGuestSection.querySelector('.nav-link');
+                if (guestLink) {
+                    console.log('📱 Mobil guest link zorla gösteriliyor...');
+                    guestLink.style.display = 'block';
+                    guestLink.style.opacity = '1';
+                    guestLink.style.visibility = 'visible';
+                    guestLink.style.color = 'var(--text-white)';
+                    guestLink.style.background = 'none';
+                    guestLink.style.border = 'none';
+                    guestLink.style.padding = '15px 20px';
+                    guestLink.style.fontSize = '16px';
+                    guestLink.style.fontWeight = '500';
+                    guestLink.style.textDecoration = 'none';
+                    guestLink.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+                    guestLink.style.height = 'auto';
+                    guestLink.style.minHeight = '50px';
+                    guestLink.style.margin = '0';
+                    guestLink.style.lineHeight = '1.5';
+                    guestLink.style.textAlign = 'left';
+                    guestLink.style.width = '100%';
+                    guestLink.style.position = 'relative';
+                    guestLink.style.zIndex = '1000';
+                }
+            }
+            
+            // Yeni mobil guest section'ı da göster
+            const newMobileGuestSection = document.querySelector('#mobileGuestSection');
+            if (newMobileGuestSection) {
+                console.log('📱 Yeni mobil guest section gösteriliyor...');
+                newMobileGuestSection.style.display = 'block';
+                newMobileGuestSection.style.opacity = '1';
+                newMobileGuestSection.style.visibility = 'visible';
+                newMobileGuestSection.classList.add('loaded');
+            }
+        }
         
         console.log('✅ Navbar güncellendi - Misafir kullanıcı');
     }
@@ -81,8 +177,21 @@ function updateNavbar(user) {
 
 async function logoutUser() {
     try {
+        console.log('🔄 Çıkış yapılıyor...');
         await auth.signOut();
         console.log('✅ Başarıyla çıkış yapıldı');
+        
+        // Mobil menüyü kapat
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        if (hamburger && navMenu) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+        
+        // Navbar'ı güncelle
+        console.log('🔄 Navbar güncelleniyor...');
+        updateNavbar(null);
         
         // Anasayfaya yönlendir
         if (window.location.pathname !== '/index.html' && window.location.pathname !== '/') {
@@ -172,30 +281,39 @@ window.redirectToLogin = () => {
 
 console.log('✅ User Management script yüklendi');
 
-// ===== USER DROPDOWN FUNCTIONALITY =====
-document.addEventListener('DOMContentLoaded', function() {
-    const userProfile = document.getElementById('userProfile');
-    const userDropdown = document.getElementById('userDropdown');
-    
-    if (userProfile && userDropdown) {
-        // Toggle dropdown on profile click
-        userProfile.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleDropdown();
-        });
+    // ===== USER DROPDOWN FUNCTIONALITY =====
+    document.addEventListener('DOMContentLoaded', function() {
+        const userProfile = document.getElementById('userProfile');
+        const userDropdown = document.getElementById('userDropdown');
+        const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
         
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!userProfile.contains(e.target) && !userDropdown.contains(e.target)) {
-                closeDropdown();
-            }
-        });
+        // Mobil logout butonu
+        if (mobileLogoutBtn) {
+            mobileLogoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                logoutUser();
+            });
+        }
         
-        // Prevent dropdown from closing when clicking inside
-        userDropdown.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-    }
+        if (userProfile && userDropdown) {
+            // Toggle dropdown on profile click
+            userProfile.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleDropdown();
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!userProfile.contains(e.target) && !userDropdown.contains(e.target)) {
+                    closeDropdown();
+                }
+            });
+            
+            // Prevent dropdown from closing when clicking inside
+            userDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
     
     function toggleDropdown() {
         const isOpen = userDropdown.classList.contains('show');

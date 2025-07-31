@@ -29,6 +29,7 @@ const productProgress = document.getElementById('productProgress');
 const sellerSearches = document.getElementById('sellerSearches');
 const sellerLimit = document.getElementById('sellerLimit');
 const sellerProgress = document.getElementById('sellerProgress');
+const resetDate = document.getElementById('resetDate');
 
 // Buttons
 const refreshDataBtn = document.getElementById('refreshDataBtn');
@@ -38,6 +39,33 @@ function formatDate(timestamp) {
     if (!timestamp) return '-';
     const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
     return date.toLocaleDateString('tr-TR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+function calculateQuotaResetDate(createdAt) {
+    if (!createdAt) return '-';
+    
+    const createdDate = createdAt.toDate ? createdAt.toDate() : new Date(createdAt);
+    const now = new Date();
+    
+    // Kullanıcının üyelik tarihinden itibaren geçen ay sayısını hesapla
+    const monthsDiff = (now.getFullYear() - createdDate.getFullYear()) * 12 + 
+                      (now.getMonth() - createdDate.getMonth());
+    
+    // Bir sonraki sıfırlanma tarihini hesapla
+    const nextResetDate = new Date(createdDate);
+    nextResetDate.setMonth(createdDate.getMonth() + monthsDiff + 1);
+    nextResetDate.setDate(createdDate.getDate());
+    
+    // Eğer bu ay zaten geçmişse, gelecek ayın tarihini al
+    if (nextResetDate <= now) {
+        nextResetDate.setMonth(nextResetDate.getMonth() + 1);
+    }
+    
+    return nextResetDate.toLocaleDateString('tr-TR', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
@@ -63,8 +91,8 @@ function showPremiumFeatures() {
     if (planFeatures) {
         planFeatures.innerHTML = `
             <ul>
-                <li>✅ Sınırsız ASIN Tarama</li>
-                <li>✅ Sınırsız Ürün Tarama</li>
+                <li>✅ Sınırsız ASIN Analizi</li>
+                <li>✅ Sınırsız Ürün Analizi</li>
                 <li>✅ Sınırsız Satıcı Arama</li>
                 <li>✅ Premium Destek</li>
                 <li>✅ Gelişmiş Filtreler</li>
@@ -87,8 +115,8 @@ function showFreeFeatures() {
     if (planFeatures) {
         planFeatures.innerHTML = `
             <ul>
-                <li>✅ 10,000 ASIN Tarama</li>
-                <li>✅ 10,000 Ürün Tarama</li>
+                <li>✅ 10,000 ASIN Analizi</li>
+                <li>✅ 10,000 Ürün Analizi</li>
                 <li>❌ Satıcı Arama</li>
                 <li>❌ Premium Destek</li>
                 <li>❌ Gelişmiş Filtreler</li>
@@ -177,6 +205,12 @@ async function loadDashboardData(user) {
         if (sellerSearches) sellerSearches.textContent = usage.seller_searches.toLocaleString();
         if (sellerLimit) sellerLimit.textContent = isPremium ? '∞' : limits.seller_searches.toLocaleString();
         updateProgressBar(sellerProgress, usage.seller_searches, isPremium ? 999999 : limits.seller_searches);
+        
+        // Quota Reset Date
+        if (resetDate) {
+            const quotaResetDate = calculateQuotaResetDate(userData.created_at);
+            resetDate.textContent = quotaResetDate;
+        }
         
         console.log('✅ Dashboard verileri yüklendi');
         

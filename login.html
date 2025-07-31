@@ -24,10 +24,10 @@
                 <li><a href="index.html#why-choose" class="nav-link">Özellikler</a></li>
                 <li><a href="trial.html" class="nav-link">Ücretsiz Deneme</a></li>
                 <li><a href="index.html#pricing" class="nav-link">Fiyatlandırma</a></li>
-                <li id="guestSection">
+                <li id="guestSection" style="display: none; opacity: 0;">
                     <a href="login.html" class="nav-link active">Giriş Yap</a>
                 </li>
-                <li id="userSection" class="user-dropdown-container" style="display: none;">
+                <li id="userSection" class="user-dropdown-container" style="display: none; opacity: 0;">
                     <div class="user-profile" id="userProfile">
                         <div class="user-avatar">
                             <i class="fas fa-user"></i>
@@ -63,6 +63,25 @@
                             </button>
                         </div>
                     </div>
+                </li>
+                <!-- Mobil için basit kullanıcı menüsü -->
+                <li class="mobile-user-menu" id="mobileUserSection" style="display: none; opacity: 0;">
+                    <div class="mobile-user-info">
+                        <i class="fas fa-user"></i>
+                        <span id="mobileUserEmail">Kullanıcı</span>
+                    </div>
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                    <a href="payment.html" class="nav-link">
+                        <i class="fas fa-crown"></i>
+                        Premium'a Geç
+                    </a>
+                    <button id="mobileLogoutBtn" class="nav-link logout-btn" style="background: none; border: none; width: 100%; text-align: left; color: var(--text-white);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Çıkış Yap
+                    </button>
                 </li>
             </ul>
             <div class="hamburger" id="hamburger">

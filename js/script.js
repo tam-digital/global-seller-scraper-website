@@ -9,18 +9,8 @@ const heroSection = document.querySelector('.hero');
 const registerForm = document.getElementById('registerForm');
 const registerMessage = document.getElementById('registerMessage');
 
-// ===== FIREBASE CONFIG =====
-const firebaseConfig = {
-    apiKey: "AIzaSyCPJay7-9xPVVXh-0FzKsaMw6LxmmLjvws",
-    authDomain: "globalsellerscraper.firebaseapp.com",
-    projectId: "globalsellerscraper",
-    storageBucket: "globalsellerscraper.appspot.com",
-    messagingSenderId: "768895134845",
-    appId: "768895134845:web:9907c4a23f57e0eb0f1514"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// ===== FIREBASE REFERENCES =====
+// Firebase zaten user-management.js'de initialize edildi
 const auth = firebase.auth();
 const db = firebase.firestore();
 
@@ -815,6 +805,8 @@ styleSheet.textContent = additionalStyles;
 document.head.appendChild(styleSheet);
 
 // ===== INITIALIZATION =====
+console.log('Script loaded!'); // Test için
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🌍 Global Seller Scraper Website loaded successfully!');
     
@@ -828,32 +820,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         document.body.style.opacity = '1';
     }, 100);
-    
-    // FAQ accordion functionality
-    const faqItems = document.querySelectorAll('.faq-item');
-    console.log('FAQ items found:', faqItems.length);
-    
-    faqItems.forEach((item, index) => {
-        const question = item.querySelector('.faq-question');
-        console.log(`FAQ item ${index}:`, question);
-        
-        if (question) {
-            question.addEventListener('click', function() {
-                console.log('FAQ clicked:', index);
-                const isActive = item.classList.contains('active');
-                
-                // Close all other FAQ items
-                faqItems.forEach(otherItem => {
-                    otherItem.classList.remove('active');
-                });
-                
-                // Toggle current item
-                if (!isActive) {
-                    item.classList.add('active');
-                }
-            });
-        }
-    });
     
     // Download tracking
     const downloadLinks = document.querySelectorAll('.download-link:not(.disabled)');
