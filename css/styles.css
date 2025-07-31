@@ -2677,11 +2677,12 @@ section.feature-section .feature-content.reverse .feature-visual {
 .hero-section .login-container {
     max-width: 500px;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--panel-dark);
     border-radius: 20px;
     padding: 40px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
     margin-top: 50px;
 }
 
@@ -2693,13 +2694,13 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 .login-header h1 {
-    color: #333;
+    color: var(--text-white);
     margin-bottom: 10px;
     font-size: 2.5rem;
 }
 
 .login-header p {
-    color: #666;
+    color: var(--text-gray);
     font-size: 1.1rem;
 }
 
@@ -2708,7 +2709,7 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 .auth-form h3 {
-    color: #333;
+    color: var(--text-white);
     margin-bottom: 20px;
     text-align: center;
     font-size: 1.5rem;
@@ -2877,20 +2878,21 @@ section.feature-section .feature-content.reverse .feature-visual {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--panel-dark);
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
 }
 
 .welcome-section h1 {
-    color: #333;
+    color: var(--text-white);
     margin: 0 0 10px 0;
     font-size: 2.5rem;
 }
 
 .welcome-section p {
-    color: #666;
+    color: var(--text-gray);
     margin: 0;
     font-size: 1.2rem;
 }
@@ -2921,10 +2923,11 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 .dashboard-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--panel-dark);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -2964,11 +2967,11 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 .info-row strong {
-    color: #333;
+    color: var(--text-white);
 }
 
 .info-row span {
-    color: #666;
+    color: var(--text-gray);
 }
 
 .current-plan {
@@ -3111,20 +3114,21 @@ section.feature-section .feature-content.reverse .feature-visual {
 
 .denied-content {
     text-align: center;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--panel-dark);
     padding: 50px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
 }
 
 .denied-content h2 {
-    color: #333;
+    color: var(--text-white);
     margin-bottom: 20px;
     font-size: 2rem;
 }
 
 .denied-content p {
-    color: #666;
+    color: var(--text-gray);
     margin-bottom: 30px;
     font-size: 1.1rem;
 }
