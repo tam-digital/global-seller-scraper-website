@@ -2934,7 +2934,7 @@ section.feature-section .feature-content.reverse .feature-visual {
 
 /* ===== DASHBOARD STYLES ===== */
 .dashboard-section {
-    padding: 480px 0;
+    padding: 120px 0;
     min-height: calc(100vh - 80px);
 }
 

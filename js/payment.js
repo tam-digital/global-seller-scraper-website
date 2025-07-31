@@ -50,11 +50,19 @@ function handlePaymentAuth() {
 // ===== SHOW PAYMENT FORM =====
 async function showPaymentForm(user) {
     console.log('🎯 showPaymentForm called for:', user.email);
-    console.log('🎯 authForms element:', authForms);
-    console.log('🎯 paymentForm element:', paymentForm);
+    console.log('🎯 authForms element:', authForms ? '✅ Found' : '❌ Missing');
+    console.log('🎯 paymentForm element:', paymentForm ? '✅ Found' : '❌ Missing');
     
-    if (authForms) authForms.style.display = 'none';
-    if (paymentForm) paymentForm.style.display = 'block';
+    if (authForms) {
+        authForms.style.display = 'none';
+        console.log('✅ Auth forms hidden');
+    }
+    if (paymentForm) {
+        paymentForm.style.display = 'block';
+        console.log('✅ Payment form shown');
+    } else {
+        console.error('❌ Payment form element not found!');
+    }
     
     // Kullanıcı bilgilerini göster
     if (userInfo) {
@@ -276,6 +284,7 @@ firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             console.log('✅ USER FOUND - SHOWING PAYMENT FORM');
             console.log('📧 Email verified:', user.emailVerified);
+            console.log('🎯 Bypassing email verification for payment access');
             showPaymentForm(user);
         } else {
             console.log('❌ NO USER - SHOWING AUTH FORMS');
@@ -306,4 +315,15 @@ window.addEventListener('load', () => {
     }, 500);
 });
 
-console.log('Payment.js yüklendi'); 
+// ===== MANUAL TRIGGER FOR TESTING =====
+window.forceShowPaymentForm = function() {
+    const user = firebase.auth().currentUser;
+    if (user) {
+        console.log('🔧 MANUAL TRIGGER - Forcing payment form for:', user.email);
+        showPaymentForm(user);
+    } else {
+        console.log('🔧 MANUAL TRIGGER - No user found');
+    }
+};
+
+console.log('Payment.js yüklendi - Manual trigger available: forceShowPaymentForm()'); 
