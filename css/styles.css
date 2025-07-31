@@ -173,13 +173,16 @@ html body .navbar.scrolled {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-sm);
+    align-items: center;
 }
 
 .nav-link {
     color: var(--text-white);
     font-weight: 500;
+    font-size: 0.9rem;
     transition: color 0.3s ease;
+    white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -1673,6 +1676,27 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+    .nav-menu {
+        gap: var(--spacing-xs);
+    }
+    
+    .nav-link {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+    
+    .user-email {
+        font-size: 0.8rem;
+        margin: 0 10px;
+    }
+    
+    #userSection .btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
@@ -2676,14 +2700,13 @@ section.feature-section .feature-content.reverse .feature-visual {
 /* ===== LOGIN/AUTH STYLES ===== */
 .hero-section .login-container {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 20px auto 0;
     background: var(--panel-dark);
     border-radius: 20px;
     padding: 40px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
-    margin-top: 50px;
 }
 
 
@@ -2841,8 +2864,8 @@ section.feature-section .feature-content.reverse .feature-visual {
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .hero-section .login-container {
-        margin: 20px;
-        padding: 30px 20px;
+        margin: 10px;
+        padding: 25px 20px;
     }
     
     .dashboard-actions {
@@ -2874,7 +2897,8 @@ section.feature-section .feature-content.reverse .feature-visual {
 
 /* ===== DASHBOARD STYLES ===== */
 .dashboard-section {
-    padding-top: 50px;
+    padding-top: 20px;
+    min-height: calc(100vh - 80px);
 }
 
 .loading-state {
@@ -2903,9 +2927,9 @@ section.feature-section .feature-content.reverse .feature-visual {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     background: var(--panel-dark);
-    padding: 30px;
+    padding: 25px 30px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     border: 1px solid var(--border-color);
@@ -3007,7 +3031,9 @@ section.feature-section .feature-content.reverse .feature-visual {
     margin-bottom: 20px;
     padding: 15px;
     border-radius: 10px;
-    background: #f8f9fa;
+    background: var(--bg-secondary);
+    color: var(--text-white);
+    border: 1px solid var(--border-color);
 }
 
 .plan-features ul {
@@ -3046,20 +3072,20 @@ section.feature-section .feature-content.reverse .feature-visual {
 
 .stat-item {
     padding: 15px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    background: #f9fafb;
+    background: var(--bg-secondary);
 }
 
 .stat-label {
     font-weight: 600;
-    color: #374151;
+    color: var(--text-white);
     margin-bottom: 8px;
 }
 
 .stat-value {
     font-size: 1.1rem;
-    color: #1f2937;
+    color: var(--text-gray);
     margin-bottom: 10px;
 }
 
@@ -3070,9 +3096,10 @@ section.feature-section .feature-content.reverse .feature-visual {
 .progress-bar {
     width: 100%;
     height: 8px;
-    background: #e5e7eb;
+    background: var(--bg-dark);
     border-radius: 4px;
     overflow: hidden;
+    border: 1px solid var(--border-color);
 }
 
 .progress-fill {
