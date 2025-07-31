@@ -4835,6 +4835,7 @@ section.feature-section .feature-content.reverse .feature-visual {
         box-shadow: none !important;
         padding: 0 !important;
         align-items: center !important;
+        left: 0 !important;
     }
     
     .nav-link {
@@ -4875,9 +4876,9 @@ section.feature-section .feature-content.reverse .feature-visual {
     
     /* Masaüstünde desktop guest section'ı göster */
     #desktopGuestSection {
-        display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
+        display: block;
+        opacity: 1;
+        visibility: visible;
     }
 }
 

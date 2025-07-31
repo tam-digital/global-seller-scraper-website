@@ -273,20 +273,6 @@ updateGradient();
 
 // ===== NAVIGATION =====
 
-// Mobile menu toggle
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
-});
-
 // Navbar scroll effect'i kaldırıyorum
 // window.addEventListener('scroll', () => {
 //     if (window.scrollY > 100) {
@@ -824,73 +810,39 @@ document.head.appendChild(styleSheet);
 // ===== INITIALIZATION =====
 console.log('Script loaded!'); // Test için
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('🌍 Global Seller Scraper Website loaded successfully!');
+// ===== DOM READY =====
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded!');
+    console.log('Hamburger element:', hamburger);
+    console.log('Nav menu element:', navMenu);
     
-    // Email verification durumunu kontrol et
-    checkEmailVerificationStatus();
-    
-    // Add loading animation to page
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
-    
-    // Download tracking
-    const downloadLinks = document.querySelectorAll('.download-link:not(.disabled)');
-    downloadLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Download tracking
-            console.log('📥 Download started:', this.href);
-            
-            // Analytics tracking (Google Analytics varsa)
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'download', {
-                    'event_category': 'software',
-                    'event_label': 'macos_dmg',
-                    'value': 1
-                });
-            }
-            
-            // Firestore'a download kaydı (opsiyonel)
-            try {
-                const downloadData = {
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    platform: 'macos',
-                    file: 'Global.Seller.Scraper.dmg',
-                    user_agent: navigator.userAgent,
-                    referrer: document.referrer
-                };
-                
-                db.collection('downloads').add(downloadData);
-            } catch (error) {
-                console.log('Download tracking error:', error);
-            }
+    // Mobile menu toggle
+    if (hamburger && navMenu) {
+        console.log('Hamburger and nav menu found!');
+        hamburger.addEventListener('click', () => {
+            console.log('Hamburger clicked!');
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            console.log('Hamburger active:', hamburger.classList.contains('active'));
+            console.log('Nav menu active:', navMenu.classList.contains('active'));
         });
-    });
-    
-    // ===== PAYMENT REDIRECT =====
-    function redirectToPayment() {
-        // Kullanıcının giriş yapmış olup olmadığını kontrol et
-        const currentUser = auth.currentUser;
-        
-        if (currentUser) {
-            // Giriş yapmış kullanıcı - email ile yönlendir
-            const userEmail = currentUser.email;
-            window.location.href = `payment.html?email=${encodeURIComponent(userEmail)}`;
-        } else {
-            // Giriş yapmamış kullanıcı - önce giriş yapmasını iste
-            showRegisterMessage('Premium özellikler için lütfen önce giriş yapın!', 'error');
-            
-            // 2 saniye sonra trial sayfasına yönlendir
-            setTimeout(() => {
-                window.location.href = 'trial.html';
-            }, 2000);
-        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    } else {
+        console.error('Hamburger or nav menu not found!');
+        console.log('Hamburger:', hamburger);
+        console.log('Nav menu:', navMenu);
     }
     
-    // Global scope'a fonksiyonu ekle
-    window.redirectToPayment = redirectToPayment;
+    // Set active menu item
+    setActiveMenuItem();
+    
+    // Setup section observer
+    setupSectionObserver();
 }); 

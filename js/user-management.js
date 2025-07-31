@@ -20,7 +20,7 @@ const db = firebase.firestore();
 let currentUserData = null;
 
 // DOM Elements
-const guestSection = document.getElementById('guestSection');
+const guestSection = document.getElementById('desktopGuestSection'); // Desktop guest section
 const userSection = document.getElementById('userSection');
 const userEmail = document.getElementById('userEmail');
 const logoutBtn = document.getElementById('logoutBtn');
@@ -66,13 +66,22 @@ function updateNavbar(user) {
             mobileUserEmail.textContent = user.email;
         }
         
-        // Yeni mobil guest section'ı gizle
-        const newMobileGuestSection = document.querySelector('#mobileGuestSection');
-        if (newMobileGuestSection) {
-            newMobileGuestSection.style.display = 'none';
-            newMobileGuestSection.style.opacity = '0';
-            newMobileGuestSection.style.visibility = 'hidden';
-            newMobileGuestSection.classList.remove('loaded');
+        // Mobil guest section'ı gizle
+        const mobileGuestSection = document.querySelector('#mobileGuestSection');
+        if (mobileGuestSection) {
+            mobileGuestSection.style.display = 'none';
+            mobileGuestSection.style.opacity = '0';
+            mobileGuestSection.style.visibility = 'hidden';
+            mobileGuestSection.classList.remove('loaded');
+        }
+        
+        // Desktop guest section'ı da gizle
+        const desktopGuestSection = document.querySelector('#desktopGuestSection');
+        if (desktopGuestSection) {
+            desktopGuestSection.style.display = 'none';
+            desktopGuestSection.style.opacity = '0';
+            desktopGuestSection.style.visibility = 'hidden';
+            desktopGuestSection.classList.remove('loaded');
         }
         
         // Dashboard linkini kontrol et ve aktif sayfayı işaretle
@@ -183,14 +192,6 @@ async function logoutUser() {
         await auth.signOut();
         console.log('✅ Başarıyla çıkış yapıldı');
         
-        // Mobil menüyü kapat
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        if (hamburger && navMenu) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        }
-        
         // Navbar'ı güncelle
         console.log('🔄 Navbar güncelleniyor...');
         updateNavbar(null);
@@ -239,9 +240,9 @@ auth.onAuthStateChanged(async (user) => {
         }
     } catch (error) {
         console.error('❌ Auth state işleme hatası:', error);
-        // Hata durumunda sadece navbar'ı güncelle, Firestore işlemi yapma
+        // Hata durumunda kullanıcı giriş yapmışsa navbar'ı güncelleme, sadece log yaz
         if (user) {
-            updateNavbar({ email: user.email });
+            console.log('⚠️ Firestore hatası ama kullanıcı giriş yapmış, navbar güncellenmedi');
         } else {
             updateNavbar(null);
         }
@@ -261,16 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Mobile menu toggle
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
-    
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-    }
+    // Hamburger menü event listener'ını kaldırdım çünkü script.js'de var
 });
 
 // ===== UTILITY FUNCTIONS FOR OTHER SCRIPTS =====
