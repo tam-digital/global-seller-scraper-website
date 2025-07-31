@@ -34,6 +34,23 @@ function updateNavbar(user) {
         guestSection.style.display = 'none';
         userSection.style.display = 'flex';
         userEmail.textContent = user.email;
+        
+        // Dashboard linkini güncelle (eğer varsa)
+        const dashboardLink = userSection.querySelector('a[href*="dashboard"]');
+        if (dashboardLink) {
+            dashboardLink.href = 'dashboard.html';
+        } else {
+            // Dashboard linki yoksa oluştur
+            const existingDashboardLink = userSection.querySelector('.dashboard-link');
+            if (!existingDashboardLink) {
+                const dashboardLinkElement = document.createElement('a');
+                dashboardLinkElement.href = 'dashboard.html';
+                dashboardLinkElement.className = 'nav-link dashboard-link';
+                dashboardLinkElement.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
+                userSection.insertBefore(dashboardLinkElement, userEmail);
+            }
+        }
+        
         console.log('✅ Navbar güncellendi - Kullanıcı:', user.email);
     } else if (guestSection && userSection) {
         // Kullanıcı giriş yapmamış
