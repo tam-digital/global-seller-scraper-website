@@ -25,15 +25,29 @@ const userEmail = document.getElementById('userEmail');
 const logoutBtn = document.getElementById('logoutBtn');
 const authMessage = document.getElementById('authMessage');
 
+// ===== PAYMENT PAGE SPECIFIC AUTH HANDLER =====
+function handlePaymentAuth() {
+    console.log('Payment page: Checking auth state...');
+    
+    // Kısa bir delay ile auth state'i kontrol et
+    setTimeout(() => {
+        const user = firebase.auth().currentUser;
+        console.log('Payment page: Current user:', user ? user.email : 'No user');
+        
+        if (user) {
+            showPaymentForm(user);
+        } else {
+            showAuthForms();
+        }
+    }, 500);
+}
+
 // ===== AUTH STATE LISTENER =====
 auth.onAuthStateChanged((user) => {
+    console.log('Payment page auth change:', user ? user.email : 'No user');
     if (user) {
-        // Kullanıcı giriş yapmış
-        console.log('Kullanıcı giriş yaptı:', user.email);
         showPaymentForm(user);
     } else {
-        // Kullanıcı giriş yapmamış
-        console.log('Kullanıcı giriş yapmadı');
         showAuthForms();
     }
 });
@@ -253,6 +267,18 @@ firebase.auth().onAuthStateChanged((user) => {
         if (loginContainer) loginContainer.style.display = 'block';
         if (signupContainer) signupContainer.style.display = 'block';
     }
+});
+
+// ===== PAGE LOAD INITIALIZE =====
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Payment page DOM loaded');
+    handlePaymentAuth();
+});
+
+// Window load için de backup
+window.addEventListener('load', () => {
+    console.log('Payment page window loaded');
+    setTimeout(handlePaymentAuth, 200);
 });
 
 console.log('Payment.js yüklendi'); 

@@ -2802,6 +2802,21 @@ section.feature-section .feature-content.reverse .feature-visual {
     display: flex;
     align-items: center;
     gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#userSection.loaded {
+    opacity: 1;
+}
+
+#guestSection {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#guestSection.loaded {
+    opacity: 1;
 }
 
 #userSection .nav-link {
@@ -2897,8 +2912,14 @@ section.feature-section .feature-content.reverse .feature-visual {
 
 /* ===== DASHBOARD STYLES ===== */
 .dashboard-section {
-    padding: 40px 0;
+    padding: 60px 0;
     min-height: calc(100vh - 80px);
+}
+
+.dashboard-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .loading-state {
@@ -2927,9 +2948,9 @@ section.feature-section .feature-content.reverse .feature-visual {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     background: var(--panel-dark);
-    padding: 25px 30px;
+    padding: 35px 40px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     border: 1px solid var(--border-color);

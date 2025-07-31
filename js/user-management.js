@@ -35,6 +35,11 @@ function updateNavbar(user) {
         userSection.style.display = 'flex';
         userEmail.textContent = user.email;
         
+        // Smooth loading effect
+        setTimeout(() => {
+            userSection.classList.add('loaded');
+        }, 100);
+        
         // Dashboard linkini kontrol et ve aktif sayfayı işaretle
         const dashboardLink = userSection.querySelector('a[href*="dashboard"]');
         if (dashboardLink) {
@@ -51,6 +56,12 @@ function updateNavbar(user) {
         // Kullanıcı giriş yapmamış
         guestSection.style.display = 'block';
         userSection.style.display = 'none';
+        
+        // Smooth loading effect
+        setTimeout(() => {
+            guestSection.classList.add('loaded');
+        }, 100);
+        
         console.log('✅ Navbar güncellendi - Misafir kullanıcı');
     }
 }
