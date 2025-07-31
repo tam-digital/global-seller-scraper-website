@@ -2261,11 +2261,51 @@ section.feature-section .feature-content.reverse .feature-visual {
     margin-bottom: var(--spacing-lg);
 }
 
-.iyzipay-form {
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.payment-section {
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+.payment-section .btn-large {
+    font-size: var(--font-size-xl);
+    padding: var(--spacing-lg) var(--spacing-2xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+.payment-info-box {
+    background: var(--panel-dark);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+    text-align: left;
+}
+
+.payment-info-box h4 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-lg);
+}
+
+.payment-info-box ol {
+    color: var(--text-white);
+    margin: 0;
+    padding-left: var(--spacing-lg);
+}
+
+.payment-info-box li {
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.6;
+}
+
+.payment-info-box strong {
+    color: var(--primary-color);
+}
+
+.payment-note {
+    color: var(--text-gray);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-md);
 }
 
 .loading {

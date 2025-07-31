@@ -13,8 +13,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
     
-    <!-- iyzico Checkout Form -->
-    <script src="https://cdn.iyzipay.com/v2/iyzipay.js"></script>
+    <!-- Shopier Payment Integration -->
 </head>
 <body class="payment-page">
     <!-- Navbar -->
@@ -92,15 +91,31 @@
             <div class="auth-forms-container">
                 <!-- Giriş Yapmış Kullanıcılar İçin Ödeme Formu -->
                 <div class="payment-form" id="paymentForm" style="display: none;">
-                    <h3>💳 Ödeme Bilgileri</h3>
+                    <h3>💳 Premium'a Geç</h3>
+                    <div id="planStatus" style="margin: 10px 0; font-size: 16px; font-weight: bold;"></div>
                     <p>iyzico ile güvenli ödeme yapın</p>
                     
-                    <!-- iyzico Checkout Form buraya gelecek -->
-                    <div id="iyzipay-checkout-form" class="iyzipay-form">
-                        <div class="loading">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Ödeme formu yükleniyor...</p>
+                    <!-- iyzico Payment Button -->
+                    <div class="payment-section">
+                        <a href="https://iyzi.link/AKNUhg" class="btn btn-primary btn-large" target="_blank">
+                            <i class="fas fa-credit-card"></i>
+                            Premium'a Geç - $199
+                        </a>
+                        
+                        <div class="payment-info-box">
+                            <h4>📋 Ödeme Sonrası Adımlar:</h4>
+                            <ol>
+                                <li>Ödeme sayfasında güvenli bir şekilde ödemenizi yapın</li>
+                                <li>Ödeme tamamlandıktan sonra bize email gönderin</li>
+                                <li>Email: <strong>hello@tam-digital.com</strong></li>
+                                <li>Hesabınız 1 iş günü içerisinde Premium'a yükseltilir</li>
+                            </ol>
                         </div>
+                        
+                        <p class="payment-note">
+                            <i class="fas fa-shield-alt"></i>
+                            iyzico güvenli ödeme sistemi ile korunmaktadır
+                        </p>
                     </div>
                 </div>
                 

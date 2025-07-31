@@ -118,10 +118,13 @@ if (registerForm) {
             showRegisterMessage(`
                 <div class="success-message">
                     <h3>✅ Hesabınız Başarıyla Oluşturuldu!</h3>
-                    <p>📧 Email adresinize doğrulama linki gönderdik. Lütfen email'inizi kontrol edin ve linke tıklayın.</p>
-                    <p><strong>Email doğrulandıktan sonra yazılımı indirebilirsiniz.</strong></p>
+                    <p>📧 Email adresinize doğrulama linki gönderilmeye çalışıldı.</p>
+                    <div class="verification-options">
+                        <p><strong>Seçenek 1:</strong> Email gelirse linke tıklayın</p>
+                        <p><strong>Seçenek 2:</strong> Email gelmezse <a href="mailto:hello@tam-digital.com?subject=Email Verification&body=Merhaba, email verification işlemi için yardım istiyorum. Email: ${email}">buraya tıklayarak</a> bize yazın</p>
+                    </div>
                     <div class="verification-info">
-                        <p><i class="fas fa-info-circle"></i> Email gelmedi mi? Spam klasörünü kontrol edin.</p>
+                        <p><i class="fas fa-info-circle"></i> Email gelmedi mi? Spam klasörünü de kontrol edin.</p>
                         <button id="resendVerification" class="btn btn-secondary" style="margin-top: 10px;">
                             <i class="fas fa-redo"></i> Tekrar Gönder
                         </button>
