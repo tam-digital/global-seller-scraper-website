@@ -14,25 +14,55 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="#home">
+                <a href="index.html">
                     <i class="fas fa-globe-americas"></i>
                     <span>Global Seller Scraper</span>
                 </a>
             </div>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
-                <li><a href="index.html#features" class="nav-link">Özellikler</a></li>
+                <li><a href="index.html#why-choose" class="nav-link">Özellikler</a></li>
                 <li><a href="trial.html" class="nav-link">Ücretsiz Deneme</a></li>
                 <li><a href="index.html#pricing" class="nav-link">Fiyatlandırma</a></li>
                 <li id="guestSection">
                     <a href="login.html" class="nav-link active">Giriş Yap</a>
                 </li>
-                <li id="userSection" style="display: none;">
-                    <a href="dashboard.html" class="nav-link">Dashboard</a>
-                    <span id="userEmail" class="user-email"></span>
-                    <button id="logoutBtn" class="btn btn-secondary">
-                        <i class="fas fa-sign-out-alt"></i> Çıkış
-                    </button>
+                <li id="userSection" class="user-dropdown-container" style="display: none;">
+                    <div class="user-profile" id="userProfile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="user-name" id="userEmail"></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="user-info">
+                                <div class="user-avatar-large">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="user-details">
+                                    <span class="user-email" id="dropdownUserEmail"></span>
+                                    <span class="user-plan">Ücretsiz Plan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="dashboard.html" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="payment.html" class="dropdown-item">
+                                <i class="fas fa-crown"></i>
+                                <span>Premium'a Geç</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <button id="logoutBtn" class="dropdown-item logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Çıkış Yap</span>
+                            </button>
+                        </div>
+                    </div>
                 </li>
             </ul>
             <div class="hamburger" id="hamburger">
@@ -44,11 +74,21 @@
     </nav>
 
     <!-- Login Section -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="login-container">
+    <main class="login-main">
+        <div class="login-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+        
+        <div class="login-container">
+            <div class="login-card">
                 <div class="login-header">
-                    <h1><i class="fas fa-user-circle"></i> Giriş Yap</h1>
+                    <div class="logo-section">
+                        <i class="fas fa-globe-americas"></i>
+                        <h1>Global Seller Scraper</h1>
+                    </div>
+                    <h2>Giriş Yap</h2>
                     <p>Hesabınıza giriş yapın ve premium özelliklerden yararlanın</p>
                 </div>
 
@@ -109,54 +149,100 @@
 
                 <!-- User Dashboard -->
                 <div class="user-dashboard" id="userDashboard" style="display: none;">
-                    <div class="dashboard-header">
+                    <div class="welcome-section">
+                        <div class="welcome-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
                         <h2>👋 Hoş Geldiniz!</h2>
-                        <div class="user-info">
-                            <p><strong>Email:</strong> <span id="dashboardEmail"></span></p>
-                            <div id="dashboardPlan" class="plan-status"></div>
+                        <div class="user-details">
+                            <div class="user-email-wrapper">
+                                <i class="fas fa-envelope"></i>
+                                <span class="email-display" id="dashboardEmail"></span>
+                            </div>
+                            <div class="plan-wrapper">
+                                <div id="dashboardPlan" class="plan-status"></div>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="dashboard-actions">
-                        <a href="trial.html" class="btn btn-primary">
-                            <i class="fas fa-download"></i> Ücretsiz Hesap İndir
-                        </a>
-                        <a href="payment.html" class="btn btn-success">
-                            <i class="fas fa-crown"></i> Premium'a Geç
-                        </a>
-                        <button id="dashboardLogout" class="btn btn-secondary">
-                            <i class="fas fa-sign-out-alt"></i> Çıkış Yap
-                        </button>
+                        <div class="action-grid">
+                            <a href="trial.html" class="action-card primary">
+                                <div class="action-icon">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h4>Ücretsiz Hesap İndir</h4>
+                                    <p>Yazılımı indirin ve kullanmaya başlayın</p>
+                                </div>
+                                <div class="action-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </a>
+                            
+                            <a href="payment.html" class="action-card premium">
+                                <div class="action-icon">
+                                    <i class="fas fa-crown"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h4>Premium'a Geç</h4>
+                                    <p>Sınırsız özelliklere erişim kazanın</p>
+                                </div>
+                                <div class="action-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="logout-section">
+                            <button id="dashboardLogout" class="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Çıkış Yap</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Messages -->
-                <div id="authMessage" class="message-container"></div>
+                <div id="authMessage" class="message-container">                </div>
             </div>
         </div>
-    </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3><i class="fas fa-globe"></i> Global Seller Scraper</h3>
-                    <p>Amazon pazarlarından satıcı verilerini toplamak için profesyonel araç.</p>
+                    <div class="footer-logo">
+                        <a href="index.html">
+                            <i class="fas fa-globe-americas"></i>
+                            <span>Global Seller Scraper</span>
+                        </a>
+                    </div>
+                    <p>Amazon satıcı analizinde güvenilir çözüm ortağınız.</p>
                 </div>
+                
                 <div class="footer-section">
-                    <h4>İletişim</h4>
-                    <p><i class="fas fa-envelope"></i> hello@tam-digital.com</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Bağlantılar</h4>
+                    <h4>Hızlı Linkler</h4>
                     <ul>
-                        <li><a href="index.html">Ana Sayfa</a></li>
-                        <li><a href="trial.html">Ücretsiz Hesap</a></li>
-                        <li><a href="payment.html">Premium</a></li>
+                        <li><a href="#home">Ana Sayfa</a></li>
+                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="trial.html">Ücretsiz Deneme</a></li>
+                        <li><a href="#pricing">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Destek & İletişim</h4>
+                    <ul>
+                        <li><a href="#faq">S.S.S</a></li>
+                        <li><a href="https://www.tam-digital.com" target="_blank">Birebir Danışmanlık</a></li>
+                        <li><a href="https://instagram.com/baranozeryuce" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
                     </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
                 <p>&copy; 2024 Global Seller Scraper. Tüm hakları saklıdır.</p>
             </div>

@@ -23,25 +23,55 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="#home">
+                <a href="index.html">
                     <i class="fas fa-globe-americas"></i>
                     <span>Global Seller Scraper</span>
                 </a>
             </div>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
-                <li><a href="index.html#features" class="nav-link">Özellikler</a></li>
+                <li><a href="index.html#why-choose" class="nav-link">Özellikler</a></li>
                 <li><a href="trial.html" class="nav-link active">Ücretsiz Deneme</a></li>
                 <li><a href="index.html#pricing" class="nav-link">Fiyatlandırma</a></li>
                 <li id="guestSection">
                     <a href="login.html" class="nav-link">Giriş Yap</a>
                 </li>
-                <li id="userSection" style="display: none;">
-                    <a href="dashboard.html" class="nav-link">Dashboard</a>
-                    <span id="userEmail" class="user-email"></span>
-                    <button id="logoutBtn" class="btn btn-secondary">
-                        <i class="fas fa-sign-out-alt"></i> Çıkış
-                    </button>
+                <li id="userSection" class="user-dropdown-container" style="display: none;">
+                    <div class="user-profile" id="userProfile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="user-name" id="userEmail"></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="user-info">
+                                <div class="user-avatar-large">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="user-details">
+                                    <span class="user-email" id="dropdownUserEmail"></span>
+                                    <span class="user-plan">Ücretsiz Plan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="dashboard.html" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="payment.html" class="dropdown-item">
+                                <i class="fas fa-crown"></i>
+                                <span>Premium'a Geç</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <button id="logoutBtn" class="dropdown-item logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Çıkış Yap</span>
+                            </button>
+                        </div>
+                    </div>
                 </li>
             </ul>
             <div class="hamburger" id="hamburger">
@@ -190,8 +220,10 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <i class="fas fa-globe-americas"></i>
-                        <span>Global Seller Scraper</span>
+                        <a href="index.html">
+                            <i class="fas fa-globe-americas"></i>
+                            <span>Global Seller Scraper</span>
+                        </a>
                     </div>
                     <p>Amazon satıcı analizinde güvenilir çözüm ortağınız.</p>
                 </div>

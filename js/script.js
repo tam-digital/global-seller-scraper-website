@@ -317,6 +317,91 @@ if (heroSectionElement) {
     observer.observe(heroSectionElement);
 }
 
+// ===== ACTIVE MENU ITEM =====
+function setActiveMenuItem() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const currentHash = window.location.hash;
+    
+    // Tüm nav-link'lerden active class'ını kaldır
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Mevcut sayfaya göre active class'ı ekle
+    if (currentPage === 'index.html' || currentPage === '') {
+        // Ana sayfa için
+        if (currentHash === '#why-choose' || currentHash === '#features') {
+            // Özellikler section'ındaysa
+            document.querySelector('.nav-link[href="#why-choose"]')?.classList.add('active');
+        } else if (currentHash === '#pricing') {
+            // Fiyatlandırma section'ındaysa
+            document.querySelector('.nav-link[href="#pricing"]')?.classList.add('active');
+        } else {
+            // Ana sayfa default
+            document.querySelector('.nav-link[href="index.html"]')?.classList.add('active');
+        }
+    } else if (currentPage === 'trial.html') {
+        document.querySelector('.nav-link[href="trial.html"]')?.classList.add('active');
+    } else if (currentPage === 'payment.html') {
+        document.querySelector('.nav-link[href="payment.html"]')?.classList.add('active');
+    }
+}
+
+// ===== SECTION SCROLL DETECTION =====
+function setupSectionObserver() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    // Sadece ana sayfada çalışsın
+    if (currentPage !== 'index.html' && currentPage !== '') return;
+    
+    const sections = [
+        { id: 'home', navLink: '.nav-link[href="index.html"]' },
+        { id: 'why-choose', navLink: '.nav-link[href="#why-choose"]' },
+        { id: 'pricing', navLink: '.nav-link[href="#pricing"]' }
+    ];
+    
+    const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -60% 0px',
+        threshold: 0
+    };
+    
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Tüm nav-link'lerden active class'ını kaldır
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // İlgili section'ın nav-link'ine active class ekle
+                const section = sections.find(s => s.id === entry.target.id);
+                if (section) {
+                    const navLink = document.querySelector(section.navLink);
+                    if (navLink) {
+                        navLink.classList.add('active');
+                    }
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Section'ları observe et
+    sections.forEach(section => {
+        const element = document.getElementById(section.id);
+        if (element) {
+            sectionObserver.observe(element);
+        }
+    });
+}
+
+// Sayfa yüklendiğinde ve hash değiştiğinde active item'ı güncelle
+window.addEventListener('load', () => {
+    setActiveMenuItem();
+    setupSectionObserver();
+});
+window.addEventListener('hashchange', setActiveMenuItem);
+
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -327,6 +412,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth',
                 block: 'start'
             });
+            
+            // Smooth scroll sonrası active item'ı güncelle
+            setTimeout(() => {
+                setActiveMenuItem();
+            }, 100);
         }
     });
 });

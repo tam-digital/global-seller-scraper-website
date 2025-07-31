@@ -33,19 +33,49 @@
                 </a>
             </div>
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="#home" class="nav-link">Ana Sayfa</a></li>
-                <li><a href="#features" class="nav-link">Özellikler</a></li>
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="#why-choose" class="nav-link">Özellikler</a></li>
                 <li><a href="trial.html" class="nav-link">Ücretsiz Deneme</a></li>
                 <li><a href="#pricing" class="nav-link">Fiyatlandırma</a></li>
                 <li id="guestSection" style="display: none; opacity: 0;">
                     <a href="login.html" class="nav-link">Giriş Yap</a>
                 </li>
-                <li id="userSection" style="display: none; opacity: 0;">
-                    <a href="dashboard.html" class="nav-link">Dashboard</a>
-                    <span id="userEmail" class="user-email"></span>
-                    <button id="logoutBtn" class="btn btn-secondary">
-                        <i class="fas fa-sign-out-alt"></i> Çıkış
-                    </button>
+                <li id="userSection" class="user-dropdown-container" style="display: none; opacity: 0;">
+                    <div class="user-profile" id="userProfile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="user-name" id="userEmail"></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="user-info">
+                                <div class="user-avatar-large">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="user-details">
+                                    <span class="user-email" id="dropdownUserEmail"></span>
+                                    <span class="user-plan">Ücretsiz Plan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="dashboard.html" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="payment.html" class="dropdown-item">
+                                <i class="fas fa-crown"></i>
+                                <span>Premium'a Geç</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <button id="logoutBtn" class="dropdown-item logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Çıkış Yap</span>
+                            </button>
+                        </div>
+                    </div>
                 </li>
             </ul>
             <div class="hamburger" id="hamburger">
@@ -85,7 +115,7 @@
                         <i class="fas fa-play"></i>
                         Ücretsiz Dene
                     </a>
-                    <a href="#features" class="btn btn-outline">
+                    <a href="#why-choose" class="btn btn-outline">
                         <i class="fas fa-info-circle"></i>
                         Özellikleri İncele
                     </a>
@@ -120,63 +150,55 @@
                             <i class="fas fa-search-plus"></i>
                         </div>
                         <div class="card-stats">
-                            <span class="stat-number">3</span>
-                            <span class="stat-label">Özellik</span>
+                            <div class="stat-number">3-in-1</div>
+                            <div class="stat-label">Güçlü Araç</div>
                         </div>
                     </div>
                     <div class="card-content">
-                        <h3>Satıcı Bulucu + Tarama + ASIN Kontrol</h3>
-                        <p>Satıcıları bulun, tüm ürünlerini tarayın ve ASIN kontrolü ile filtreleyin.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 100%"></div>
-                        </div>
+                        <h3>3-in-1 Güçlü Araç</h3>
+                        <p>Satıcı bulma, ürün tarama ve ASIN kontrolü tek platformda</p>
                         <div class="feature-tags">
-                            <span class="tag">Bulucu</span>
-                            <span class="tag">Tarama</span>
-                            <span class="tag">ASIN</span>
+                            <span class="tag">Satıcı Bulucu</span>
+                            <span class="tag">Ürün Tarayıcı</span>
+                            <span class="tag">ASIN Kontrol</span>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="why-choose-card">
                     <div class="card-header">
                         <div class="card-icon">
                             <i class="fas fa-infinity"></i>
                         </div>
                         <div class="card-stats">
-                            <span class="stat-number">∞</span>
-                            <span class="stat-label">Limit</span>
+                            <div class="stat-number">Sınırsız</div>
+                            <div class="stat-label">Kullanım</div>
                         </div>
                     </div>
                     <div class="card-content">
-                        <h3>Sınırsız Analiz</h3>
-                        <p>Kota yok, sınır yok. İstediğiniz kadar satıcı ve ürün analizi yapın.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 100%"></div>
-                        </div>
+                        <h3>Sınırsız Kullanım</h3>
+                        <p>Kota veya limit yok - istediğiniz kadar analiz yapın</p>
                         <div class="feature-tags">
-                            <span class="tag">Kota Yok</span>
-                            <span class="tag">Sınırsız</span>
+                            <span class="tag">Sınırsız Satıcı</span>
+                            <span class="tag">Sınırsız Ürün</span>
+                            <span class="tag">Sınırsız Zaman</span>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="why-choose-card">
                     <div class="card-header">
                         <div class="card-icon">
                             <i class="fas fa-globe-americas"></i>
                         </div>
                         <div class="card-stats">
-                            <span class="stat-number">7</span>
-                            <span class="stat-label">Pazar</span>
+                            <div class="stat-number">7</div>
+                            <div class="stat-label">Büyük Pazar</div>
                         </div>
                     </div>
                     <div class="card-content">
-                        <h3>7 Pazar Desteği</h3>
-                        <p>CA, MX, UK, AU, SA, SG, AE - Tüm bu Amazon pazarlarında çalışır.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 100%"></div>
-                        </div>
+                        <h3>7 Büyük Amazon Pazarı</h3>
+                        <p>Tüm büyük Amazon pazarlarında çalışan küresel çözüm</p>
                         <div class="feature-tags">
                             <span class="tag">🇨🇦 CA</span>
                             <span class="tag">🇲🇽 MX</span>
@@ -188,27 +210,23 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="why-choose-card">
                     <div class="card-header">
                         <div class="card-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
                         <div class="card-stats">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">Güvenli</span>
+                            <div class="stat-number">%100</div>
+                            <div class="stat-label">Güvenli</div>
                         </div>
                     </div>
                     <div class="card-content">
-                        <h3>Güvenli Masaüstü Yazılımı</h3>
-                        <p>Bot kontrolüne karşı sayısız koruma ile güvenli ve hızlı scraping.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 100%"></div>
-                        </div>
+                        <h3>%100 Güvenli</h3>
+                        <p>Bot koruması ve proxy sistemli güvenli masaüstü yazılımı</p>
                         <div class="feature-tags">
-                            <span class="tag">Masaüstü</span>
-                            <span class="tag">Güvenli</span>
-                            <span class="tag">Hızlı</span>
+                            <span class="tag">Bot Koruması</span>
+                            <span class="tag">Proxy Sistemi</span>
                         </div>
                     </div>
                 </div>
@@ -630,8 +648,10 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <i class="fas fa-globe-americas"></i>
-                        <span>Global Seller Scraper</span>
+                        <a href="index.html">
+                            <i class="fas fa-globe-americas"></i>
+                            <span>Global Seller Scraper</span>
+                        </a>
                     </div>
                     <p>Amazon satıcı analizinde güvenilir çözüm ortağınız.</p>
                 </div>
@@ -640,7 +660,7 @@
                     <h4>Hızlı Linkler</h4>
                     <ul>
                         <li><a href="#home">Ana Sayfa</a></li>
-                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="#why-choose">Özellikler</a></li>
                         <li><a href="trial.html">Ücretsiz Deneme</a></li>
                         <li><a href="#pricing">Fiyatlandırma</a></li>
                     </ul>

@@ -65,8 +65,8 @@ function generateFingerprint() {
 auth.onAuthStateChanged(async (user) => {
     if (user) {
         console.log('Kullanıcı giriş yaptı:', user.email);
-        await showUserDashboard(user);
-        updateNavbar(user);
+        // Direkt dashboard'a yönlendir
+        window.location.href = 'dashboard.html';
     } else {
         console.log('Kullanıcı giriş yapmadı');
         showAuthForms();
@@ -105,10 +105,22 @@ function showAuthForms() {
 
 // ===== UPDATE NAVBAR =====
 function updateNavbar(user) {
-    if (user) {
+    const guestSection = document.getElementById('guestSection');
+    const userSection = document.getElementById('userSection');
+    const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+    
+    if (user && guestSection && userSection) {
+        // Kullanıcı giriş yapmış
+        guestSection.style.display = 'none';
         userSection.style.display = 'flex';
-        userEmail.textContent = user.email;
-    } else {
+        
+        // Update dropdown email
+        if (dropdownUserEmail) {
+            dropdownUserEmail.textContent = user.email;
+        }
+    } else if (guestSection && userSection) {
+        // Kullanıcı giriş yapmamış
+        guestSection.style.display = 'block';
         userSection.style.display = 'none';
     }
 }
