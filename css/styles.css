@@ -2743,22 +2743,32 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 .dashboard-header h2 {
-    color: #333;
+    color: var(--text-white);
     margin-bottom: 20px;
     font-size: 2rem;
 }
 
 .user-info {
-    background: #f8f9fa;
+    background: var(--bg-secondary);
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 30px;
+    border: 1px solid var(--border-color);
 }
 
 .user-info p {
     margin: 10px 0;
-    color: #555;
+    color: var(--text-white);
     font-size: 1.1rem;
+}
+
+.user-info p strong {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.user-info p span {
+    color: var(--text-gray);
 }
 
 .plan-status {
@@ -2768,16 +2778,19 @@ section.feature-section .feature-content.reverse .feature-visual {
     border-radius: 25px;
     display: inline-block;
     margin-top: 10px;
+    border: 1px solid var(--border-color);
 }
 
 .plan-status.premium {
-    background: linear-gradient(45deg, #ffd700, #ffed4e);
-    color: #333;
+    background: linear-gradient(45deg, var(--primary-color), #4ecdc4);
+    color: var(--bg-dark);
+    border-color: var(--primary-color);
 }
 
 .plan-status.free {
-    background: linear-gradient(45deg, #e2e8f0, #cbd5e0);
-    color: #4a5568;
+    background: var(--bg-secondary);
+    color: var(--text-gray);
+    border-color: var(--border-color);
 }
 
 .dashboard-actions {

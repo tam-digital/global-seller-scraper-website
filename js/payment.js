@@ -25,6 +25,13 @@ const userEmail = document.getElementById('userEmail');
 const logoutBtn = document.getElementById('logoutBtn');
 const authMessage = document.getElementById('authMessage');
 
+// Debug DOM elements
+console.log('🔍 DOM ELEMENTS DEBUG:');
+console.log('authForms:', authForms);
+console.log('paymentForm:', paymentForm);
+console.log('loginForm:', loginForm);
+console.log('signupForm:', signupForm);
+
 // ===== PAYMENT PAGE SPECIFIC AUTH HANDLER =====
 function handlePaymentAuth() {
     console.log('Payment page: Checking auth state...');
@@ -50,20 +57,16 @@ function handlePaymentAuth() {
     }
 }
 
-// ===== AUTH STATE LISTENER =====
-auth.onAuthStateChanged((user) => {
-    console.log('Payment page auth change:', user ? user.email : 'No user');
-    if (user) {
-        showPaymentForm(user);
-    } else {
-        showAuthForms();
-    }
-});
+// Removed duplicate auth listener - using the one at the bottom
 
 // ===== SHOW PAYMENT FORM =====
 async function showPaymentForm(user) {
-    authForms.style.display = 'none';
-    paymentForm.style.display = 'block';
+    console.log('🎯 showPaymentForm called for:', user.email);
+    console.log('🎯 authForms element:', authForms);
+    console.log('🎯 paymentForm element:', paymentForm);
+    
+    if (authForms) authForms.style.display = 'none';
+    if (paymentForm) paymentForm.style.display = 'block';
     
     // Kullanıcı bilgilerini göster
     if (userInfo) {
@@ -92,11 +95,15 @@ async function showPaymentForm(user) {
 
 // ===== SHOW AUTH FORMS =====
 function showAuthForms() {
-    authForms.style.display = 'block';
-    paymentForm.style.display = 'none';
+    console.log('🎯 showAuthForms called');
+    console.log('🎯 authForms element:', authForms);
+    console.log('🎯 paymentForm element:', paymentForm);
+    
+    if (authForms) authForms.style.display = 'block';
+    if (paymentForm) paymentForm.style.display = 'none';
     if (userInfo) userInfo.style.display = 'none';
     
-    console.log('Giriş formları gösteriliyor');
+    console.log('✅ Giriş formları gösteriliyor');
 }
 
 // ===== LOGIN FUNCTION =====
@@ -262,18 +269,27 @@ if (logoutBtn) {
     logoutBtn.addEventListener('click', logoutUser);
 }
 
-// ===== AUTH STATE LISTENER =====
+// ===== MAIN AUTH STATE LISTENER =====
 firebase.auth().onAuthStateChanged((user) => {
-    console.log('Auth state changed:', user ? user.email : 'No user');
-    if (user) {
+    console.log('🔥 PAYMENT AUTH STATE CHANGED:', user ? user.email : 'No user');
+    
+    // Hide everything first
+    const authForms = document.getElementById('authForms');
+    const paymentForm = document.getElementById('paymentForm');
+    
+    if (authForms) authForms.style.display = 'none';
+    if (paymentForm) paymentForm.style.display = 'none';
+    
+    if (user && user.emailVerified) {
+        console.log('✅ USER VERIFIED - SHOWING PAYMENT FORM');
         showPaymentForm(user);
+    } else if (user && !user.emailVerified) {
+        console.log('⚠️ USER NOT VERIFIED - SHOWING AUTH FORMS');
+        showAuthForms();
+        showMessage('Lütfen email adresinizi doğrulayın.', 'warning');
     } else {
-        // Kullanıcı giriş yapmamış - formları göster
-        const loginContainer = document.getElementById('loginContainer');
-        const signupContainer = document.getElementById('signupContainer');
-        
-        if (loginContainer) loginContainer.style.display = 'block';
-        if (signupContainer) signupContainer.style.display = 'block';
+        console.log('❌ NO USER - SHOWING AUTH FORMS');
+        showAuthForms();
     }
 });
 
