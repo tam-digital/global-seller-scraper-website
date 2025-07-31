@@ -8,8 +8,10 @@ const firebaseConfig = {
     appId: "768895134845:web:9907c4a23f57e0eb0f1514"
 };
 
-// Firebase'i başlat
-firebase.initializeApp(firebaseConfig);
+// Firebase'i başlat (eğer başlatılmamışsa)
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 const auth = firebase.auth();
 const db = firebase.firestore();
 

@@ -25,10 +25,20 @@
                     <span>Global Seller Scraper</span>
                 </a>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="nav-menu">
                 <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
-                <li><a href="trial.html" class="nav-link">Ücretsiz Hesap</a></li>
-                <li><a href="#contact" class="nav-link">İletişim</a></li>
+                <li><a href="index.html#features" class="nav-link">Özellikler</a></li>
+                <li><a href="trial.html" class="nav-link">Ücretsiz Deneme</a></li>
+                <li><a href="index.html#pricing" class="nav-link">Fiyatlandırma</a></li>
+                <li id="guestSection">
+                    <a href="login.html" class="nav-link">Giriş Yap</a>
+                </li>
+                <li id="userSection" style="display: none;">
+                    <span id="userEmail" class="user-email"></span>
+                    <button id="logoutBtn" class="btn btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i> Çıkış
+                    </button>
+                </li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span class="bar"></span>
@@ -208,6 +218,12 @@
         </div>
     </footer>
 
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <script src="js/user-management.js"></script>
     <script src="js/payment.js"></script>
 </body>
 </html> 
