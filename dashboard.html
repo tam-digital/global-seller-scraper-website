@@ -14,25 +14,27 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <i class="fas fa-globe"></i>
-                <a href="index.html">Global Seller Scraper</a>
+                <a href="index.html">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>Global Seller Scraper</span>
+                </a>
             </div>
-            <div class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link">Ana Sayfa</a>
-                <a href="index.html#features" class="nav-link">Özellikler</a>
-                <a href="trial.html" class="nav-link">Ücretsiz Deneme</a>
-                <a href="index.html#pricing" class="nav-link">Fiyatlandırma</a>
-                <div id="guestSection">
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="index.html#features" class="nav-link">Özellikler</a></li>
+                <li><a href="trial.html" class="nav-link">Ücretsiz Deneme</a></li>
+                <li><a href="index.html#pricing" class="nav-link">Fiyatlandırma</a></li>
+                <li id="guestSection">
                     <a href="login.html" class="nav-link">Giriş Yap</a>
-                </div>
-                <div id="userSection" style="display: none;">
+                </li>
+                <li id="userSection" style="display: none;">
                     <a href="dashboard.html" class="nav-link active">Dashboard</a>
                     <span id="userEmail" class="user-email"></span>
                     <button id="logoutBtn" class="btn btn-secondary">
                         <i class="fas fa-sign-out-alt"></i> Çıkış
                     </button>
-                </div>
-            </div>
+                </li>
+            </ul>
             <div class="hamburger" id="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -42,7 +44,7 @@
     </nav>
 
     <!-- Dashboard Section -->
-    <section class="dashboard-section">
+    <section class="hero-section dashboard-section">
         <div class="container">
             <!-- Loading State -->
             <div class="loading-state" id="loadingState">
