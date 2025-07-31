@@ -2740,6 +2740,11 @@ section.feature-section .feature-content.reverse .feature-visual {
 
 .user-dashboard {
     text-align: center;
+    background: var(--bg-secondary);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .dashboard-header h2 {
@@ -2749,11 +2754,13 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 .user-info {
-    background: var(--bg-secondary);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
+    background: var(--panel-dark);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 0;
     border: 1px solid var(--border-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
 }
 
 .user-info p {
@@ -2772,13 +2779,14 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 .plan-status {
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: 10px 15px;
-    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 15px;
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 15px;
     border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .plan-status.premium {
@@ -2798,6 +2806,7 @@ section.feature-section .feature-content.reverse .feature-visual {
     gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 30px;
 }
 
 .dashboard-actions .btn {
@@ -2925,7 +2934,7 @@ section.feature-section .feature-content.reverse .feature-visual {
 
 /* ===== DASHBOARD STYLES ===== */
 .dashboard-section {
-    padding: 120px 0;
+    padding: 480px 0;
     min-height: calc(100vh - 80px);
 }
 

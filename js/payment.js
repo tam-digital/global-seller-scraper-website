@@ -1,17 +1,5 @@
 // ===== FIREBASE CONFIGURATION =====
-const firebaseConfig = {
-    apiKey: "AIzaSyCPJay7-9xPVVXh-0FzKsaMw6LxmmLjvws",
-    authDomain: "globalsellerscraper.firebaseapp.com",
-    projectId: "globalsellerscraper",
-    storageBucket: "globalsellerscraper.appspot.com",
-    messagingSenderId: "768895134845",
-    appId: "768895134845:web:9907c4a23f57e0eb0f1514"
-};
-
-// Firebase'i başlat (eğer başlatılmamışsa)
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
+// Firebase already initialized by user-management.js
 const auth = firebase.auth();
 const db = firebase.firestore();
 
@@ -27,10 +15,10 @@ const authMessage = document.getElementById('authMessage');
 
 // Debug DOM elements
 console.log('🔍 DOM ELEMENTS DEBUG:');
-console.log('authForms:', authForms);
-console.log('paymentForm:', paymentForm);
-console.log('loginForm:', loginForm);
-console.log('signupForm:', signupForm);
+console.log('authForms:', authForms ? '✅ Found' : '❌ Not found');
+console.log('paymentForm:', paymentForm ? '✅ Found' : '❌ Not found');
+console.log('loginForm:', loginForm ? '✅ Found' : '❌ Not found');
+console.log('signupForm:', signupForm ? '✅ Found' : '❌ Not found');
 
 // ===== PAYMENT PAGE SPECIFIC AUTH HANDLER =====
 function handlePaymentAuth() {
@@ -273,24 +261,27 @@ if (logoutBtn) {
 firebase.auth().onAuthStateChanged((user) => {
     console.log('🔥 PAYMENT AUTH STATE CHANGED:', user ? user.email : 'No user');
     
-    // Hide everything first
-    const authForms = document.getElementById('authForms');
-    const paymentForm = document.getElementById('paymentForm');
-    
-    if (authForms) authForms.style.display = 'none';
-    if (paymentForm) paymentForm.style.display = 'none';
-    
-    if (user && user.emailVerified) {
-        console.log('✅ USER VERIFIED - SHOWING PAYMENT FORM');
-        showPaymentForm(user);
-    } else if (user && !user.emailVerified) {
-        console.log('⚠️ USER NOT VERIFIED - SHOWING AUTH FORMS');
-        showAuthForms();
-        showMessage('Lütfen email adresinizi doğrulayın.', 'warning');
-    } else {
-        console.log('❌ NO USER - SHOWING AUTH FORMS');
-        showAuthForms();
-    }
+    // Wait a bit for DOM to be fully ready
+    setTimeout(() => {
+        // Hide everything first
+        const authForms = document.getElementById('authForms');
+        const paymentForm = document.getElementById('paymentForm');
+        
+        console.log('🔍 DOM check - authForms:', authForms ? '✅' : '❌');
+        console.log('🔍 DOM check - paymentForm:', paymentForm ? '✅' : '❌');
+        
+        if (authForms) authForms.style.display = 'none';
+        if (paymentForm) paymentForm.style.display = 'none';
+        
+        if (user) {
+            console.log('✅ USER FOUND - SHOWING PAYMENT FORM');
+            console.log('📧 Email verified:', user.emailVerified);
+            showPaymentForm(user);
+        } else {
+            console.log('❌ NO USER - SHOWING AUTH FORMS');
+            showAuthForms();
+        }
+    }, 100);
 });
 
 // ===== PAGE LOAD INITIALIZE =====
@@ -302,7 +293,17 @@ document.addEventListener('DOMContentLoaded', () => {
 // Window load için de backup
 window.addEventListener('load', () => {
     console.log('Payment page window loaded');
-    setTimeout(handlePaymentAuth, 200);
+    setTimeout(() => {
+        console.log('🔄 Manual check after window load...');
+        const currentUser = firebase.auth().currentUser;
+        if (currentUser) {
+            console.log('🎯 Manual check found user:', currentUser.email);
+            showPaymentForm(currentUser);
+        } else {
+            console.log('🎯 Manual check - no user found');
+            showAuthForms();
+        }
+    }, 500);
 });
 
 console.log('Payment.js yüklendi'); 
