@@ -156,10 +156,44 @@ async function loginUser() {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
         const user = userCredential.user;
 
+        // Hardware fingerprint kontrolü
+        try {
+            showMessage('🔍 Cihaz kontrolü yapılıyor...', 'info');
+            const fingerprint = generateFingerprint();
+            
+            const fingerprintDoc = await db.collection('hardware_fingerprints').doc(fingerprint).get();
+            
+            if (fingerprintDoc.exists) {
+                const fingerprintData = fingerprintDoc.data();
+                
+                if (fingerprintData.user_id !== user.uid) {
+                    showMessage('⚠️ Bu cihazda zaten başka bir hesap kullanılıyor. Güvenlik nedeniyle aynı cihazda birden fazla hesap kullanamazsınız.', 'warning');
+                    await auth.signOut();
+                    return;
+                }
+            } else {
+                showMessage('📱 Yeni cihaz kaydediliyor...', 'info');
+                await db.collection('hardware_fingerprints').doc(fingerprint).set({
+                    user_id: user.uid,
+                    email: user.email,
+                    created_at: firebase.firestore.FieldValue.serverTimestamp(),
+                    last_used: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            }
+            
+        } catch (fingerprintError) {
+            console.error('❌ Hardware fingerprint kontrol hatası:', fingerprintError);
+            showMessage('⚠️ Cihaz kontrolünde sorun oluştu ama giriş devam ediyor...', 'warning');
+        }
+
         // Firestore'da last_login güncelle
-        await db.collection('users').doc(user.uid).update({
-            last_login: firebase.firestore.FieldValue.serverTimestamp()
-        });
+        try {
+            await db.collection('users').doc(user.uid).update({
+                last_login: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        } catch (updateError) {
+            console.log('⚠️ Last login güncellenemedi:', updateError.message);
+        }
 
         showMessage('✅ Başarıyla giriş yaptınız!', 'success');
         
