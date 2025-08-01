@@ -153,7 +153,18 @@ async function loginUser() {
     try {
         showMessage('Giriş yapılıyor...', 'info');
         
-        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        console.log('🔐 Firebase authentication başlatılıyor...');
+        showMessage('🔐 Firebase bağlantısı kuruluyor...', 'info');
+        
+        // Timeout ile Firebase authentication
+        const authPromise = auth.signInWithEmailAndPassword(email, password);
+        const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Bağlantı zaman aşımı')), 10000)
+        );
+        
+        const userCredential = await Promise.race([authPromise, timeoutPromise]);
+        console.log('✅ Firebase authentication başarılı');
+        showMessage('✅ Firebase bağlantısı başarılı!', 'success');
         const user = userCredential.user;
 
         // Hardware fingerprint kontrolü
@@ -170,6 +181,8 @@ async function loginUser() {
                     showMessage('⚠️ Bu cihazda zaten başka bir hesap kullanılıyor. Güvenlik nedeniyle aynı cihazda birden fazla hesap kullanamazsınız.', 'warning');
                     await auth.signOut();
                     return;
+                } else {
+                    showMessage('✅ Cihaz doğrulandı!', 'success');
                 }
             } else {
                 showMessage('📱 Yeni cihaz kaydediliyor...', 'info');
@@ -179,11 +192,14 @@ async function loginUser() {
                     created_at: firebase.firestore.FieldValue.serverTimestamp(),
                     last_used: firebase.firestore.FieldValue.serverTimestamp()
                 });
+                showMessage('✅ Yeni cihaz kaydedildi!', 'success');
             }
             
         } catch (fingerprintError) {
             console.error('❌ Hardware fingerprint kontrol hatası:', fingerprintError);
             showMessage('⚠️ Cihaz kontrolünde sorun oluştu ama giriş devam ediyor...', 'warning');
+            // Hata durumunda 3 saniye bekle ve devam et
+            await new Promise(resolve => setTimeout(resolve, 3000));
         }
 
         // Firestore'da last_login güncelle
@@ -198,7 +214,10 @@ async function loginUser() {
         showMessage('✅ Başarıyla giriş yaptınız!', 'success');
         
     } catch (error) {
-        console.error('Giriş hatası:', error);
+        console.error('❌ Giriş hatası:', error);
+        console.error('❌ Hata kodu:', error.code);
+        console.error('❌ Hata mesajı:', error.message);
+        
         let errorMessage = 'Giriş yapılırken hata oluştu!';
         
         switch (error.code) {
@@ -214,6 +233,18 @@ async function loginUser() {
             case 'auth/user-disabled':
                 errorMessage = 'Bu hesap devre dışı bırakılmış!';
                 break;
+            case 'auth/network-request-failed':
+                errorMessage = 'İnternet bağlantısı sorunu! Lütfen bağlantınızı kontrol edin.';
+                break;
+            case 'auth/too-many-requests':
+                errorMessage = 'Çok fazla deneme yaptınız! Lütfen biraz bekleyin.';
+                break;
+            default:
+                if (error.message === 'Bağlantı zaman aşımı') {
+                    errorMessage = 'Bağlantı zaman aşımı! Lütfen internet bağlantınızı kontrol edin.';
+                } else {
+                    errorMessage = `Giriş hatası: ${error.message}`;
+                }
         }
         
         showMessage(errorMessage, 'error');
