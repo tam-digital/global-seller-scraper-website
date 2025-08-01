@@ -141,7 +141,13 @@ if (registerForm) {
             }
             
             // Hardware fingerprint kontrolü
-            await checkHardwareFingerprint(fingerprint, userCredential.user.uid);
+            try {
+                await checkHardwareFingerprint(fingerprint, userCredential.user.uid);
+                console.log('✅ Hardware fingerprint kontrolü başarılı');
+            } catch (fingerprintError) {
+                console.error('❌ Hardware fingerprint hatası:', fingerprintError);
+                // Hardware fingerprint hatası olsa bile devam et
+            }
             
             showRegisterMessage(`
                 <div class="success-message">
@@ -421,6 +427,63 @@ async function testFirebaseAuth() {
         
     } catch (error) {
         console.error('❌ Firebase Auth test hatası:', error);
+    }
+}
+
+// ===== MANUAL EMAIL VERIFICATION UPDATE =====
+async function checkAndUpdateEmailVerification() {
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        console.log('👤 Kullanıcı bulunamadı, email verification kontrol edilemiyor');
+        return;
+    }
+    
+    try {
+        console.log('🔄 Email verification durumu manuel kontrol ediliyor...');
+        console.log('📧 User email:', user.email);
+        console.log('📧 User UID:', user.uid);
+        
+        // Kullanıcı bilgilerini yenile
+        await user.reload();
+        console.log('📧 Email verified (reload sonrası):', user.emailVerified);
+        
+        if (user.emailVerified) {
+            console.log('✅ Email doğrulanmış, Firestore güncelleniyor...');
+            
+            // Firestore'da email_verified'i güncelle
+            try {
+                await firebase.firestore().collection('users').doc(user.uid).update({
+                    email_verified: true,
+                    is_verified: true,
+                    email_verification_completed: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                console.log('✅ Firestore\'da email_verified ve is_verified güncellendi');
+                
+                // Başarı mesajı göster
+                showRegisterMessage(`
+                    <div class="success-message">
+                        <h3>✅ Email Adresiniz Başarıyla Doğrulandı!</h3>
+                        <p>Artık yazılımı indirip giriş yapabilirsiniz.</p>
+                        <div class="download-section">
+                            <a href="#" class="btn btn-primary">
+                                <i class="fas fa-download"></i>
+                                Yazılımı İndir
+                            </a>
+                        </div>
+                    </div>
+                `, 'success');
+                
+            } catch (firestoreError) {
+                console.error('❌ Firestore güncelleme hatası:', firestoreError);
+                console.error('❌ Hata kodu:', firestoreError.code);
+                console.error('❌ Hata mesajı:', firestoreError.message);
+            }
+        } else {
+            console.log('⚠️ Email henüz doğrulanmamış');
+        }
+        
+    } catch (error) {
+        console.error('❌ Email verification kontrol hatası:', error);
     }
 }
 
@@ -1078,6 +1141,11 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 checkEmailVerificationStatusRealTime();
             }, 2000);
+            
+            // Email verification sonrası manuel kontrol
+            setTimeout(() => {
+                checkAndUpdateEmailVerification();
+            }, 5000);
             
             // Test Firebase Auth
             testFirebaseAuth();

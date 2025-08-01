@@ -229,11 +229,14 @@ auth.onAuthStateChanged(async (user) => {
                 
                 // Last login güncelle (opsiyonel)
                 try {
+                    console.log('💾 Last login güncelleniyor...');
                     await db.collection('users').doc(user.uid).update({
                         last_login: firebase.firestore.FieldValue.serverTimestamp()
                     });
+                    console.log('✅ Last login güncellendi');
                 } catch (updateError) {
                     console.log('⚠️ Last login güncellenemedi:', updateError.message);
+                    console.log('⚠️ Bu normal bir durum, kullanıcı dokümanı henüz oluşturulmamış olabilir');
                 }
                 
             } catch (firestoreError) {
