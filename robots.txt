@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tam-digital.github.io/global-seller-scraper-website/sitemap.xml
+
+# Disallow login page from indexing (security)
+Disallow: /login.html
+Disallow: /dashboard.html 
