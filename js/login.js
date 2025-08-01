@@ -217,7 +217,7 @@ async function registerUser() {
         
         try {
             const actionCodeSettings = {
-                url: 'https://tam-digital.github.io/global-seller-scraper-website/trial.html?verified=true',
+                url: 'https://tam-digital.github.io/global-seller-scraper-website/verified.html',
                 handleCodeInApp: false
             };
             

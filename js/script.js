@@ -74,9 +74,11 @@ if (registerForm) {
             
             try {
                 const actionCodeSettings = {
-                    url: 'https://tam-digital.github.io/global-seller-scraper-website/trial.html?verified=true',
+                    url: 'https://tam-digital.github.io/global-seller-scraper-website/verified.html',
                     handleCodeInApp: false
                 };
+                
+                console.log('📧 Action URL ayarlandı:', actionCodeSettings.url);
                 
                 console.log('📧 Action URL:', actionCodeSettings.url);
                 
@@ -168,7 +170,7 @@ if (registerForm) {
                 resendBtn.addEventListener('click', async () => {
                     try {
                         await userCredential.user.sendEmailVerification({
-                            url: 'https://tam-digital.github.io/global-seller-scraper-website/trial.html?verified=true',
+                            url: 'https://tam-digital.github.io/global-seller-scraper-website/verified.html',
                             handleCodeInApp: false
                         });
                         showRegisterMessage('✅ Doğrulama emaili tekrar gönderildi!', 'success');
