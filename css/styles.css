@@ -5044,6 +5044,11 @@ section.feature-section .feature-content.reverse .feature-visual {
     box-shadow: 0 5px 20px rgba(226, 232, 240, 0.3);
 }
 
+.support-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
 .modal {
     position: fixed;
     top: 0;
