@@ -216,20 +216,33 @@ auth.onAuthStateChanged(async (user) => {
             console.log('👤 Kullanıcı giriş yapmış:', user.email);
             
             // Firestore'dan kullanıcı verilerini çek
-            const userDoc = await db.collection('users').doc(user.uid).get();
-            if (userDoc.exists) {
-                currentUserData = { uid: user.uid, ...userDoc.data() };
-                console.log('📊 Kullanıcı verileri yüklendi:', currentUserData);
-            } else {
-                // Eğer kullanıcı verisi yoksa default değerler ile oluştur
+            try {
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists) {
+                    currentUserData = { uid: user.uid, ...userDoc.data() };
+                    console.log('📊 Kullanıcı verileri yüklendi:', currentUserData);
+                } else {
+                    // Eğer kullanıcı verisi yoksa default değerler ile oluştur
+                    console.log('⚠️ Kullanıcı verisi Firestore\'da bulunamadı, default değerler kullanılıyor');
+                    currentUserData = { uid: user.uid, plan: 'Free Plan', email: user.email };
+                }
+                
+                // Last login güncelle (opsiyonel)
+                try {
+                    await db.collection('users').doc(user.uid).update({
+                        last_login: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                } catch (updateError) {
+                    console.log('⚠️ Last login güncellenemedi:', updateError.message);
+                }
+                
+            } catch (firestoreError) {
+                console.error('❌ Firestore veri çekme hatası:', firestoreError);
+                // Firestore hatası olsa bile navbar'ı güncelle
                 currentUserData = { uid: user.uid, plan: 'Free Plan', email: user.email };
             }
             
-            // Last login güncelle
-            await db.collection('users').doc(user.uid).update({
-                last_login: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            
+            // Her durumda navbar'ı güncelle
             updateNavbar(user);
             
         } else {
@@ -240,9 +253,11 @@ auth.onAuthStateChanged(async (user) => {
         }
     } catch (error) {
         console.error('❌ Auth state işleme hatası:', error);
-        // Hata durumunda kullanıcı giriş yapmışsa navbar'ı güncelleme, sadece log yaz
+        // Hata durumunda bile navbar'ı güncelle
         if (user) {
-            console.log('⚠️ Firestore hatası ama kullanıcı giriş yapmış, navbar güncellenmedi');
+            console.log('⚠️ Genel hata ama kullanıcı giriş yapmış, navbar güncelleniyor');
+            currentUserData = { uid: user.uid, plan: 'Free Plan', email: user.email };
+            updateNavbar(user);
         } else {
             updateNavbar(null);
         }

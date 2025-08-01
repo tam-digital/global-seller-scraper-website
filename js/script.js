@@ -69,15 +69,31 @@ if (registerForm) {
             
             // Email verification gönder
             console.log('📧 Email verification gönderiliyor...');
+            console.log('📧 Kullanıcı email:', userCredential.user.email);
+            console.log('📧 Kullanıcı UID:', userCredential.user.uid);
+            
             try {
-                await userCredential.user.sendEmailVerification({
-                    url: window.location.origin + '/trial.html?verified=true',
+                const actionCodeSettings = {
+                    url: 'https://tam-digital.github.io/global-seller-scraper-website/trial.html?verified=true',
                     handleCodeInApp: false
-                });
+                };
+                
+                console.log('📧 Action URL:', actionCodeSettings.url);
+                
+                await userCredential.user.sendEmailVerification(actionCodeSettings);
                 console.log('✅ Email verification başarıyla gönderildi');
+                
+                // Email verification durumunu kontrol et
+                console.log('📧 Email verification durumu:', userCredential.user.emailVerified);
+                
             } catch (emailError) {
                 console.error('❌ Email verification gönderilemedi:', emailError);
+                console.error('❌ Hata kodu:', emailError.code);
+                console.error('❌ Hata mesajı:', emailError.message);
+                
                 // Email gönderilemese bile kullanıcı oluşturmaya devam et
+                // Ama kullanıcıya bilgi ver
+                console.log('⚠️ Email gönderilemedi ama kullanıcı oluşturuldu');
             }
             
             // Firestore'a kullanıcı verilerini kaydet
@@ -128,14 +144,18 @@ if (registerForm) {
                             <li>Analiz başlatabilirsiniz</li>
                         </ul>
                     </div>
-                    <div class="verification-info">
-                        <button id="resendVerification" class="btn btn-secondary" style="margin-top: 10px;">
-                            <i class="fas fa-redo"></i> Email Tekrar Gönder
-                        </button>
-                        <a href="mailto:hello@tam-digital.com?subject=Email Verification&body=Merhaba, email verification işlemi için yardım istiyorum. Email: ${email}" class="btn btn-outline" style="margin-top: 10px; margin-left: 10px;">
-                            <i class="fas fa-envelope"></i> Yardım İste
-                        </a>
-                    </div>
+                                    <div class="verification-info">
+                    <button id="resendVerification" class="btn btn-secondary" style="margin-top: 10px;">
+                        <i class="fas fa-redo"></i> Email Tekrar Gönder
+                    </button>
+                    <a href="mailto:hello@tam-digital.com?subject=Email Verification&body=Merhaba, email verification işlemi için yardım istiyorum. Email: ${email}" class="btn btn-outline" style="margin-top: 10px; margin-left: 10px;">
+                        <i class="fas fa-envelope"></i> Yardım İste
+                    </a>
+                    <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+                        <i class="fas fa-info-circle"></i> 
+                        <strong>Not:</strong> Email doğrulama linkine tıkladıktan sonra GitHub Pages'e yönlendirileceksiniz.
+                    </p>
+                </div>
                 </div>
             `, 'success');
             
@@ -148,7 +168,7 @@ if (registerForm) {
                 resendBtn.addEventListener('click', async () => {
                     try {
                         await userCredential.user.sendEmailVerification({
-                            url: window.location.origin + '/trial.html?verified=true',
+                            url: 'https://tam-digital.github.io/global-seller-scraper-website/trial.html?verified=true',
                             handleCodeInApp: false
                         });
                         showRegisterMessage('✅ Doğrulama emaili tekrar gönderildi!', 'success');
@@ -196,6 +216,180 @@ function checkEmailVerificationStatus() {
                 </div>
             </div>
         `, 'success');
+    }
+    
+    // Firebase action URL'lerini de kontrol et
+    const actionCode = urlParams.get('oobCode');
+    const mode = urlParams.get('mode');
+    
+    if (actionCode && mode === 'verifyEmail') {
+        console.log('📧 Firebase email verification action detected');
+        console.log('📧 Action code:', actionCode);
+        console.log('📧 Mode:', mode);
+        console.log('📧 Current URL:', window.location.href);
+        
+        // Firebase action'ı handle et
+        handleEmailVerification(actionCode);
+    }
+    
+    // GitHub Pages URL kontrolü
+    if (window.location.hostname === 'tam-digital.github.io') {
+        console.log('🌐 GitHub Pages\'de çalışıyor');
+    }
+}
+
+// ===== FIREBASE EMAIL VERIFICATION HANDLER =====
+async function handleEmailVerification(actionCode) {
+    try {
+        console.log('🔄 Email verification işleniyor...');
+        
+        // Firebase action'ı apply et
+        await firebase.auth().applyActionCode(actionCode);
+        console.log('✅ Email verification başarıyla tamamlandı');
+        
+        // Kullanıcı bilgilerini yenile
+        const user = firebase.auth().currentUser;
+        if (user) {
+            await user.reload();
+            console.log('📧 Email verified:', user.emailVerified);
+            
+            if (user.emailVerified) {
+                showRegisterMessage(`
+                    <div class="success-message">
+                        <h3>✅ Email Adresiniz Başarıyla Doğrulandı!</h3>
+                        <p>Artık yazılımı indirip giriş yapabilirsiniz.</p>
+                        <div class="download-section">
+                            <a href="#" class="btn btn-primary">
+                                <i class="fas fa-download"></i>
+                                Yazılımı İndir
+                            </a>
+                        </div>
+                    </div>
+                `, 'success');
+                
+                // Firestore'da da güncelle
+                try {
+                    await firebase.firestore().collection('users').doc(user.uid).update({
+                        email_verified: true,
+                        email_verification_completed: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    console.log('✅ Firestore\'da email_verified güncellendi');
+                } catch (firestoreError) {
+                    console.error('❌ Firestore güncelleme hatası:', firestoreError);
+                }
+            }
+        }
+        
+    } catch (error) {
+        console.error('❌ Email verification hatası:', error);
+        showRegisterMessage(`
+            <div class="error-message">
+                <h3>❌ Email Doğrulama Hatası</h3>
+                <p>Email doğrulama işlemi başarısız oldu. Lütfen tekrar deneyin.</p>
+                <p>Hata: ${error.message}</p>
+            </div>
+        `, 'error');
+    }
+}
+
+// ===== EMAIL VERIFICATION STATUS CHECK =====
+async function checkEmailVerificationStatusRealTime() {
+    const user = firebase.auth().currentUser;
+    if (user) {
+        try {
+            // Kullanıcı bilgilerini yenile
+            await user.reload();
+            console.log('📧 Email verification durumu kontrol ediliyor...');
+            console.log('📧 Email verified:', user.emailVerified);
+            console.log('📧 Email:', user.email);
+            
+            if (user.emailVerified) {
+                console.log('✅ Email doğrulandı!');
+                showRegisterMessage(`
+                    <div class="success-message">
+                        <h3>✅ Email Adresiniz Doğrulandı!</h3>
+                        <p>Artık yazılımı indirip giriş yapabilirsiniz.</p>
+                        <div class="download-section">
+                            <a href="#" class="btn btn-primary">
+                                <i class="fas fa-download"></i>
+                                Yazılımı İndir
+                            </a>
+                        </div>
+                    </div>
+                `, 'success');
+                
+                // Firestore'da da email_verified'i güncelle
+                try {
+                    await firebase.firestore().collection('users').doc(user.uid).update({
+                        email_verified: true,
+                        email_verification_completed: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    console.log('✅ Firestore\'da email_verified güncellendi');
+                } catch (firestoreError) {
+                    console.error('❌ Firestore güncelleme hatası:', firestoreError);
+                }
+                
+            } else {
+                console.log('📧 Email henüz doğrulanmamış');
+                
+                // Manuel kontrol butonu ekle
+                const manualCheckBtn = document.createElement('button');
+                manualCheckBtn.textContent = 'Email Durumunu Kontrol Et';
+                manualCheckBtn.className = 'btn btn-secondary';
+                manualCheckBtn.style.marginTop = '10px';
+                manualCheckBtn.onclick = () => {
+                    user.reload().then(() => {
+                        console.log('🔄 Kullanıcı yeniden yüklendi');
+                        console.log('📧 Email verified:', user.emailVerified);
+                        if (user.emailVerified) {
+                            location.reload();
+                        } else {
+                            alert('Email henüz doğrulanmamış. Spam klasörünü kontrol edin.');
+                        }
+                    });
+                };
+                
+                // Eğer register message varsa butonu ekle
+                const registerMessage = document.getElementById('registerMessage');
+                if (registerMessage && !registerMessage.querySelector('.btn-secondary')) {
+                    registerMessage.appendChild(manualCheckBtn);
+                }
+            }
+        } catch (error) {
+            console.error('❌ Email verification durumu kontrol edilemedi:', error);
+        }
+    }
+}
+
+// ===== FIREBASE AUTH TEST =====
+async function testFirebaseAuth() {
+    console.log('🔧 Firebase Auth test ediliyor...');
+    
+    try {
+        // Firebase Auth durumunu kontrol et
+        const auth = firebase.auth();
+        console.log('✅ Firebase Auth başlatıldı');
+        
+        // Mevcut kullanıcıyı kontrol et
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+            console.log('👤 Mevcut kullanıcı:', currentUser.email);
+            console.log('📧 Email verified:', currentUser.emailVerified);
+        } else {
+            console.log('👤 Mevcut kullanıcı yok');
+        }
+        
+        // Auth state listener'ı test et
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log('🔄 Auth state changed - Kullanıcı giriş yaptı:', user.email);
+            } else {
+                console.log('🔄 Auth state changed - Kullanıcı çıkış yaptı');
+            }
+        });
+        
+    } catch (error) {
+        console.error('❌ Firebase Auth test hatası:', error);
     }
 }
 
@@ -840,9 +1034,20 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Nav menu:', navMenu);
     }
     
-    // Set active menu item
-    setActiveMenuItem();
-    
-    // Setup section observer
-    setupSectionObserver();
+                // Set active menu item
+            setActiveMenuItem();
+            
+            // Setup section observer
+            setupSectionObserver();
+            
+            // Check email verification status
+            checkEmailVerificationStatus();
+            
+            // Check real-time email verification status
+            setTimeout(() => {
+                checkEmailVerificationStatusRealTime();
+            }, 2000);
+            
+            // Test Firebase Auth
+            testFirebaseAuth();
 }); 

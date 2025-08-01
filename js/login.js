@@ -212,15 +212,31 @@ async function registerUser() {
 
         // Email verification gönder
         console.log('📧 Email verification gönderiliyor...');
+        console.log('📧 Kullanıcı email:', user.email);
+        console.log('📧 Kullanıcı UID:', user.uid);
+        
         try {
-            await user.sendEmailVerification({
-                url: window.location.origin + '/trial.html?verified=true',
+            const actionCodeSettings = {
+                url: 'https://tam-digital.github.io/global-seller-scraper-website/trial.html?verified=true',
                 handleCodeInApp: false
-            });
+            };
+            
+            console.log('📧 Action URL:', actionCodeSettings.url);
+            
+            await user.sendEmailVerification(actionCodeSettings);
             console.log('✅ Email verification başarıyla gönderildi');
+            
+            // Email verification durumunu kontrol et
+            console.log('📧 Email verification durumu:', user.emailVerified);
+            
         } catch (emailError) {
             console.error('❌ Email verification gönderilemedi:', emailError);
+            console.error('❌ Hata kodu:', emailError.code);
+            console.error('❌ Hata mesajı:', emailError.message);
+            
             // Email gönderilemese bile kullanıcı oluşturmaya devam et
+            // Ama kullanıcıya bilgi ver
+            console.log('⚠️ Email gönderilemedi ama kullanıcı oluşturuldu');
         }
 
         // Firestore'a kullanıcı verilerini kaydet
@@ -272,6 +288,10 @@ async function registerUser() {
                     <a href="mailto:hello@tam-digital.com?subject=Email Verification&body=Merhaba, email verification işlemi için yardım istiyorum. Email: ${email}" class="btn btn-outline" style="margin-top: 10px;">
                         <i class="fas fa-envelope"></i> Yardım İste
                     </a>
+                    <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+                        <i class="fas fa-info-circle"></i> 
+                        <strong>Not:</strong> Email doğrulama linkine tıkladıktan sonra GitHub Pages'e yönlendirileceksiniz.
+                    </p>
                 </div>
             </div>
         `, 'success');
