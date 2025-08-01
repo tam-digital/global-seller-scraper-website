@@ -240,31 +240,46 @@ async function registerUser() {
         }
 
         // Firestore'a kullanıcı verilerini kaydet
-        await db.collection('users').doc(user.uid).set({
-            email: email,
-            name: name,
-            company: company || '',
-            hardware_fingerprint: fingerprint,
-            trial_status: "free",
-            created_at: firebase.firestore.FieldValue.serverTimestamp(),
-            last_login: firebase.firestore.FieldValue.serverTimestamp(),
-            email_verified: false,
-            email_verification_sent: firebase.firestore.FieldValue.serverTimestamp(),
-            monthly_usage: {
-                asin_scans: 0,
-                product_scans: 0,
-                seller_searches: 0
-            },
-            limits: {
-                asin_scans: 10000,
-                product_scans: 10000,
-                seller_searches: 0
-            },
-            abuse_score: 0,
-            is_verified: false,
-            is_active: true,
-            is_admin: false
-        });
+        try {
+            console.log('💾 Firestore\'a kullanıcı verileri kaydediliyor...');
+            console.log('💾 User UID:', user.uid);
+            
+            await db.collection('users').doc(user.uid).set({
+                email: email,
+                name: name,
+                company: company || '',
+                hardware_fingerprint: fingerprint,
+                trial_status: "free",
+                created_at: firebase.firestore.FieldValue.serverTimestamp(),
+                last_login: firebase.firestore.FieldValue.serverTimestamp(),
+                email_verified: false,
+                email_verification_sent: firebase.firestore.FieldValue.serverTimestamp(),
+                monthly_usage: {
+                    asin_scans: 0,
+                    product_scans: 0,
+                    seller_searches: 0
+                },
+                limits: {
+                    asin_scans: 10000,
+                    product_scans: 10000,
+                    seller_searches: 0
+                },
+                abuse_score: 0,
+                is_verified: false,
+                is_active: true,
+                is_admin: false
+            });
+            
+            console.log('✅ Firestore\'a kullanıcı verileri başarıyla kaydedildi');
+            
+        } catch (firestoreError) {
+            console.error('❌ Firestore kaydetme hatası:', firestoreError);
+            console.error('❌ Hata kodu:', firestoreError.code);
+            console.error('❌ Hata mesajı:', firestoreError.message);
+            
+            // Firestore hatası olsa bile kullanıcı oluşturmaya devam et
+            console.log('⚠️ Firestore hatası ama kullanıcı oluşturuldu');
+        }
 
         showMessage(`
             <div class="success-message">

@@ -99,31 +99,46 @@ if (registerForm) {
             }
             
             // Firestore'a kullanıcı verilerini kaydet
-            await firebase.firestore().collection('users').doc(userCredential.user.uid).set({
-                email: email,
-                name: name,
-                company: company || '',
-                hardware_fingerprint: fingerprint,
-                trial_status: "free",
-                created_at: firebase.firestore.FieldValue.serverTimestamp(),
-                last_login: firebase.firestore.FieldValue.serverTimestamp(),
-                email_verified: false,
-                email_verification_sent: firebase.firestore.FieldValue.serverTimestamp(),
-                monthly_usage: { 
-                    asin_scans: 0, 
-                    product_scans: 0, 
-                    seller_searches: 0 
-                },
-                limits: { 
-                    asin_scans: 10000, 
-                    product_scans: 10000, 
-                    seller_searches: 0 
-                },
-                abuse_score: 0,
-                is_verified: false,
-                is_active: true,
-                is_admin: false
-            });
+            try {
+                console.log('💾 Firestore\'a kullanıcı verileri kaydediliyor...');
+                console.log('💾 User UID:', userCredential.user.uid);
+                
+                await firebase.firestore().collection('users').doc(userCredential.user.uid).set({
+                    email: email,
+                    name: name,
+                    company: company || '',
+                    hardware_fingerprint: fingerprint,
+                    trial_status: "free",
+                    created_at: firebase.firestore.FieldValue.serverTimestamp(),
+                    last_login: firebase.firestore.FieldValue.serverTimestamp(),
+                    email_verified: false,
+                    email_verification_sent: firebase.firestore.FieldValue.serverTimestamp(),
+                    monthly_usage: { 
+                        asin_scans: 0, 
+                        product_scans: 0, 
+                        seller_searches: 0 
+                    },
+                    limits: { 
+                        asin_scans: 10000, 
+                        product_scans: 10000, 
+                        seller_searches: 0 
+                    },
+                    abuse_score: 0,
+                    is_verified: false,
+                    is_active: true,
+                    is_admin: false
+                });
+                
+                console.log('✅ Firestore\'a kullanıcı verileri başarıyla kaydedildi');
+                
+            } catch (firestoreError) {
+                console.error('❌ Firestore kaydetme hatası:', firestoreError);
+                console.error('❌ Hata kodu:', firestoreError.code);
+                console.error('❌ Hata mesajı:', firestoreError.message);
+                
+                // Firestore hatası olsa bile kullanıcı oluşturmaya devam et
+                console.log('⚠️ Firestore hatası ama kullanıcı oluşturuldu');
+            }
             
             // Hardware fingerprint kontrolü
             await checkHardwareFingerprint(fingerprint, userCredential.user.uid);
@@ -261,6 +276,7 @@ async function handleEmailVerification(actionCode) {
         if (user) {
             await user.reload();
             console.log('📧 Email verified:', user.emailVerified);
+            console.log('📧 User UID:', user.uid);
             
             if (user.emailVerified) {
                 showRegisterMessage(`
@@ -278,14 +294,20 @@ async function handleEmailVerification(actionCode) {
                 
                 // Firestore'da da güncelle
                 try {
+                    console.log('💾 Firestore\'da email_verified güncelleniyor...');
                     await firebase.firestore().collection('users').doc(user.uid).update({
                         email_verified: true,
+                        is_verified: true,
                         email_verification_completed: firebase.firestore.FieldValue.serverTimestamp()
                     });
-                    console.log('✅ Firestore\'da email_verified güncellendi');
+                    console.log('✅ Firestore\'da email_verified ve is_verified güncellendi');
                 } catch (firestoreError) {
                     console.error('❌ Firestore güncelleme hatası:', firestoreError);
+                    console.error('❌ Hata kodu:', firestoreError.code);
+                    console.error('❌ Hata mesajı:', firestoreError.message);
                 }
+            } else {
+                console.log('⚠️ Email verified false, manuel kontrol gerekli');
             }
         }
         
