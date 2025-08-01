@@ -31,14 +31,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle form submission
     supportForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-
         const subject = document.getElementById('supportSubject').value;
         const title = document.getElementById('supportTitle').value;
         const message = document.getElementById('supportMessage').value;
         const priority = document.getElementById('supportPriority').value;
 
         if (!subject || !title || !message) {
+            e.preventDefault();
             showMessage('Lütfen tüm gerekli alanları doldurun.', 'error');
             return;
         }
@@ -46,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get user info
         const user = firebase.auth().currentUser;
         if (!user) {
+            e.preventDefault();
             showMessage('Giriş yapmanız gerekiyor.', 'error');
             return;
         }
@@ -66,11 +66,11 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('userPlanField').value = 'Free';
         }
 
-        // Submit form to Web3Forms
-        supportForm.submit();
-        
+        // Show success message and close modal
         showMessage('Destek talebiniz başarıyla gönderildi. En kısa sürede size dönüş yapacağız.', 'success');
         closeModal();
+        
+        // Form will submit naturally to Web3Forms
     });
 });
 
