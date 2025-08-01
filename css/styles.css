@@ -5014,25 +5014,20 @@ section.feature-section .feature-content.reverse .feature-visual {
 }
 
 /* Support Modal */
-/* Support Section Styles */
-.support-section {
-    border: 2px solid var(--accent-color);
-    background: linear-gradient(135deg, rgba(57, 239, 215, 0.1), rgba(57, 239, 215, 0.05));
+/* Support Section Mini Styles */
+.support-section-mini {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
 }
 
-.support-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.support-btn {
+.btn-support {
     background: linear-gradient(135deg, var(--accent-color), #00d4aa);
     color: var(--text-white);
     border: none;
-    padding: 1rem 2rem;
-    border-radius: var(--radius-lg);
-    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -5040,31 +5035,27 @@ section.feature-section .feature-content.reverse .feature-visual {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    box-shadow: 0 8px 25px rgba(57, 239, 215, 0.3);
+    box-shadow: 0 4px 15px rgba(57, 239, 215, 0.3);
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
-.support-btn:hover {
+.btn-support:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(57, 239, 215, 0.4);
+    box-shadow: 0 8px 25px rgba(57, 239, 215, 0.4);
 }
 
-.support-info {
-    background: rgba(57, 239, 215, 0.1);
-    padding: 1rem;
-    border-radius: var(--radius-md);
-    border-left: 4px solid var(--accent-color);
-}
-
-.support-info p {
+.support-hint {
     margin: 0;
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    text-align: center;
 }
 
-.support-info i {
+.support-hint i {
     color: var(--accent-color);
-    margin-right: 0.5rem;
+    margin-right: 0.3rem;
 }
 
 .modal {
