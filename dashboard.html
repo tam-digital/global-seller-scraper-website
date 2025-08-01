@@ -242,10 +242,10 @@
                                     <i class="fas fa-crown"></i>
                                     <span>Premium'a Geç</span>
                                 </a>
-                                <a href="mailto:hello@tam-digital.com" class="action-btn">
-                                    <i class="fas fa-envelope"></i>
+                                <button id="supportBtn" class="action-btn">
+                                    <i class="fas fa-headset"></i>
                                     <span>Destek Al</span>
-                                </a>
+                                </button>
                                 <button id="refreshDataBtn" class="action-btn">
                                     <i class="fas fa-sync-alt"></i>
                                     <span>Verileri Yenile</span>
@@ -268,6 +268,55 @@
             </div>
         </div>
     </section>
+
+    <!-- Support Modal -->
+    <div id="supportModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-headset"></i> Destek Talebi</h3>
+                <button id="closeSupportModal" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="supportForm">
+                    <div class="form-group">
+                        <label for="supportSubject">Konu *</label>
+                        <select id="supportSubject" required>
+                            <option value="">Konu seçin</option>
+                            <option value="Teknik Sorun">🔧 Teknik Sorun</option>
+                            <option value="Ödeme Sorunu">💳 Ödeme Sorunu</option>
+                            <option value="Kullanım Desteği">❓ Kullanım Desteği</option>
+                            <option value="Hata Bildirimi">🐛 Hata Bildirimi</option>
+                            <option value="Genel Soru">📧 Genel Soru</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="supportTitle">Başlık *</label>
+                        <input type="text" id="supportTitle" placeholder="Sorununuzu kısaca açıklayın" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="supportMessage">Mesaj *</label>
+                        <textarea id="supportMessage" rows="5" placeholder="Sorununuzu detaylı olarak açıklayın..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="supportPriority">Öncelik</label>
+                        <select id="supportPriority">
+                            <option value="Düşük">🟢 Düşük</option>
+                            <option value="Orta" selected>🟡 Orta</option>
+                            <option value="Yüksek">🔴 Yüksek</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancelSupport" class="btn btn-secondary">İptal</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Gönder
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -317,5 +366,6 @@
     <!-- Custom Scripts -->
     <script src="js/user-management.js"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/support.js"></script>
 </body>
 </html> 
