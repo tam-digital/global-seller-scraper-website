@@ -74,7 +74,7 @@ if (registerForm) {
             
             try {
                 const actionCodeSettings = {
-                    url: 'https://tam-digital.github.io/global-seller-scraper-website/verified.html',
+                    url: 'https://tam-digital.github.io/global-seller-scraper-website/trial.html?verified=true',
                     handleCodeInApp: false
                 };
                 
@@ -170,7 +170,7 @@ if (registerForm) {
                 resendBtn.addEventListener('click', async () => {
                     try {
                         await userCredential.user.sendEmailVerification({
-                            url: 'https://tam-digital.github.io/global-seller-scraper-website/verified.html',
+                            url: 'https://tam-digital.github.io/global-seller-scraper-website/trial.html?verified=true',
                             handleCodeInApp: false
                         });
                         showRegisterMessage('✅ Doğrulama emaili tekrar gönderildi!', 'success');
@@ -205,7 +205,17 @@ if (registerForm) {
 // ===== EMAIL VERIFICATION CHECK =====
 function checkEmailVerificationStatus() {
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('verified') === 'true') {
+    const verified = urlParams.get('verified');
+    const actionCode = urlParams.get('oobCode');
+    const mode = urlParams.get('mode');
+    
+    console.log('📧 URL parametreleri kontrol ediliyor...');
+    console.log('📧 verified:', verified);
+    console.log('📧 actionCode:', actionCode);
+    console.log('📧 mode:', mode);
+    
+    if (verified === 'true') {
+        console.log('✅ Email verification başarılı!');
         showRegisterMessage(`
             <div class="success-message">
                 <h3>✅ Email Adresiniz Doğrulandı!</h3>
@@ -221,9 +231,6 @@ function checkEmailVerificationStatus() {
     }
     
     // Firebase action URL'lerini de kontrol et
-    const actionCode = urlParams.get('oobCode');
-    const mode = urlParams.get('mode');
-    
     if (actionCode && mode === 'verifyEmail') {
         console.log('📧 Firebase email verification action detected');
         console.log('📧 Action code:', actionCode);
