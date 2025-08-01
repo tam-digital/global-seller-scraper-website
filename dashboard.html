@@ -279,10 +279,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="supportForm">
+                <form id="supportForm" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="30e75cdf-888b-4623-9e70-6f7a0d32748b">
+                    <input type="hidden" name="subject" value="Global Seller Scraper - Destek Talebi">
+                    <input type="hidden" name="from_name" value="Global Seller Scraper Support">
+                    <input type="hidden" name="replyto" value="hello@tam-digital.com">
                     <div class="form-group">
                         <label for="supportSubject">Konu *</label>
-                        <select id="supportSubject" required>
+                        <select name="subject_type" id="supportSubject" required>
                             <option value="">Konu seçin</option>
                             <option value="Teknik Sorun">🔧 Teknik Sorun</option>
                             <option value="Ödeme Sorunu">💳 Ödeme Sorunu</option>
@@ -293,20 +297,22 @@
                     </div>
                     <div class="form-group">
                         <label for="supportTitle">Başlık *</label>
-                        <input type="text" id="supportTitle" placeholder="Sorununuzu kısaca açıklayın" required>
+                        <input type="text" name="title" id="supportTitle" placeholder="Sorununuzu kısaca açıklayın" required>
                     </div>
                     <div class="form-group">
                         <label for="supportMessage">Mesaj *</label>
-                        <textarea id="supportMessage" rows="5" placeholder="Sorununuzu detaylı olarak açıklayın..." required></textarea>
+                        <textarea name="message" id="supportMessage" rows="5" placeholder="Sorununuzu detaylı olarak açıklayın..." required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="supportPriority">Öncelik</label>
-                        <select id="supportPriority">
+                        <select name="priority" id="supportPriority">
                             <option value="Düşük">🟢 Düşük</option>
                             <option value="Orta" selected>🟡 Orta</option>
                             <option value="Yüksek">🔴 Yüksek</option>
                         </select>
                     </div>
+                    <input type="hidden" name="user_email" id="userEmailField">
+                    <input type="hidden" name="user_plan" id="userPlanField">
                     <div class="form-actions">
                         <button type="button" id="cancelSupport" class="btn btn-secondary">İptal</button>
                         <button type="submit" class="btn btn-primary">
