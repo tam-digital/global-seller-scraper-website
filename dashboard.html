@@ -227,6 +227,24 @@
                         </div>
                     </div>
 
+                    <!-- Support Section -->
+                    <div class="dashboard-card support-section">
+                        <div class="card-header">
+                            <h3><i class="fas fa-headset"></i> Destek & Yardım</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="support-actions">
+                                <button id="supportBtn" class="support-btn">
+                                    <i class="fas fa-headset"></i>
+                                    <span>Destek Talebi Gönder</span>
+                                </button>
+                                <div class="support-info">
+                                    <p><i class="fas fa-info-circle"></i> Teknik sorunlar, ödeme problemleri veya kullanım desteği için bizimle iletişime geçin.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Quick Actions -->
                     <div class="dashboard-card">
                         <div class="card-header">
@@ -242,10 +260,6 @@
                                     <i class="fas fa-crown"></i>
                                     <span>Premium'a Geç</span>
                                 </a>
-                                <button id="supportBtn" class="action-btn">
-                                    <i class="fas fa-headset"></i>
-                                    <span>Destek Al</span>
-                                </button>
                                 <button id="refreshDataBtn" class="action-btn">
                                     <i class="fas fa-sync-alt"></i>
                                     <span>Verileri Yenile</span>
@@ -311,6 +325,10 @@
                             <option value="Orta" selected>🟡 Orta</option>
                             <option value="Yüksek">🔴 Yüksek</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="supportPhone">Telefon Numarası (İsteğe Bağlı)</label>
+                        <input type="tel" name="phone" id="supportPhone" placeholder="+90 5XX XXX XX XX">
                     </div>
                     <input type="hidden" name="user_email" id="userEmailField">
                     <input type="hidden" name="user_plan" id="userPlanField">
