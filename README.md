@@ -90,14 +90,30 @@ Amazon satıcı analiz aracının resmi websitesi. 8 farklı ülke pazarında Am
 
 ## 🚀 Kurulum
 
-### **Gereksinimler**
+### **🌐 Web Uygulaması**
 - Modern web tarayıcısı (Chrome, Safari, Firefox, Edge)
 - İnternet bağlantısı
 - Email adresi (hesap oluşturmak için)
 
+### **💻 Desktop Uygulaması**
+
+#### **macOS**
+- **Gereksinimler**: macOS 10.15+ (Catalina ve üzeri)
+- **İndir**: [Releases](https://github.com/tam-digital/global-seller-scraper-website/releases) sayfasından `GlobalSellerScraper.dmg`
+- **Kurulum**: DMG dosyasını aç → Applications klasörüne sürükle
+- **Çalıştır**: Applications klasöründen Global Seller Scraper'ı aç
+
+#### **Windows**
+- **Gereksinimler**: Windows 10/11 (64-bit), 4GB RAM
+- **İndir**: [Releases](https://github.com/tam-digital/global-seller-scraper-website/releases) sayfasından `GlobalSellerScraper_Windows.rar`
+- **Kurulum**: RAR dosyasını aç → exe dosyasını çıkar
+- **Çalıştır**: Yönetici olarak çalıştır
+- **Detaylı talimatlar**: [WINDOWS_KURULUM_TALIMATLARI.txt](WINDOWS_KURULUM_TALIMATLARI.txt)
+
 ### **Hızlı Başlangıç**
-1. **Website'e git**: [tam-digital.github.io/global-seller-scraper-website](https://tam-digital.github.io/global-seller-scraper-website)
-2. **Ücretsiz hesap oluştur**: [trial.html](https://tam-digital.github.io/global-seller-scraper-website/trial.html)
+1. **Website'e git**: [globalsellerscraper.com](https://globalsellerscraper.com)
+2. **Ücretsiz hesap oluştur**: [trial.html](https://globalsellerscraper.com/trial.html)
+3. **Desktop uygulamasını indir**: [Releases](https://github.com/tam-digital/global-seller-scraper-website/releases)
 3. **Email doğrulaması** yap
 4. **Dashboard'a eriş** ve analizlere başla!
 
