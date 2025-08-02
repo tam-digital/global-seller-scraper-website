@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Yükseltme - Global Seller Scraper</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Firebase SDK -->
+    <!-- Firebase scripts are loaded at the bottom -->
+    
+    <!-- Shopier Payment Integration -->
+</head>
+<body class="payment-page">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>Global Seller Scraper</span>
+                </a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="index.html#why-choose" class="nav-link">Özellikler</a></li>
+                <li><a href="trial.html" class="nav-link">Ücretsiz Deneme</a></li>
+                <li><a href="index.html#pricing" class="nav-link">Fiyatlandırma</a></li>
+                <!-- Masaüstü için giriş yap butonu -->
+                <li id="desktopGuestSection" style="display: none; opacity: 0;">
+                    <a href="login.html" class="nav-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Giriş Yap
+                    </a>
+                </li>
+                <li id="userSection" class="user-dropdown-container" style="display: none; opacity: 0;">
+                    <div class="user-profile" id="userProfile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="user-name" id="userEmail"></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="user-info">
+                                <div class="user-avatar-large">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="user-details">
+                                    <span class="user-email" id="dropdownUserEmail"></span>
+                                    <span class="user-plan">Premium Plan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="dashboard.html" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="index.html" class="dropdown-item">
+                                <i class="fas fa-home"></i>
+                                <span>Ana Sayfa</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <button id="logoutBtn" class="dropdown-item logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Çıkış Yap</span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+                <!-- Mobil için basit kullanıcı menüsü -->
+                <li class="mobile-user-menu" id="mobileUserSection" style="display: none; opacity: 0;">
+                    <div class="mobile-user-info">
+                        <i class="fas fa-user"></i>
+                        <span id="mobileUserEmail">Kullanıcı</span>
+                    </div>
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        Ana Sayfa
+                    </a>
+                    <button id="mobileLogoutBtn" class="nav-link logout-btn" style="background: none; border: none; width: 100%; text-align: left; color: var(--text-white);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Çıkış Yap
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <!-- Başlık -->
+            <div class="hero-header">
+                <h1 class="hero-title">
+                    🌟 <span class="highlight">Premium</span> Yükseltme
+                </h1>
+                <p class="hero-description">
+                    Global Seller Scraper Premium ile sınırsız özelliklerin keyfini çıkarın!
+                </p>
+            </div>
+            
+            <!-- Premium Özellikler (Yatay) -->
+            <div class="premium-features-horizontal">
+                <div class="feature-row">
+                    <div class="feature-item">
+                        <i class="fas fa-infinity"></i>
+                        <h3>Sınırsız ASIN Analizi</h3>
+                        <p>Artık limit yok!</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Sınırsız Ürün Analizi</h3>
+                        <p>Detaylı raporlar</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-search"></i>
+                        <h3>Satıcı Arama</h3>
+                        <p>Gelişmiş filtreler</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Gelişmiş Analitik</h3>
+                        <p>Detaylı grafikler</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-headset"></i>
+                        <h3>Öncelikli Destek</h3>
+                        <p>7/24 yardım</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-crown"></i>
+                        <h3>Lifetime Lisans</h3>
+                        <p>Tek seferlik ödeme</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kayıt Formları (Yan Yana) -->
+            <div class="auth-forms-container">
+                <!-- Giriş Yapmış Kullanıcılar İçin Ödeme Formu -->
+                <div class="payment-form" id="paymentForm" style="display: none;">
+                    <h3>💳 Premium'a Geç</h3>
+                    <div id="planStatus" style="margin: 10px 0; font-size: 16px; font-weight: bold;"></div>
+                    <p>iyzico ile güvenli ödeme yapın</p>
+                    
+                    <!-- iyzico Payment Button -->
+                    <div class="payment-section">
+                        <a href="https://iyzi.link/AKNUhg" class="btn btn-primary btn-large" target="_blank">
+                            <i class="fas fa-credit-card"></i>
+                            Premium'a Geç - $199
+                        </a>
+                        
+                        <!-- iyzico Logo -->
+                        <div class="iyzico-logo">
+                            <img src="images/iyzico_ile_ode_horizontal_white.png" alt="iyzico ile öde" class="iyzico-logo-img">
+                        </div>
+                        
+                        <div class="payment-info-box">
+                            <h4>📋 Ödeme Sonrası Adımlar:</h4>
+                            <ol>
+                                <li>Ödeme sayfasında güvenli bir şekilde ödemenizi yapın</li>
+                                <li>Ödeme tamamlandıktan sonra bize email gönderin</li>
+                                <li>Email: <strong>hello@tam-digital.com</strong></li>
+                                <li>Hesabınız 1 iş günü içerisinde Premium'a yükseltilir</li>
+                            </ol>
+                        </div>
+                        
+                        <p class="payment-note">
+                            <i class="fas fa-shield-alt"></i>
+                            iyzico güvenli ödeme sistemi ile korunmaktadır
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Giriş Yapmamış Kullanıcılar İçin Formlar -->
+                <div class="auth-forms" id="authForms" style="display: none;">
+                    <!-- Giriş Formu -->
+                    <div class="auth-form-card">
+                        <h3><i class="fas fa-sign-in-alt"></i> Giriş Yap</h3>
+                        <p>Mevcut hesabınızla giriş yapın</p>
+                        
+                        <form id="loginForm" class="auth-form">
+                            <div class="form-group">
+                                <label for="loginEmail">Email</label>
+                                <input type="email" id="loginEmail" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="loginPassword">Şifre</label>
+                                <input type="password" id="loginPassword" name="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Giriş Yap
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Kayıt Formu -->
+                    <div class="auth-form-card">
+                        <h3><i class="fas fa-user-plus"></i> Hesap Oluştur</h3>
+                        <p>Yeni hesap oluşturun ve premium'a başlayın</p>
+                        
+                        <form id="signupForm" class="auth-form">
+                            <div class="form-group">
+                                <label for="signupName">Ad Soyad</label>
+                                <input type="text" id="signupName" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupEmail">Email</label>
+                                <input type="email" id="signupEmail" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupPassword">Şifre</label>
+                                <input type="password" id="signupPassword" name="password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signupConfirmPassword">Şifre Tekrar</label>
+                                <input type="password" id="signupConfirmPassword" name="confirmPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <i class="fas fa-user-plus"></i>
+                                Hesap Oluştur
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Mesaj Alanı -->
+                <div id="authMessage" class="auth-message" style="display: none;"></div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <a href="index.html">
+                            <i class="fas fa-globe-americas"></i>
+                            <span>Global Seller Scraper</span>
+                        </a>
+                    </div>
+                    <p>Amazon satıcı analizinde güvenilir çözüm ortağınız.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Linkler</h4>
+                    <ul>
+                        <li><a href="#home">Ana Sayfa</a></li>
+                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="trial.html">Ücretsiz Deneme</a></li>
+                        <li><a href="#pricing">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Destek & İletişim</h4>
+                    <ul>
+                        <li><a href="#faq">S.S.S</a></li>
+                        <li><a href="https://www.tam-digital.com" target="_blank">Birebir Danışmanlık</a></li>
+                        <li><a href="https://instagram.com/baranozeryuce" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-policies">
+                    <a href="policies/privacy-policy.html">Gizlilik Politikası</a>
+                    <a href="policies/terms-of-service.html">Kullanım Şartları</a>
+                    <a href="policies/cookie-policy.html">Çerez Politikası</a>
+                    <a href="policies/data-protection.html">Veri Koruma</a>
+                </div>
+                <p>&copy; 2024 Global Seller Scraper. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <script src="js/user-management.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+</html> 

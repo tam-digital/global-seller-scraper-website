@@ -1,0 +1,81 @@
+# Tüm dosyaları ignore et
+*
+
+# Sadece website dosyalarını dahil et
+!index.html
+!trial.html
+!payment.html
+!payment-success.html
+!login.html
+!dashboard.html
+!favicon.png
+!favicon.svg
+!css/
+!css/**
+!js/
+!js/**
+!images/
+!images/**
+!README.md
+!.gitignore
+!.nojekyll
+
+# Website içinde hassas dosyaları ignore et
+.env
+admin/
+firebase-config.js
+
+# Yazılım dosyalarını kesinlikle ignore et
+*.py
+*.pyc
+__pycache__/
+helpers/
+fonts/
+*.spec
+*.json
+!package.json
+!package-lock.json
+
+# Firebase ve kullanıcı verileri
+globalsellerscraper-firebase-adminsdk-*.json
+user_data/
+*.csv
+*.txt
+
+# Build dosyaları
+dist/
+build/
+*.exe
+*.dmg
+*.app
+
+# OS dosyaları
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE dosyaları
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Diğer dosyalar
+website/
+*.dmg
+*.icns
+*.ico
+*.iconset/
+app_icon/
+dmg_background.png
+extras/
+ids.txt
+links.txt
+ls_snapshot.txt
+remember_me.json
+amazon_cookies.json 
