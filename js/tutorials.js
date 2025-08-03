@@ -50,8 +50,6 @@ class TutorialsManager {
         this.loadCompletedVideos();
         
         // Event listeners
-        document.getElementById('tutorialsBtn')?.addEventListener('click', () => this.openModal());
-        document.getElementById('closeTutorialsModal')?.addEventListener('click', () => this.closeModal());
         document.getElementById('markCompleted')?.addEventListener('click', () => this.markAsCompleted());
         document.getElementById('nextVideo')?.addEventListener('click', () => this.nextVideo());
         
@@ -63,28 +61,9 @@ class TutorialsManager {
             });
         });
 
-        // Close modal when clicking outside
-        document.getElementById('tutorialsModal')?.addEventListener('click', (e) => {
-            if (e.target.id === 'tutorialsModal') {
-                this.closeModal();
-            }
-        });
-    }
-
-    openModal() {
-        const modal = document.getElementById('tutorialsModal');
-        if (modal) {
-            modal.style.display = 'flex';
-            this.updateProgress();
-            this.updateVideoList();
-        }
-    }
-
-    closeModal() {
-        const modal = document.getElementById('tutorialsModal');
-        if (modal) {
-            modal.style.display = 'none';
-        }
+        // Initialize page
+        this.updateProgress();
+        this.updateVideoList();
     }
 
     loadVideo(videoId) {

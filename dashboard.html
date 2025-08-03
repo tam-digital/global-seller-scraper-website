@@ -268,11 +268,10 @@
                                         <i class="fas fa-play-circle"></i>
                                         <h4>Eğitim Videoları</h4>
                                     </div>
-                                    <div class="video-placeholder" id="tutorialsBtn" style="cursor: pointer;">
+                                    <a href="tutorials.html" class="action-btn full-width">
                                         <i class="fas fa-video"></i>
-                                        <p>Eğitim Videoları</p>
-                                        <span class="coming-soon">Tıklayın ve eğitim videolarını izleyin!</span>
-                                    </div>
+                                        <span>Eğitim Videoları</span>
+                                    </a>
                                 </div>
 
                                 <!-- Verileri Yenile -->
@@ -377,84 +376,7 @@
         </div>
     </div>
 
-    <!-- Tutorials Modal -->
-    <div id="tutorialsModal" class="modal" style="display: none;">
-        <div class="modal-content tutorials-modal">
-            <div class="modal-header">
-                <h3><i class="fas fa-play-circle"></i> Eğitim Videoları</h3>
-                <button id="closeTutorialsModal" class="close-btn">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="tutorials-container">
-                    <div class="tutorials-sidebar">
-                        <div class="progress-section">
-                            <h4>İlerleme Durumu</h4>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="tutorialProgress" style="width: 0%;"></div>
-                            </div>
-                            <span class="progress-text" id="progressText">0% Tamamlandı</span>
-                        </div>
-                        
-                        <div class="video-list">
-                            <div class="video-item" data-video="mac-install">
-                                <i class="fas fa-circle"></i>
-                                <span>Mac OS Kurulum</span>
-                                <span class="duration">5:32</span>
-                            </div>
-                            <div class="video-item" data-video="windows-install">
-                                <i class="fas fa-circle"></i>
-                                <span>Windows Kurulum</span>
-                                <span class="duration">4:18</span>
-                            </div>
-                            <div class="video-item" data-video="first-login">
-                                <i class="fas fa-circle"></i>
-                                <span>İlk Giriş ve Hesap Oluşturma</span>
-                                <span class="duration">3:45</span>
-                            </div>
-                            <div class="video-item" data-video="seller-finder">
-                                <i class="fas fa-circle"></i>
-                                <span>Satıcı Bulucu Kullanımı</span>
-                                <span class="duration">6:12</span>
-                            </div>
-                            <div class="video-item" data-video="inventory-scan">
-                                <i class="fas fa-circle"></i>
-                                <span>Envanter Tarama</span>
-                                <span class="duration">7:28</span>
-                            </div>
-                            <div class="video-item" data-video="asin-check">
-                                <i class="fas fa-circle"></i>
-                                <span>ASIN Kontrol Sistemi</span>
-                                <span class="duration">4:55</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="video-player">
-                        <div class="video-container" id="videoContainer">
-                            <div class="video-placeholder-large">
-                                <i class="fas fa-play-circle"></i>
-                                <p>Bir video seçin</p>
-                            </div>
-                        </div>
-                        <div class="video-info">
-                            <h3 id="videoTitle">Video Başlığı</h3>
-                            <p id="videoDescription">Video açıklaması burada görünecek</p>
-                        </div>
-                        <div class="video-actions">
-                            <button class="btn btn-primary" id="markCompleted">
-                                <i class="fas fa-check"></i> Tamamlandı
-                            </button>
-                            <button class="btn btn-outline" id="nextVideo">
-                                <i class="fas fa-arrow-right"></i> Sonraki Video
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Footer -->
     <footer class="footer">
