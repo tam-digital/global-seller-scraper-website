@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Seller Scraper - Amazon Satıcı Analiz Aracı</title>
+    <meta name="description" content="Amazon satıcılarının ürün kategorilerini ve performansını analiz eden güçlü araç. 8 farklı ülke pazarında çalışır.">
+    <meta name="keywords" content="amazon scraper, satıcı analizi, e-ticaret analizi, amazon seller, kategori analizi">
+    <meta name="author" content="Global Seller Scraper">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tam-digital.github.io/global-seller-scraper-website/">
+    <meta property="og:title" content="Global Seller Scraper - Amazon Satıcı Analiz Aracı">
+    <meta property="og:description" content="Amazon satıcılarının ürün kategorilerini ve performansını analiz eden güçlü araç. 8 farklı ülke pazarında çalışır.">
+    <meta property="og:image" content="https://tam-digital.github.io/global-seller-scraper-website/favicon.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tam-digital.github.io/global-seller-scraper-website/">
+    <meta property="twitter:title" content="Global Seller Scraper - Amazon Satıcı Analiz Aracı">
+    <meta property="twitter:description" content="Amazon satıcılarının ürün kategorilerini ve performansını analiz eden güçlü araç. 8 farklı ülke pazarında çalışır.">
+    <meta property="twitter:image" content="https://tam-digital.github.io/global-seller-scraper-website/favicon.png">
+    
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Turkish">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png?v=2">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>Global Seller Scraper</span>
+                </a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="#why-choose" class="nav-link">Özellikler</a></li>
+                <li><a href="trial.html" class="nav-link">Ücretsiz Deneme</a></li>
+                <li><a href="#pricing" class="nav-link">Fiyatlandırma</a></li>
+                <!-- Masaüstü için giriş yap butonu -->
+                <li id="desktopGuestSection" style="display: none; opacity: 0;">
+                    <a href="login.html" class="nav-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Giriş Yap
+                    </a>
+                </li>
+                <!-- Mobil için giriş yap butonu -->
+                <li id="mobileGuestSection" style="display: none; opacity: 0;">
+                    <a href="login.html" class="nav-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Giriş Yap
+                    </a>
+                </li>
+                <li id="userSection" class="user-dropdown-container" style="display: none; opacity: 0;">
+                    <div class="user-profile" id="userProfile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="user-name" id="userEmail"></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="user-info">
+                                <div class="user-avatar-large">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="user-details">
+                                    <span class="user-email" id="dropdownUserEmail"></span>
+                                    <span class="user-plan">Ücretsiz Plan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="dashboard.html" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="payment.html" class="dropdown-item">
+                                <i class="fas fa-crown"></i>
+                                <span>Premium'a Geç</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <button id="logoutBtn" class="dropdown-item logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Çıkış Yap</span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+                <!-- Mobil için basit kullanıcı menüsü -->
+                <li class="mobile-user-menu" id="mobileUserSection" style="display: none; opacity: 0;">
+                    <div class="mobile-user-info">
+                        <i class="fas fa-user"></i>
+                        <span id="mobileUserEmail">Kullanıcı</span>
+                    </div>
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                    <a href="payment.html" class="nav-link">
+                        <i class="fas fa-crown"></i>
+                        Premium'a Geç
+                    </a>
+                    <button id="mobileLogoutBtn" class="nav-link logout-btn" style="background: none; border: none; width: 100%; text-align: left; color: var(--text-white);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Çıkış Yap
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Amazon Satıcı Analizinde <span class="highlight">Yeni Dönem</span>
+                </h1>
+                <p class="hero-description">
+                    Piyasadaki tek gerçek sınırsız satıcı analiz yazılımı. 2018'den beri e-ticaret eğitmeni ve <a href="https://www.asinbaba.com" target="_blank" style="color: #39efd7; text-decoration: underline;">Asinbaba</a> kurucu ortağı Baran Yüce'den. 7 farklı Amazon pazarında satıcıların tüm ürünlerini eksiksiz analiz edin!
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">7</span>
+                        <span class="stat-label">Pazaryeri</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Sınırsız</span>
+                        <span class="stat-label">Analiz</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Kota Yok</span>
+                        <span class="stat-label">Limit Yok</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="trial.html" class="btn btn-primary">
+                        <i class="fas fa-play"></i>
+                        Ücretsiz Dene
+                    </a>
+                    <a href="#why-choose" class="btn btn-outline">
+                        <i class="fas fa-info-circle"></i>
+                        Özellikleri İncele
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-video">
+                    <div style="padding:50.39% 0 0 0;position:relative;border-radius:12px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.3);">
+                        <iframe src="https://player.vimeo.com/video/1106883237?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Global Seller Scraper Lansman"></iframe>
+                    </div>
+                    <script src="https://player.vimeo.com/api/player.js"></script>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-choose" class="why-choose">
+        <div class="container">
+            <div class="section-header">
+                <h2>Neden Global Seller Scraper?</h2>
+                <p>Piyasadaki tek gerçek sınırsız satıcı analiz yazılımı</p>
+            </div>
+            
+            <div class="why-choose-grid">
+                <div class="why-choose-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-number">3-in-1</div>
+                            <div class="stat-label">Güçlü Araç</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Benzersiz ürün bulma gücü!</h3>
+                        <p>Rakip satıcıları otomatik olarak bulun, envanterlerindeki tüm ürünleri tarayın ve ASIN'leri filtreleyerek benzersiz ürünleri keşfedin.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Rakip Satıcı Bulma</span>
+                            <span class="tag">Envanter Tarayıcı</span>
+                            <span class="tag">ASIN Kontrol</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="why-choose-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-number">Sınırsız</div>
+                            <div class="stat-label">Kullanım</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Sınırsız Kullanım</h3>
+                        <p>Kota veya limit yok - istediğiniz kadar analiz yapın</p>
+                        <div class="feature-tags">
+                            <span class="tag">Sınırsız Satıcı</span>
+                            <span class="tag">Sınırsız Ürün</span>
+                            <span class="tag">Sınırsız Zaman</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="why-choose-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-number">7</div>
+                            <div class="stat-label">Büyük Pazar</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>7 Büyük Amazon Pazarı</h3>
+                        <p>Tüm büyük Amazon pazarlarında çalışan küresel çözüm</p>
+                        <div class="feature-tags">
+                            <span class="tag">🇨🇦 CA</span>
+                            <span class="tag">🇲🇽 MX</span>
+                            <span class="tag">🇬🇧 UK</span>
+                            <span class="tag">🇦🇺 AU</span>
+                            <span class="tag">🇸🇦 SA</span>
+                            <span class="tag">🇸🇬 SG</span>
+                            <span class="tag">🇦🇪 AE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="why-choose-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-number">%100</div>
+                            <div class="stat-label">Güvenli</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>%100 Güvenli Masaüstü Yazılımı</h3>
+                        <p>Verileriniz sizin bilgisayarınızda kalır. Web tabanlı araçların aksine, masaüstü yazılımımızla bulduğunuz ürünler hiçbir zaman üçüncü partilerle paylaşılmaz. Bot koruması ile taramalarınız durmadan güvenli analiz yapın.</p>
+                        <div class="feature-tags">
+                            <span class="tag">Masaüstü Yazılım</span>
+                            <span class="tag">Veri Güvenliği</span>
+                            <span class="tag">Bot Koruması</span>
+                            <span class="tag">Hızlı Analiz</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="why-choose-cta">
+                <a href="trial.html" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Ücretsiz Deneme Başlat
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Satıcı Bulucu Section -->
+    <section id="seller-finder" class="feature-section">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-text">
+                    <h2>Rakip Bulucu</h2>
+                    <p class="feature-subtitle">Rakip satıcıları kolayca bulun ve analiz edin</p>
+                    <div class="feature-description">
+                        <p>Amazon'da başarılı satıcıları keşfetmek artık çok kolay. İstediğiniz kategori linklerini girerek anında analiz başlatın. .</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Kategori linkleri ile anında tarama</li>
+                            <li><i class="fas fa-check"></i> Detaylı FBM satıcı profili</li>
+                            <li><i class="fas fa-check"></i> Kategori bazlı analiz</li>
+                            <li><i class="fas fa-check"></i> Başarılı satıcıları keşfetme</li> 
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-visual">
+                    <div class="feature-screenshot">
+                        <img src="images/satıcı-arastirma-ss.png" alt="Satıcı Araştırma Ekran Görüntüsü">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Satıcı Tarama Section -->
+    <section id="seller-scanner" class="feature-section">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-visual">
+                    <div class="feature-screenshot">
+                        <img src="images/satıcı-tarama-ss.png" alt="Satıcı Tarama Ekran Görüntüsü">
+                    </div>
+                </div>
+                <div class="feature-text">
+                    <h2>Envanter Tarama</h2>
+                    <p class="feature-subtitle">Satıcının tüm ürünlerini eksiksiz tarayın</p>
+                    <div class="feature-description">
+                        <p>Bir satıcının tüm ürünlerini tek seferde tarayın. Fiyat, rating, review sayısı, kategori bilgileri ve daha fazlasını toplayın. Hangi ürünlerin en çok satıldığını, hangi fiyat aralıklarının karlı olduğunu analiz edin.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Eksiksiz ürün listesi (100.000+ envanterleri bile tarayabilirsiniz!)</li>
+                            <li><i class="fas fa-check"></i> Gerçek zamanlı veri</li>
+                            <li><i class="fas fa-check"></i> Detaylı ürün bilgileri</li>
+                            <li><i class="fas fa-check"></i> Fiyat ve rating analizi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ASIN Kontrol Section -->
+    <section id="asin-checker" class="feature-section">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-text">
+                    <h2>ASIN Kontrol</h2>
+                    <p class="feature-subtitle">Bulduğunuz ürünlerin krtilerlerinize uygun olup olmadığını kontrol edin</p>
+                    <div class="feature-description">
+                        <p>ASIN listelerinizi kontrolden geçirin, verimsiz ürünleri envanterinize eklemeyin. Zaman kaybetmeyin, doğrudan satabileceğiniz ürünleri bulun.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Sales Rank ve Aylık Satış Kontrolü</li>
+                            <li><i class="fas fa-check"></i> Hedef pazaryerinde satıcı markalı ürün kontrolü</li>
+                            <li><i class="fas fa-check"></i> ASIN bazlı rakip sayısı kontrolü</li>
+                            <li><i class="fas fa-check"></i> ASIN listesi performansı istatistikleri</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-visual">
+                    <div class="feature-screenshot">
+                        <img src="images/asin-kontrol-ss.png" alt="ASIN Kontrol Ekran Görüntüsü">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-cta">
+                <a href="trial.html" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Ücretsiz Deneme Başlat
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Güvenli Masaüstü Yazılımı Section -->
+    <section id="secure-software" class="feature-section">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-text">
+                    <h2>Güvenli Masaüstü Yazılımı</h2>
+                    <p class="feature-subtitle">Verileriniz güvende, her zaman erişilebilir</p>
+                    <div class="feature-description">
+                        <p>Bütün tarama ve satış bilgilerinizin otomasyon yazılımları tarafından görüntülenmesinden sıkıldınız mı? Masaüstü yazılımımız ile verileriniz sizin bilgisayarınızda kalır.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Masaüstü yazılımı</li>
+                            <li><i class="fas fa-check"></i> Verileriniz güvende</li>
+                            <li><i class="fas fa-check"></i> Kota & sıra bekleme yok</li>
+                            <li><i class="fas fa-check"></i> Anti-Bot koruması</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-visual">
+                    <div class="feature-screenshot">
+                        <img src="images/secure.jpg" alt="Güvenli Masaüstü Yazılımı">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sınırsız Analiz Section -->
+    <section id="limitless-analysis" class="feature-section">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-visual">
+                    <div class="feature-screenshot">
+                        <img src="images/limitless.jpg" alt="Sınırsız Analiz">
+                    </div>
+                </div>
+                <div class="feature-text">
+                    <h2>Sınırsız Analiz</h2>
+                    <p class="feature-subtitle">Kota yok, sınır yok, sadece analiz</p>
+                    <div class="feature-description">
+                        <p>Kota yok, sınır yok, sadece analiz. İstediğiniz kadar satıcı analiz edin. Günlük, aylık veya yıllık kota sınırı yok.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Sınırsız satıcı analizi</li>
+                            <li><i class="fas fa-check"></i> Kota sınırı yok</li>
+                            <li><i class="fas fa-check"></i> 7/24 kullanım</li>
+                            <li><i class="fas fa-check"></i> Anında sonuçlar</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7 Pazar Desteği Section -->
+    <section id="market-support" class="feature-section">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="container">
+            <div class="feature-content">
+                <div class="feature-text">
+                    <h2>7 Pazar Desteği</h2>
+                    <p class="feature-subtitle">Tüm Amazon pazarlarında çalışır</p>
+                    <div class="feature-description">
+                        <p>Tüm Amazon pazarlarında çalışır. ABD, İngiltere, Kanada, Avustralya, Meksika, Suudi Arabistan ve BAE Amazon pazarlarında analiz yapın.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> 7 farklı ülke pazarı</li>
+                            <li><i class="fas fa-check"></i> Tek yazılım, tüm pazarlar</li>
+                            <li><i class="fas fa-check"></i> Yerel dil desteği</li>
+                            <li><i class="fas fa-check"></i> Pazar karşılaştırması</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-visual">
+                    <div class="feature-screenshot">
+                        <img src="images/global.jpg" alt="7 Pazar Desteği">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Fiyatlandırma</h2>
+                <p>İhtiyacınıza uygun plan seçin</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Ücretsiz</h3>
+                        <div class="price">
+                            <span class="currency">₺</span>
+                            <span class="amount">0</span>
+                            <span class="period">/ay</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 10,000 ASIN analizi/ay</li>
+                        <li><i class="fas fa-check"></i> Satıcı envanterlerinden 10,000 ürün bulma/ay</li>
+                        <li><i class="fas fa-check"></i> CSV export</li>
+                        <li><i class="fas fa-check"></i> Email desteği</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Satıcı arama</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Öncelikli destek</li>
+                    </ul>
+                    <a href="trial.html" class="btn btn-outline">Tamamen Ücretsiz</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">🔥 SINIRLI KOTA</div>
+                    <div class="pricing-header">
+                        <h3>Premium</h3>
+                        <div class="price">
+                            <span class="currency">₺</span>
+                            <span class="amount">7,999</span>
+                            <span class="period">Tek Ödeme</span>
+                        </div>
+                        <div class="lifetime-info">
+                            <span class="kota-badge">📊 Sadece 50 Kişi</span>
+                            <span class="kota-text">Bu fırsat dolduktan sonra aylık abonelik modeline geçilecektir.</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Sınırsız ASIN analizi</li>
+                        <li><i class="fas fa-check"></i> Sınırsız ürün analizi</li>
+                        <li><i class="fas fa-check"></i> Sınırsız satıcı arama</li>
+                        <li><i class="fas fa-check"></i> CSV export</li>
+                        <li><i class="fas fa-check"></i> Öncelikli destek</li>
+                        <li><i class="fas fa-check"></i> Ömür boyu erişim</li>
+                        <li class="lifetime-feature">Lifetime lisans - Tek seferlik ödeme</li>
+                    </ul>
+                    <a href="payment.html" class="btn btn-primary" onclick="redirectToPayment()">Premium'a Geç</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="container">
+            <div class="section-header">
+                <h2>Sıkça Sorulan Sorular</h2>
+                <p>En çok merak edilen sorular ve cevapları</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Global Seller Scraper ile rakiplerimi nasıl analiz edebilirim?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yazılımımız Amazon satıcı ID'lerini kullanarak satıcıların tüm ürünlerini detaylı analiz eder. Satıcı bulucu ile başarılı satıcıları keşfedin, satıcı analizi ile tüm ürünlerini inceleyin ve ASIN kontrol ile aktif ürünleri filtreleyin. Bu sayede rakiplerinizin hangi kategorilerde güçlü olduğunu, en çok satan ürünlerini ve fiyat stratejilerini öğrenebilirsiniz.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Hangi Amazon pazarlarında çalışıyor ve neden önemli?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>ABD, İngiltere, Kanada, Avustralya, Meksika, Suudi Arabistan ve BAE Amazon pazarlarında çalışır. Bu 7 pazar, dünya e-ticaretinin %80'ini temsil eder. Her pazarın kendine özgü dinamikleri vardır - örneğin ABD pazarı çok rekabetçiyken, Suudi Arabistan pazarı daha yeni ve büyüme potansiyeli yüksektir. Bu çeşitlilik size farklı pazarlarda fırsatlar sunar.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Ücretsiz plan ile ne kadar analiz yapabilirim?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ücretsiz plan ile aylık 10,000 ASIN analizi ve 10,000 ürün analizi yapabilirsiniz. Bu, küçük ve orta ölçekli satıcılar için yeterli bir miktardır. Premium plana geçtiğinizde ise sınırsız analiz yapabilir, büyük satıcıları da detaylı inceleyebilirsiniz.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Masaüstü yazılımının web tabanlı araçlardan farkı nedir?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Masaüstü yazılımımızın en büyük avantajı veri güvenliği ve hızdır. Verileriniz hiçbir zaman sunuculara gönderilmez, tamamen sizin bilgisayarınızda kalır. Ayrıca web tabanlı araçlardan çok daha hızlı çalışır ve internet bağlantınızın kalitesine bağımlı değildir. Bot koruması ile güvenli analiz yaparak hesabınızın kapanma riskini ortadan kaldırır.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Premium plana geçmek için neden ₺7,999 ödemem gerekiyor?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Premium plan tek seferlik ödeme ile ömür boyu erişim sağlar. Bu, aylık veya yıllık abonelik sistemlerinden çok daha ekonomiktir. Sınırsız analiz yapabilir, tüm özelliklere erişebilir ve öncelikli destek alabilirsiniz. Ayrıca yazılım güncellemeleri de ücretsiz olarak sunulur.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>Yazılımı nasıl kullanmaya başlayabilirim?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Kullanım çok basittir! Önce ücretsiz hesap oluşturun, ardından yazılımı bilgisayarınıza indirin. Satıcı ID'sini girerek analiz başlatabilirsiniz. Yazılım otomatik olarak tüm ürünleri tarayacak ve detaylı raporlar sunacaktır. CSV formatında export edebilir, Excel'de analiz edebilirsiniz.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-cta">
+                <a href="trial.html" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Ücretsiz Deneme Başlat
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>İletişim</h2>
+                <p>Sorularınız için bizimle iletişime geçin</p>
+            </div>
+            
+            <div class="contact-container">
+                <form class="contact-form" id="contactForm">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>hello@tam-digital.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Telefon</h4>
+                                <p>+90 (530) 834 22 67</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Adres</h4>
+                                <p>30 N Gould St Ste 6541, Sheridan, WY 82801, ABD</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Ad Soyad</label>
+                                <input type="text" id="contactName" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contactEmail">Email</label>
+                                <input type="email" id="contactEmail" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactSubject">Konu</label>
+                            <input type="text" id="contactSubject" name="subject" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactMessage">Mesaj</label>
+                            <textarea id="contactMessage" name="message" rows="4" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-paper-plane"></i>
+                            Mesaj Gönder
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <a href="index.html">
+                            <i class="fas fa-globe-americas"></i>
+                            <span>Global Seller Scraper</span>
+                        </a>
+                    </div>
+                    <p>Amazon satıcı analizinde güvenilir çözüm ortağınız.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Linkler</h4>
+                    <ul>
+                        <li><a href="#home">Ana Sayfa</a></li>
+                        <li><a href="#why-choose">Özellikler</a></li>
+                        <li><a href="trial.html">Ücretsiz Deneme</a></li>
+                        <li><a href="#pricing">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Destek & İletişim</h4>
+                    <ul>
+                        <li><a href="#faq">S.S.S</a></li>
+                        <li><a href="https://www.tam-digital.com" target="_blank">Birebir Danışmanlık</a></li>
+                        <li><a href="https://instagram.com/baranozeryuce" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-policies">
+                    <a href="policies/privacy-policy.html">Gizlilik Politikası</a>
+                    <a href="policies/terms-of-service.html">Kullanım Şartları</a>
+                    <a href="policies/cookie-policy.html">Çerez Politikası</a>
+                    <a href="policies/data-protection.html">Veri Koruma</a>
+                </div>
+                <p>&copy; 2024 Global Seller Scraper. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- JavaScript -->
+    <script src="js/user-management.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // FAQ functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            console.log('FAQ items found:', faqItems.length);
+            
+            faqItems.forEach((item, index) => {
+                const question = item.querySelector('.faq-question');
+                if (question) {
+                    question.addEventListener('click', function() {
+                        console.log('FAQ clicked:', index);
+                        item.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
