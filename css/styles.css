@@ -3596,6 +3596,13 @@ section.feature-section .feature-content.reverse .feature-visual {
     color: var(--text-muted);
 }
 
+.password-hint {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    display: block;
+}
+
 .auth-form .btn {
     margin-top: var(--spacing-md);
     padding: var(--spacing-sm) var(--spacing-md);

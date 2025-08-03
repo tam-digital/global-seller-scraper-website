@@ -297,6 +297,18 @@
                                         <span>Premium'a Geç</span>
                                     </a>
                                 </div>
+
+                                <!-- Şifre Değiştir -->
+                                <div class="quick-action-item">
+                                    <div class="action-header">
+                                        <i class="fas fa-key"></i>
+                                        <h4>Şifre Değiştir</h4>
+                                    </div>
+                                    <button id="changePasswordBtn" class="action-btn full-width">
+                                        <i class="fas fa-key"></i>
+                                        <span>Şifre Değiştir</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -376,7 +388,40 @@
         </div>
     </div>
 
-
+    <!-- Şifre Değiştirme Modal -->
+    <div id="changePasswordModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-key"></i> Şifre Değiştir</h3>
+                <button id="closeChangePasswordModal" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="form-group">
+                        <label for="currentPassword">Mevcut Şifre *</label>
+                        <input type="password" id="currentPassword" placeholder="Mevcut şifrenizi girin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Yeni Şifre *</label>
+                        <input type="password" id="newPassword" placeholder="Yeni şifrenizi girin" required>
+                        <small class="password-hint">En az 6 karakter olmalıdır</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Yeni Şifre Tekrar *</label>
+                        <input type="password" id="confirmPassword" placeholder="Yeni şifrenizi tekrar girin" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancelChangePassword" class="btn btn-secondary">İptal</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Şifreyi Değiştir
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -434,5 +479,6 @@
     <script src="js/dashboard.js"></script>
     <script src="js/support.js"></script>
     <script src="js/tutorials.js"></script>
+    <script src="js/change-password.js"></script>
 </body>
 </html> 
