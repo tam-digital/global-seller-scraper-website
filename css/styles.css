@@ -5366,7 +5366,6 @@ section.feature-section .feature-content.reverse .feature-visual {
     z-index: 999 !important;
     opacity: 1 !important;
     background: transparent !important;
-    animation: float 6s ease-in-out infinite;
     width: 100%;
     height: auto;
 }
