@@ -52,6 +52,7 @@ class TutorialsManager {
         // Event listeners
         document.getElementById('markCompleted')?.addEventListener('click', () => this.markAsCompleted());
         document.getElementById('nextVideo')?.addEventListener('click', () => this.nextVideo());
+        document.getElementById('downloadResources')?.addEventListener('click', () => this.downloadResources());
         
         // Video item click listeners
         document.querySelectorAll('.video-item').forEach(item => {
@@ -185,6 +186,43 @@ class TutorialsManager {
 
     saveCompletedVideos() {
         localStorage.setItem('tutorials_completed', JSON.stringify(this.completedVideos));
+    }
+
+    downloadResources() {
+        if (!this.currentVideo) {
+            alert('Önce bir video seçin!');
+            return;
+        }
+
+        const videoData = this.videoData[this.currentVideo];
+        if (!videoData) return;
+
+        // Simulated download - gerçek uygulamada dosya linki olacak
+        const downloadLinks = {
+            'mac-install': 'https://example.com/mac-install-guide.pdf',
+            'windows-install': 'https://example.com/windows-install-guide.pdf',
+            'first-login': 'https://example.com/first-login-guide.pdf',
+            'seller-finder': 'https://example.com/seller-finder-guide.pdf',
+            'inventory-scan': 'https://example.com/inventory-scan-guide.pdf',
+            'asin-check': 'https://example.com/asin-check-guide.pdf'
+        };
+
+        const link = downloadLinks[this.currentVideo];
+        if (link) {
+            // Create temporary link and trigger download
+            const a = document.createElement('a');
+            a.href = link;
+            a.download = `${videoData.title}.pdf`;
+            a.target = '_blank';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            // Show success message
+            alert(`${videoData.title} için ders kaynakları indiriliyor...`);
+        } else {
+            alert('Bu video için henüz kaynak dosyası hazır değil.');
+        }
     }
 }
 

@@ -5394,8 +5394,28 @@ section.feature-section .feature-content.reverse .feature-visual {
 /* Tutorials Page Styles */
 .tutorials-section {
     min-height: 100vh;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f23 100%);
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(57, 239, 215, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(57, 239, 215, 0.05) 0%, transparent 50%);
     padding: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.tutorials-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 30%, rgba(57, 239, 215, 0.03) 50%, transparent 70%),
+        linear-gradient(-45deg, transparent 30%, rgba(0, 212, 255, 0.03) 50%, transparent 70%);
+    animation: backgroundShift 20s ease-in-out infinite;
+    pointer-events: none;
 }
 
 .tutorials-header {
@@ -5586,10 +5606,12 @@ section.feature-section .feature-content.reverse .feature-visual {
 .video-actions {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .video-actions .btn {
     flex: 1;
+    min-width: 150px;
 }
 
 @media (max-width: 768px) {
