@@ -772,6 +772,8 @@ html body .navbar.scrolled {
     align-items: center;
     z-index: 998 !important;
     position: relative;
+    width: 100%;
+    max-width: 800px;
 }
 
 .hero-screenshot {
@@ -5365,6 +5367,8 @@ section.feature-section .feature-content.reverse .feature-visual {
     opacity: 1 !important;
     background: transparent !important;
     animation: float 6s ease-in-out infinite;
+    width: 100%;
+    height: auto;
 }
 
 .hero-video iframe {
