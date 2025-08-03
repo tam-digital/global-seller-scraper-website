@@ -5354,3 +5354,20 @@ section.feature-section .feature-content.reverse .feature-visual {
         width: 100%;
     }
 }
+
+/* Hero Video Styles */
+.hero-video {
+    position: relative;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(57, 239, 215, 0.4), 0 0 100px rgba(57, 239, 215, 0.2);
+    z-index: 999 !important;
+    opacity: 1 !important;
+    background: transparent !important;
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-video iframe {
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+}
