@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eğitim Videoları - Global Seller Scraper</title>
+    <meta name="description" content="Global Seller Scraper eğitim videoları - Kurulum ve kullanım rehberleri">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png?v=2">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css?v=4">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>Global Seller Scraper</span>
+                </a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="trial.html" class="nav-link">Ücretsiz Deneme</a></li>
+                <li><a href="#pricing" class="nav-link">Fiyatlandırma</a></li>
+                <!-- User Section -->
+                <li id="userSection" class="user-dropdown-container" style="display: none; opacity: 0;">
+                    <div class="user-profile" id="userProfile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="user-name" id="userEmail"></span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="user-info">
+                                <div class="user-avatar-large">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="user-details">
+                                    <span class="user-email" id="dropdownUserEmail"></span>
+                                    <span class="user-plan">Ücretsiz Plan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="dashboard.html" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="payment.html" class="dropdown-item">
+                                <i class="fas fa-crown"></i>
+                                <span>Premium'a Geç</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <button class="logout-btn" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Çıkış Yap</span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+                <!-- Guest Section -->
+                <li id="desktopGuestSection" style="display: none; opacity: 0;">
+                    <a href="login.html" class="nav-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Giriş Yap
+                    </a>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tutorials Section -->
+    <section class="tutorials-section">
+        <div class="container">
+            <div class="tutorials-header">
+                <h1><i class="fas fa-play-circle"></i> Eğitim Videoları</h1>
+                <p>Global Seller Scraper yazılımını en verimli şekilde kullanmak için eğitim videolarımızı izleyin</p>
+            </div>
+
+            <div class="tutorials-container">
+                <div class="tutorials-sidebar">
+                    <div class="progress-section">
+                        <h3>İlerleme Durumu</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="tutorialProgress" style="width: 0%;"></div>
+                        </div>
+                        <span class="progress-text" id="progressText">0% Tamamlandı</span>
+                    </div>
+                    
+                    <div class="video-list">
+                        <div class="video-item" data-video="mac-install">
+                            <i class="fas fa-circle"></i>
+                            <div class="video-info">
+                                <span class="video-title">Mac OS Kurulum</span>
+                                <span class="duration">5:32</span>
+                            </div>
+                        </div>
+                        <div class="video-item" data-video="windows-install">
+                            <i class="fas fa-circle"></i>
+                            <div class="video-info">
+                                <span class="video-title">Windows Kurulum</span>
+                                <span class="duration">4:18</span>
+                            </div>
+                        </div>
+                        <div class="video-item" data-video="first-login">
+                            <i class="fas fa-circle"></i>
+                            <div class="video-info">
+                                <span class="video-title">İlk Giriş ve Hesap Oluşturma</span>
+                                <span class="duration">3:45</span>
+                            </div>
+                        </div>
+                        <div class="video-item" data-video="seller-finder">
+                            <i class="fas fa-circle"></i>
+                            <div class="video-info">
+                                <span class="video-title">Satıcı Bulucu Kullanımı</span>
+                                <span class="duration">6:12</span>
+                            </div>
+                        </div>
+                        <div class="video-item" data-video="inventory-scan">
+                            <i class="fas fa-circle"></i>
+                            <div class="video-info">
+                                <span class="video-title">Envanter Tarama</span>
+                                <span class="duration">7:28</span>
+                            </div>
+                        </div>
+                        <div class="video-item" data-video="asin-check">
+                            <i class="fas fa-circle"></i>
+                            <div class="video-info">
+                                <span class="video-title">ASIN Kontrol Sistemi</span>
+                                <span class="duration">4:55</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-player-section">
+                    <div class="video-container" id="videoContainer">
+                        <div class="video-placeholder-large">
+                            <i class="fas fa-play-circle"></i>
+                            <p>Bir video seçin</p>
+                            <span>Sol panelden izlemek istediğiniz videoyu seçin</span>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 id="videoTitle">Video Başlığı</h3>
+                        <p id="videoDescription">Video açıklaması burada görünecek</p>
+                    </div>
+                    <div class="video-actions">
+                        <button class="btn btn-primary" id="markCompleted">
+                            <i class="fas fa-check"></i> Tamamlandı
+                        </button>
+                        <button class="btn btn-outline" id="nextVideo">
+                            <i class="fas fa-arrow-right"></i> Sonraki Video
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <a href="index.html">
+                            <i class="fas fa-globe-americas"></i>
+                            <span>Global Seller Scraper</span>
+                        </a>
+                    </div>
+                    <p>Amazon satıcı analizinde güvenilir çözüm ortağınız.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Hızlı Linkler</h4>
+                    <ul>
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="trial.html">Ücretsiz Deneme</a></li>
+                        <li><a href="#pricing">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Destek & İletişim</h4>
+                    <ul>
+                        <li><a href="#faq">S.S.S</a></li>
+                        <li><a href="https://www.tam-digital.com" target="_blank">Birebir Danışmanlık</a></li>
+                        <li><a href="https://instagram.com/baranozeryuce" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-policies">
+                    <a href="policies/privacy-policy.html">Gizlilik Politikası</a>
+                    <a href="policies/terms-of-service.html">Kullanım Şartları</a>
+                    <a href="policies/cookie-policy.html">Çerez Politikası</a>
+                    <a href="policies/data-protection.html">Veri Koruma</a>
+                </div>
+                <p>&copy; 2024 Global Seller Scraper. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="js/user-management.js"></script>
+    <script src="js/tutorials.js"></script>
+</body>
+</html> 
