@@ -5375,3 +5375,19 @@ section.feature-section .feature-content.reverse .feature-visual {
     border-radius: var(--radius-2xl);
     overflow: hidden;
 }
+
+/* Video Callout Animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(57, 239, 215, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(57, 239, 215, 0.6);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(57, 239, 215, 0.4);
+    }
+}
