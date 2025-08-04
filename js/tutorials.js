@@ -14,7 +14,7 @@ class TutorialsManager {
                 title: 'Windows Kurulum',
                 description: 'Windows işletim sisteminde yazılımın kurulum adımları ve gerekli ayarlar',
                 duration: '4:18',
-                videoId: '1106883237' // Windows kurulum video ID'si
+                videoId: '1107134277' // Windows kurulum video ID'si - güncellendi
             },
             'first-login': {
                 title: 'İlk Giriş ve Hesap Oluşturma',
@@ -113,18 +113,42 @@ class TutorialsManager {
 
         this.currentVideo = videoId;
         
-        // Sadece video bilgilerini güncelle, video'yu değiştirme
-        // Video zaten HTML'de statik olarak tanımlı
+        // Video'yu değiştir
+        this.showVideo(videoId);
         
         // Update video info
         document.getElementById('videoTitle').textContent = videoData.title;
         document.getElementById('videoDescription').textContent = videoData.description;
         
-        // Güvenlik onayı sadece macOS kurulum videosunda göster
+        // Güvenlik onayı sadece kurulum videolarında göster
         const securityNote = document.querySelector('.video-info div[style*="background: rgba(57, 239, 215, 0.1)"]');
         if (securityNote) {
-            if (videoId === 'mac-install') {
+            if (videoId === 'mac-install' || videoId === 'windows-install') {
                 securityNote.style.display = 'block';
+                
+                // Windows için farklı mesaj göster
+                if (videoId === 'windows-install') {
+                    const securityTitle = securityNote.querySelector('h4');
+                    const securityDesc = securityNote.querySelector('p');
+                    const securityCode = securityNote.querySelector('div[style*="background: #333"]');
+                    const securityInfo = securityNote.querySelector('p[style*="font-size: 12px"]');
+                    
+                    if (securityTitle) securityTitle.innerHTML = '<i class="fas fa-shield-alt"></i> Windows Güvenlik Onayı';
+                    if (securityDesc) securityDesc.textContent = 'Eğer yazılım açılmıyorsa, Windows Defender\'da şu ayarı yapın:';
+                    if (securityCode) securityCode.textContent = 'Windows Defender > Virüs ve tehdit koruması > Ayarlar > Gerçek zamanlı koruma > Kapat';
+                    if (securityInfo) securityInfo.innerHTML = '<i class="fas fa-info-circle"></i> Bu ayar Windows Defender\'ın yazılımı engellemesini önler.';
+                } else {
+                    // macOS için orijinal mesajı geri yükle
+                    const securityTitle = securityNote.querySelector('h4');
+                    const securityDesc = securityNote.querySelector('p');
+                    const securityCode = securityNote.querySelector('div[style*="background: #333"]');
+                    const securityInfo = securityNote.querySelector('p[style*="font-size: 12px"]');
+                    
+                    if (securityTitle) securityTitle.innerHTML = '<i class="fas fa-shield-alt"></i> Güvenlik Onayı';
+                    if (securityDesc) securityDesc.textContent = 'Eğer yazılım açılmıyorsa, Terminal\'de şu komutu çalıştırın:';
+                    if (securityCode) securityCode.textContent = 'sudo xattr -rd com.apple.quarantine';
+                    if (securityInfo) securityInfo.innerHTML = '<i class="fas fa-info-circle"></i> Bu komut macOS\'un güvenlik kısıtlamalarını kaldırır.';
+                }
             } else {
                 securityNote.style.display = 'none';
             }
@@ -224,7 +248,22 @@ class TutorialsManager {
         localStorage.setItem('tutorials_completed', JSON.stringify(this.completedVideos));
     }
 
-
+    showVideo(videoId) {
+        // Tüm video embed'lerini gizle
+        document.querySelectorAll('.video-embed').forEach(embed => {
+            embed.style.display = 'none';
+        });
+        
+        // Seçilen video'yu göster
+        if (videoId === 'mac-install') {
+            document.getElementById('mac-video').style.display = 'block';
+        } else if (videoId === 'windows-install') {
+            document.getElementById('windows-video').style.display = 'block';
+        } else {
+            // Diğer videolar için placeholder göster
+            document.getElementById('other-videos').style.display = 'block';
+        }
+    }
 
     downloadResources() {
         if (!this.currentVideo) {

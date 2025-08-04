@@ -183,7 +183,7 @@
                 <div class="video-player-section">
                     <div class="video-container" id="videoContainer">
                         <!-- macOS Kurulum Videosu -->
-                        <div style="padding:56.25% 0 0 0;position:relative;border-radius:12px;overflow:hidden;background:#000;width:100%;height:0;">
+                        <div id="mac-video" class="video-embed" style="padding:56.25% 0 0 0;position:relative;border-radius:12px;overflow:hidden;background:#000;width:100%;height:0;">
                             <iframe src="https://player.vimeo.com/video/1107065389" 
                                     width="100%" 
                                     height="100%" 
@@ -192,6 +192,28 @@
                                     style="position:absolute;top:0;left:0;width:100%;height:100%;" 
                                     title="macOS Kurulum Rehberi">
                             </iframe>
+                        </div>
+                        
+                        <!-- Windows Kurulum Videosu -->
+                        <div id="windows-video" class="video-embed" style="padding:75% 0 0 0;position:relative;border-radius:12px;overflow:hidden;background:#000;width:100%;height:0;display:none;">
+                            <iframe src="https://player.vimeo.com/video/1107134277" 
+                                    width="100%" 
+                                    height="100%" 
+                                    frameborder="0" 
+                                    allow="autoplay; fullscreen; picture-in-picture" 
+                                    style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                                    title="Windows Kurulum Rehberi">
+                            </iframe>
+                        </div>
+                        
+                        <!-- Diğer videolar için placeholder -->
+                        <div id="other-videos" class="video-embed" style="padding:56.25% 0 0 0;position:relative;border-radius:12px;overflow:hidden;background:#000;width:100%;height:0;display:none;">
+                            <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;">
+                                <div style="text-align:center;">
+                                    <i class="fas fa-play-circle" style="font-size:4rem;margin-bottom:1rem;color:#39efd7;"></i>
+                                    <p>Video yakında eklenecek...</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="video-info">
