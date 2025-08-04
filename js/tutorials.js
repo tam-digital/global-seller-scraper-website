@@ -5,10 +5,10 @@ class TutorialsManager {
         this.completedVideos = [];
         this.videoData = {
             'mac-install': {
-                title: 'Mac OS Kurulum',
-                description: 'Mac işletim sisteminde yazılımın kurulum adımları ve gerekli ayarlar',
+                title: 'macOS Kurulum Rehberi',
+                description: 'macOS işletim sisteminde Global Seller Scraper yazılımının kurulum adımları ve gerekli ayarlar',
                 duration: '5:32',
-                videoId: '1106883237' // Mac kurulum video ID'si
+                videoId: '1107065389' // macOS kurulum video ID'si - doğru ID
             },
             'windows-install': {
                 title: 'Windows Kurulum',
@@ -46,6 +46,9 @@ class TutorialsManager {
     }
 
     init() {
+        // Authentication kontrolü
+        this.checkAuthentication();
+        
         // Load completed videos from localStorage
         this.loadCompletedVideos();
         
@@ -65,6 +68,43 @@ class TutorialsManager {
         // Initialize page
         this.updateProgress();
         this.updateVideoList();
+        
+        // Load first video by default
+        this.loadVideo('mac-install');
+    }
+
+    checkAuthentication() {
+        const authCheck = document.getElementById('authCheck');
+        const accessDenied = document.getElementById('accessDenied');
+        const tutorialsSection = document.getElementById('tutorialsSection');
+        
+        // Auth check göster
+        authCheck.style.display = 'flex';
+        
+        // Firebase auth state listener
+        firebase.auth().onAuthStateChanged((user) => {
+            authCheck.style.display = 'none';
+            
+            if (user) {
+                // Kullanıcı giriş yapmış
+                tutorialsSection.style.display = 'block';
+                accessDenied.style.display = 'none';
+                
+                // Navbar'ı güncelle
+                this.updateNavbar(user);
+            } else {
+                // Kullanıcı giriş yapmamış
+                tutorialsSection.style.display = 'none';
+                accessDenied.style.display = 'flex';
+            }
+        });
+    }
+
+    updateNavbar(user) {
+        // User management.js'deki updateNavbar fonksiyonunu çağır
+        if (typeof updateNavbar === 'function') {
+            updateNavbar(user);
+        }
     }
 
     loadVideo(videoId) {
@@ -73,26 +113,22 @@ class TutorialsManager {
 
         this.currentVideo = videoId;
         
-        // Update video container
-        const videoContainer = document.getElementById('videoContainer');
-        if (videoContainer) {
-            videoContainer.innerHTML = `
-                <div style="padding:56.25% 0 0 0;position:relative;border-radius:12px;overflow:hidden;">
-                    <iframe src="https://player.vimeo.com/video/${videoData.videoId}?badge=0&autopause=0&player_id=0&app_id=58479" 
-                            frameborder="0" 
-                            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin" 
-                            style="position:absolute;top:0;left:0;width:100%;height:100%;" 
-                            title="${videoData.title}">
-                    </iframe>
-                </div>
-                <script src="https://player.vimeo.com/api/player.js"></script>
-            `;
-        }
-
+        // Sadece video bilgilerini güncelle, video'yu değiştirme
+        // Video zaten HTML'de statik olarak tanımlı
+        
         // Update video info
         document.getElementById('videoTitle').textContent = videoData.title;
         document.getElementById('videoDescription').textContent = videoData.description;
+        
+        // Güvenlik onayı sadece macOS kurulum videosunda göster
+        const securityNote = document.querySelector('.video-info div[style*="background: rgba(57, 239, 215, 0.1)"]');
+        if (securityNote) {
+            if (videoId === 'mac-install') {
+                securityNote.style.display = 'block';
+            } else {
+                securityNote.style.display = 'none';
+            }
+        }
 
         // Update active state in video list
         document.querySelectorAll('.video-item').forEach(item => {
@@ -187,6 +223,8 @@ class TutorialsManager {
     saveCompletedVideos() {
         localStorage.setItem('tutorials_completed', JSON.stringify(this.completedVideos));
     }
+
+
 
     downloadResources() {
         if (!this.currentVideo) {

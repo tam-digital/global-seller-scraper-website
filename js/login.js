@@ -67,8 +67,17 @@ function generateFingerprint() {
 auth.onAuthStateChanged(async (user) => {
     if (user) {
         console.log('Kullanıcı giriş yaptı:', user.email);
-        // Direkt dashboard'a yönlendir
-        window.location.href = 'dashboard.html';
+        
+        // URL'den redirect parametresini al
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectTo = urlParams.get('redirect');
+        
+        // Eğer redirect parametresi varsa o sayfaya, yoksa dashboard'a yönlendir
+        if (redirectTo) {
+            window.location.href = redirectTo;
+        } else {
+            window.location.href = 'dashboard.html';
+        }
     } else {
         console.log('Kullanıcı giriş yapmadı');
         showAuthForms();
