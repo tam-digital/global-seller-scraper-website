@@ -44,7 +44,7 @@ class TutorialsManager {
                 title: 'ASIN Kontrol Sistemi',
                 description: 'ASIN kontrol sistemi ile benzersiz ürünleri filtreleme',
                 duration: '4:55',
-                videoId: '1106883237' // ASIN kontrol video ID'si
+                videoId: '1107522062' // ASIN kontrol video ID'si - güncellendi
             }
         };
         
@@ -307,6 +307,9 @@ class TutorialsManager {
         } else if (videoId === 'inventory-scan') {
             const inventoryScanVideo = document.getElementById('inventory-scan-video');
             if (inventoryScanVideo) inventoryScanVideo.style.display = 'block';
+        } else if (videoId === 'asin-check') {
+            const asinCheckVideo = document.getElementById('asin-check-video');
+            if (asinCheckVideo) asinCheckVideo.style.display = 'block';
         } else {
             // Diğer videolar için placeholder göster
             const otherVideos = document.getElementById('other-videos');
