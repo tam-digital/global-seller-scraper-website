@@ -32,7 +32,7 @@ class TutorialsManager {
                 title: 'Satıcı Bulucu Kullanımı',
                 description: 'Rakip satıcıları bulma ve analiz etme özelliğinin kullanımı',
                 duration: '6:12',
-                videoId: '1106883237' // Satıcı bulucu video ID'si
+                videoId: '1107493295' // Satıcı bulucu video ID'si - güncellendi
             },
             'inventory-scan': {
                 title: 'Envanter Tarama',
@@ -301,6 +301,9 @@ class TutorialsManager {
         } else if (videoId === 'windows-install') {
             const windowsVideo = document.getElementById('windows-video');
             if (windowsVideo) windowsVideo.style.display = 'block';
+        } else if (videoId === 'seller-finder') {
+            const sellerFinderVideo = document.getElementById('seller-finder-video');
+            if (sellerFinderVideo) sellerFinderVideo.style.display = 'block';
         } else {
             // Diğer videolar için placeholder göster
             const otherVideos = document.getElementById('other-videos');
