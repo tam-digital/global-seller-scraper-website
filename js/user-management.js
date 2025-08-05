@@ -251,6 +251,44 @@ auth.onAuthStateChanged(async (user) => {
                     currentUserData = { uid: user.uid, ...newUserData };
                 }
                 
+                // Premium kontrolü ve free doküman temizliği
+                if (currentUserData && currentUserData.trial_status === 'premium') {
+                    console.log('🌟 Premium kullanıcı tespit edildi, free dokümanlar temizleniyor...');
+                    
+                    try {
+                        // Aynı email'e sahip tüm dokümanları bul
+                        const usersRef = db.collection('users');
+                        const querySnapshot = await usersRef.where('email', '==', user.email).get();
+                        
+                        let premiumDocId = null;
+                        let freeDocIds = [];
+                        
+                        querySnapshot.forEach(doc => {
+                            const data = doc.data();
+                            if (data.trial_status === 'premium') {
+                                premiumDocId = doc.id;
+                            } else if (data.trial_status === 'free') {
+                                freeDocIds.push(doc.id);
+                            }
+                        });
+                        
+                        // Free dokümanları sil
+                        if (freeDocIds.length > 0 && premiumDocId) {
+                            console.log(`🗑️ ${freeDocIds.length} adet free doküman siliniyor...`);
+                            
+                            for (const freeDocId of freeDocIds) {
+                                await db.collection('users').doc(freeDocId).delete();
+                                console.log(`✅ Free doküman silindi: ${freeDocId}`);
+                            }
+                            
+                            console.log('✅ Tüm free dokümanlar temizlendi');
+                        }
+                        
+                    } catch (cleanupError) {
+                        console.error('❌ Free doküman temizleme hatası:', cleanupError);
+                    }
+                }
+                
                 // Last login güncelle (opsiyonel)
                 try {
                     console.log('💾 Last login güncelleniyor...');

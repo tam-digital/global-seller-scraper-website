@@ -146,12 +146,38 @@ async function loadDashboardData(user) {
         console.log('📊 User UID:', user.uid);
         console.log('📊 Firestore db object:', db);
         
-        // Firestore'dan kullanıcı verilerini çek
+        // Firestore'dan kullanıcı verilerini çek - Email ile arama yap
         console.log('📊 Firestore query başlatılıyor...');
-        const userDoc = await firebase.firestore().collection('users').doc(user.uid).get();
-        console.log('📊 Firestore query tamamlandı');
+        console.log('📊 Aranan email:', user.email);
         
-        if (!userDoc.exists) {
+        // Önce email ile arama yap
+        const usersRef = firebase.firestore().collection('users');
+        const querySnapshot = await usersRef.where('email', '==', user.email).get();
+        
+        let userData = null;
+        let userDocId = null;
+        
+        if (!querySnapshot.empty) {
+            // Email ile bulunan dokümanları kontrol et
+            querySnapshot.forEach(doc => {
+                const data = doc.data();
+                console.log(`📄 Doküman ID: ${doc.id}, trial_status: ${data.trial_status}`);
+                
+                // Premium dokümanı tercih et
+                if (data.trial_status === 'premium') {
+                    userData = data;
+                    userDocId = doc.id;
+                    console.log('🌟 Premium doküman bulundu:', doc.id);
+                } else if (!userData) {
+                    // Eğer premium yoksa ilk dokümanı al
+                    userData = data;
+                    userDocId = doc.id;
+                    console.log('📦 Free doküman bulundu:', doc.id);
+                }
+            });
+        }
+        
+        if (!userData) {
             console.log('⚠️ Kullanıcı dokümanı bulunamadı, oluşturuluyor...');
             
             // Yeni kullanıcı dokümanı oluştur
@@ -179,14 +205,12 @@ async function loadDashboardData(user) {
             console.log('✅ Yeni kullanıcı dokümanı oluşturuldu');
             
             // Oluşturulan veriyi kullan
-            const userData = newUserData;
-        } else {
-            const userData = userDoc.data();
-            console.log('👤 Kullanıcı verileri:', userData);
+            userData = newUserData;
+            userDocId = user.uid;
         }
         
-        const userData = userDoc.data();
         console.log('👤 Kullanıcı verileri:', userData);
+        console.log('👤 Kullanıcı doküman ID:', userDocId);
         
         console.log('✅ Dashboard verileri yüklendi');
         
@@ -232,14 +256,28 @@ function updateDashboardDisplay(userData) {
         if (memberSince) memberSince.textContent = formatDate(userData.created_at);
         
         // Plan Status
+        console.log('🔍 userData.trial_status:', userData.trial_status);
+        console.log('🔍 userData.trial_status type:', typeof userData.trial_status);
         const isPremium = userData.trial_status === 'premium';
+        console.log('🔍 isPremium:', isPremium);
         const planStatusText = isPremium ? '🌟 Premium Üye' : '📦 Ücretsiz Plan';
+        console.log('🔍 planStatusText:', planStatusText);
         
         if (planStatus) planStatus.textContent = planStatusText;
         if (currentPlan) currentPlan.textContent = planStatusText;
         
         if (planBadge) {
             planBadge.className = `plan-badge ${isPremium ? 'premium' : 'free'}`;
+        }
+        
+        // Telegram Button - Sadece premium kullanıcılar için göster
+        const telegramBtn = document.getElementById('telegramBtn');
+        if (telegramBtn) {
+            if (isPremium) {
+                telegramBtn.style.display = 'flex';
+            } else {
+                telegramBtn.style.display = 'none';
+            }
         }
         
         // Plan Features
@@ -340,13 +378,31 @@ function initializeDashboard(user) {
     // Dashboard verilerini yükle
     loadDashboardData(user);
     
-    // Gerçek zamanlı güncelleme için listener ekle
-    const userDocRef = firebase.firestore().collection('users').doc(user.uid);
-    userDocRef.onSnapshot((doc) => {
-        if (doc.exists) {
+    // Gerçek zamanlı güncelleme için listener ekle - Email ile arama yap
+    const usersRef = firebase.firestore().collection('users');
+    const query = usersRef.where('email', '==', user.email);
+    
+    query.onSnapshot((querySnapshot) => {
+        if (!querySnapshot.empty) {
             console.log('🔄 Dashboard verileri gerçek zamanlı güncellendi');
-            const userData = doc.data();
-            updateDashboardDisplay(userData);
+            
+            let userData = null;
+            
+            // Premium dokümanı tercih et
+            querySnapshot.forEach(doc => {
+                const data = doc.data();
+                if (data.trial_status === 'premium') {
+                    userData = data;
+                    console.log('🌟 Premium doküman gerçek zamanlı güncellendi');
+                } else if (!userData) {
+                    userData = data;
+                    console.log('📦 Free doküman gerçek zamanlı güncellendi');
+                }
+            });
+            
+            if (userData) {
+                updateDashboardDisplay(userData);
+            }
         }
     });
 }
@@ -377,6 +433,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // Refresh button
     if (refreshDataBtn) {
         refreshDataBtn.addEventListener('click', refreshDashboardData);
+    }
+    
+    // Telegram button
+    const telegramBtn = document.getElementById('telegramBtn');
+    if (telegramBtn) {
+        telegramBtn.addEventListener('click', () => {
+            // Telegram grubunun linkini yeni sekmede aç
+            window.open('https://t.me/+tICbDQWEKCw2ZTFk', '_blank', 'noopener,noreferrer');
+        });
+    }
+    
+    // Consultation button
+    const consultationBtn = document.getElementById('consultationBtn');
+    if (consultationBtn) {
+        consultationBtn.addEventListener('click', () => {
+            // WhatsApp mesajı hazırla
+            const message = encodeURIComponent(`Merhaba Baran Bey! Global Seller Scraper üyesiyim, saatlik danışmanlık almak istiyorum. Müsait olduğunuzda benimle iletişime geçebilir misiniz?`);
+            
+            // WhatsApp linkini aç
+            window.open(`https://wa.me/905308342267?text=${message}`, '_blank', 'noopener,noreferrer');
+        });
     }
     
     // Firebase auth state listener

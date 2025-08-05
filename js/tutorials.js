@@ -22,14 +22,9 @@ class TutorialsManager {
                 duration: '4:18',
                 videoId: '1107134277' // Windows kurulum video ID'si - güncellendi
             },
-            'first-login': {
-                title: 'İlk Giriş ve Hesap Oluşturma',
-                description: 'Yazılıma ilk giriş yapma ve hesap oluşturma süreci',
-                duration: '3:45',
-                videoId: '1106883237' // İlk giriş video ID'si
-            },
+
             'seller-finder': {
-                title: 'Satıcı Bulucu Kullanımı',
+                title: 'Rakip Araştırma',
                 description: 'Rakip satıcıları bulma ve analiz etme özelliğinin kullanımı',
                 duration: '6:12',
                 videoId: '1107493295' // Satıcı bulucu video ID'si - güncellendi
@@ -201,6 +196,9 @@ class TutorialsManager {
                 item.classList.add('active');
             }
         });
+        
+        // Update button states
+        this.updateButtonStates();
 
         // Update button states
         this.updateButtonStates();
@@ -265,6 +263,7 @@ class TutorialsManager {
     updateButtonStates() {
         const markCompletedBtn = document.getElementById('markCompleted');
         const nextVideoBtn = document.getElementById('nextVideo');
+        const downloadResourcesBtn = document.getElementById('downloadResources');
         
         if (markCompletedBtn) {
             if (this.currentVideo && this.completedVideos.includes(this.currentVideo)) {
@@ -273,6 +272,19 @@ class TutorialsManager {
             } else {
                 markCompletedBtn.innerHTML = '<i class="fas fa-check"></i> Tamamlandı';
                 markCompletedBtn.disabled = false;
+            }
+        }
+        
+        // Download butonu sadece son videoda aktif olsun
+        if (downloadResourcesBtn) {
+            if (this.currentVideo === 'free-resources') {
+                downloadResourcesBtn.disabled = false;
+                downloadResourcesBtn.style.opacity = '1';
+                downloadResourcesBtn.style.cursor = 'pointer';
+            } else {
+                downloadResourcesBtn.disabled = true;
+                downloadResourcesBtn.style.opacity = '0.5';
+                downloadResourcesBtn.style.cursor = 'not-allowed';
             }
         }
     }
@@ -335,16 +347,34 @@ class TutorialsManager {
         const videoData = this.videoData[this.currentVideo];
         if (!videoData) return;
 
-        // Simulated download - gerçek uygulamada dosya linki olacak
+        // Son video için özel işlem - her iki Google Sheets linkini aç
+        if (this.currentVideo === 'free-resources') {
+            const links = [
+                'https://docs.google.com/spreadsheets/d/196e7AmU2KVFJEJdn-fxmcxmgd77K3JAItNAUMt1mi8M/edit?usp=sharing',
+                'https://docs.google.com/spreadsheets/d/1KoB7e-u2FwV4xyHPRNyiuhLrqxzNER3qU8_YgMsgJQ0/edit?usp=sharing'
+            ];
+            
+            // Her iki linki de yeni sekmede aç - popup blocker'ı aşmak için setTimeout kullan
+            links.forEach((link, index) => {
+                setTimeout(() => {
+                    window.open(link, '_blank', 'noopener,noreferrer');
+                }, index * 100); // 100ms gecikme ile aç
+            });
+            
+            // Show success message
+            alert('Ücretsiz kaynaklar yeni sekmelerde açılıyor...');
+            return;
+        }
+
+        // Diğer videolar için normal işlem
         const downloadLinks = {
             'registration-activation': 'https://example.com/registration-activation-guide.pdf',
             'mac-install': 'https://example.com/mac-install-guide.pdf',
             'windows-install': 'https://example.com/windows-install-guide.pdf',
-            'first-login': 'https://example.com/first-login-guide.pdf',
+
             'seller-finder': 'https://example.com/seller-finder-guide.pdf',
             'inventory-scan': 'https://example.com/inventory-scan-guide.pdf',
-            'asin-check': 'https://example.com/asin-check-guide.pdf',
-            'free-resources': 'https://example.com/free-resources-guide.pdf'
+            'asin-check': 'https://example.com/asin-check-guide.pdf'
         };
 
         const link = downloadLinks[this.currentVideo];

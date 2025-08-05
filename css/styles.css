@@ -5273,6 +5273,39 @@ section.feature-section .feature-content.reverse .feature-visual {
     box-shadow: 0 5px 20px rgba(226, 232, 240, 0.3);
 }
 
+.telegram-badge {
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background: linear-gradient(45deg, #0088cc, #00a8ff);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.telegram-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 136, 204, 0.3);
+}
+
+.consultation-btn {
+    background: linear-gradient(45deg, #25d366, #128c7e);
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.consultation-btn:hover {
+    background: linear-gradient(45deg, #128c7e, #075e54);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+}
+
 .modal {
     position: fixed;
     top: 0;
