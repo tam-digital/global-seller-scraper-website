@@ -24,6 +24,10 @@ const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
 const showSignup = document.getElementById('showSignup');
 const showLogin = document.getElementById('showLogin');
+const forgotPassword = document.getElementById('forgotPassword');
+const backToLogin = document.getElementById('backToLogin');
+const forgotPasswordFormContainer = document.getElementById('forgotPasswordFormContainer');
+const forgotPasswordForm = document.getElementById('forgotPasswordForm');
 const authMessage = document.getElementById('authMessage');
 const userSection = document.getElementById('userSection');
 const userEmail = document.getElementById('userEmail');
@@ -112,6 +116,34 @@ async function showUserDashboard(user) {
 function showAuthForms() {
     authForms.style.display = 'block';
     userDashboard.style.display = 'none';
+}
+
+// ===== FORGOT PASSWORD =====
+async function sendPasswordResetEmail(email) {
+    try {
+        await auth.sendPasswordResetEmail(email);
+        return true, 'Şifre sıfırlama linki email adresinize gönderildi!';
+    } catch (error) {
+        console.error('Şifre sıfırlama hatası:', error);
+        
+        let errorMessage = 'Şifre sıfırlama linki gönderilemedi.';
+        
+        switch (error.code) {
+            case 'auth/user-not-found':
+                errorMessage = 'Bu email adresi ile kayıtlı kullanıcı bulunamadı.';
+                break;
+            case 'auth/invalid-email':
+                errorMessage = 'Geçersiz email adresi.';
+                break;
+            case 'auth/too-many-requests':
+                errorMessage = 'Çok fazla deneme yapıldı. Lütfen daha sonra tekrar deneyin.';
+                break;
+            default:
+                errorMessage = 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.';
+        }
+        
+        return false, errorMessage;
+    }
 }
 
 // ===== UPDATE NAVBAR =====
@@ -444,7 +476,67 @@ if (showLogin) {
     showLogin.addEventListener('click', (e) => {
         e.preventDefault();
         signupFormContainer.style.display = 'none';
+        forgotPasswordFormContainer.style.display = 'none';
         loginFormContainer.style.display = 'block';
+    });
+}
+
+// Forgot password event listeners
+if (forgotPassword) {
+    forgotPassword.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginFormContainer.style.display = 'none';
+        signupFormContainer.style.display = 'none';
+        forgotPasswordFormContainer.style.display = 'block';
+    });
+}
+
+if (backToLogin) {
+    backToLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        forgotPasswordFormContainer.style.display = 'none';
+        signupFormContainer.style.display = 'none';
+        loginFormContainer.style.display = 'block';
+    });
+}
+
+if (forgotPasswordForm) {
+    forgotPasswordForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('forgotPasswordEmail').value.trim();
+        
+        if (!email) {
+            showMessage('Lütfen email adresinizi girin!', 'error');
+            return;
+        }
+        
+        // Loading state
+        const submitBtn = forgotPasswordForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gönderiliyor...';
+        submitBtn.disabled = true;
+        
+        try {
+            const [success, message] = await sendPasswordResetEmail(email);
+            
+            if (success) {
+                showMessage(message, 'success');
+                // Form'u temizle
+                forgotPasswordForm.reset();
+                // Login formuna geri dön
+                forgotPasswordFormContainer.style.display = 'none';
+                loginFormContainer.style.display = 'block';
+            } else {
+                showMessage(message, 'error');
+            }
+        } catch (error) {
+            showMessage('Beklenmeyen bir hata oluştu!', 'error');
+        } finally {
+            // Reset button state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
     });
 }
 

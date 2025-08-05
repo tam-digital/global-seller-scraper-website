@@ -153,6 +153,11 @@
                                 <label for="loginPassword">Şifre:</label>
                                 <input type="password" id="loginPassword" required>
                             </div>
+                            <div class="form-group" style="text-align: right; margin-bottom: 15px;">
+                                <a href="#" id="forgotPassword" style="color: var(--primary-color); font-size: 14px; text-decoration: none;">
+                                    <i class="fas fa-key"></i> Şifremi Unuttum
+                                </a>
+                            </div>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-sign-in-alt"></i> Giriş Yap
                             </button>
@@ -194,6 +199,29 @@
                         <p class="auth-switch">
                             Zaten hesabınız var mı? 
                             <a href="#" id="showLogin">Giriş Yap</a>
+                        </p>
+                    </div>
+
+                    <!-- Forgot Password Form -->
+                    <div class="auth-form" id="forgotPasswordFormContainer" style="display: none;">
+                        <h3>🔑 Şifremi Unuttum</h3>
+                        <form id="forgotPasswordForm">
+                            <div class="form-group">
+                                <label for="forgotPasswordEmail">Email:</label>
+                                <input type="email" id="forgotPasswordEmail" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Şifre Sıfırlama Linki Gönder
+                            </button>
+                            <p style="font-size: 12px; color: #888; text-align: center; margin-top: 10px;">
+                                <i class="fas fa-info-circle"></i> 
+                                Email adresinize şifre sıfırlama linki gönderilecektir.
+                            </p>
+                        </form>
+                        <p class="auth-switch">
+                            <a href="#" id="backToLogin">
+                                <i class="fas fa-arrow-left"></i> Giriş Sayfasına Dön
+                            </a>
                         </p>
                     </div>
                 </div>
