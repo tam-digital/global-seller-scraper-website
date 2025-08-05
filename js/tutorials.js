@@ -4,6 +4,12 @@ class TutorialsManager {
         this.currentVideo = null;
         this.completedVideos = [];
         this.videoData = {
+            'registration-activation': {
+                title: 'Kayıt ve Hesap Doğrulama',
+                description: 'Global Seller Scraper\'a kayıt olma ve hesap doğrulama süreci',
+                duration: '4:20',
+                videoId: '1107481351' // Kayıt ve aktivasyon video ID'si
+            },
             'mac-install': {
                 title: 'macOS Kurulum Rehberi',
                 description: 'macOS işletim sisteminde Global Seller Scraper yazılımının kurulum adımları ve gerekli ayarlar',
@@ -70,7 +76,7 @@ class TutorialsManager {
         this.updateVideoList();
         
         // Load first video by default
-        this.loadVideo('mac-install');
+        this.loadVideo('registration-activation');
     }
 
     checkAuthentication() {
@@ -286,7 +292,10 @@ class TutorialsManager {
         }
         
         // Seçilen video'yu göster
-        if (videoId === 'mac-install') {
+        if (videoId === 'registration-activation') {
+            const registrationVideo = document.getElementById('registration-activation-video');
+            if (registrationVideo) registrationVideo.style.display = 'block';
+        } else if (videoId === 'mac-install') {
             const macVideo = document.getElementById('mac-video');
             if (macVideo) macVideo.style.display = 'block';
         } else if (videoId === 'windows-install') {
@@ -310,6 +319,7 @@ class TutorialsManager {
 
         // Simulated download - gerçek uygulamada dosya linki olacak
         const downloadLinks = {
+            'registration-activation': 'https://example.com/registration-activation-guide.pdf',
             'mac-install': 'https://example.com/mac-install-guide.pdf',
             'windows-install': 'https://example.com/windows-install-guide.pdf',
             'first-login': 'https://example.com/first-login-guide.pdf',
