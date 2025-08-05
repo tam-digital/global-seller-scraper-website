@@ -1,3 +1,8 @@
+// ===== FIREBASE CONFIGURATION =====
+// Firebase zaten user-management.js'de başlatıldı, sadece referans al
+// const auth = firebase.auth(); // Çakışma yaratıyor
+// const db = firebase.firestore(); // Çakışma yaratıyor
+
 // ===== DASHBOARD JAVASCRIPT =====
 
 // DOM Elements
@@ -138,16 +143,82 @@ function showFreeFeatures() {
 async function loadDashboardData(user) {
     try {
         console.log('📊 Dashboard verileri yükleniyor...');
+        console.log('📊 User UID:', user.uid);
+        console.log('📊 Firestore db object:', db);
         
         // Firestore'dan kullanıcı verilerini çek
-        const userDoc = await db.collection('users').doc(user.uid).get();
+        console.log('📊 Firestore query başlatılıyor...');
+        const userDoc = await firebase.firestore().collection('users').doc(user.uid).get();
+        console.log('📊 Firestore query tamamlandı');
         
         if (!userDoc.exists) {
-            throw new Error('Kullanıcı verileri bulunamadı');
+            console.log('⚠️ Kullanıcı dokümanı bulunamadı, oluşturuluyor...');
+            
+            // Yeni kullanıcı dokümanı oluştur
+            const newUserData = {
+                email: user.email,
+                name: user.displayName || user.email.split('@')[0],
+                company: 'Belirtilmemiş',
+                created_at: firebase.firestore.FieldValue.serverTimestamp(),
+                trial_status: 'free',
+                monthly_usage: {
+                    asin_scans: 0,
+                    product_scans: 0,
+                    seller_searches: 0
+                },
+                limits: {
+                    asin_scans: 10000,
+                    product_scans: 10000,
+                    seller_searches: 0
+                },
+                last_login: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            
+            // Firestore'a kaydet
+            await firebase.firestore().collection('users').doc(user.uid).set(newUserData);
+            console.log('✅ Yeni kullanıcı dokümanı oluşturuldu');
+            
+            // Oluşturulan veriyi kullan
+            const userData = newUserData;
+        } else {
+            const userData = userDoc.data();
+            console.log('👤 Kullanıcı verileri:', userData);
         }
         
         const userData = userDoc.data();
         console.log('👤 Kullanıcı verileri:', userData);
+        
+        console.log('✅ Dashboard verileri yüklendi');
+        
+        // Dashboard display'i güncelle
+        updateDashboardDisplay(userData);
+        
+    } catch (error) {
+        console.error('❌ Dashboard veri yükleme hatası:', error);
+        console.error('Hata detayları:', {
+            message: error.message,
+            stack: error.stack,
+            user: user ? user.email : 'No user'
+        });
+        
+        // Daha detaylı hata mesajı
+        let errorMessage = 'Dashboard verileri yüklenirken hata oluştu!';
+        if (error.message.includes('permission')) {
+            errorMessage = 'Firestore erişim izni hatası! Kullanıcı verileri okunamıyor.';
+        } else if (error.message.includes('network')) {
+            errorMessage = 'Ağ bağlantısı hatası! İnternet bağlantınızı kontrol edin.';
+        } else if (error.message.includes('not-found')) {
+            errorMessage = 'Kullanıcı verileri bulunamadı! Lütfen tekrar giriş yapın.';
+        }
+        
+        alert(errorMessage);
+    }
+}
+
+// ===== UPDATE DASHBOARD DISPLAY =====
+function updateDashboardDisplay(userData) {
+    try {
+        console.log('📊 Dashboard display güncelleniyor...');
         
         // Welcome Message
         if (welcomeMessage) {
@@ -212,11 +283,10 @@ async function loadDashboardData(user) {
             resetDate.textContent = quotaResetDate;
         }
         
-        console.log('✅ Dashboard verileri yüklendi');
+        console.log('✅ Dashboard display güncellendi');
         
     } catch (error) {
-        console.error('❌ Dashboard veri yükleme hatası:', error);
-        alert('Dashboard verileri yüklenirken hata oluştu!');
+        console.error('❌ Dashboard display güncelleme hatası:', error);
     }
 }
 
@@ -240,7 +310,20 @@ async function refreshDashboardData() {
 
 // ===== INITIALIZE DASHBOARD =====
 function initializeDashboard(user) {
+    console.log('🔍 initializeDashboard çağrıldı:', user ? user.email : 'No user');
+    
+    // DOM element kontrolü
+    if (!loadingState || !accessDenied || !dashboardContent) {
+        console.error('❌ Dashboard elementleri bulunamadı:', {
+            loadingState: !!loadingState,
+            accessDenied: !!accessDenied,
+            dashboardContent: !!dashboardContent
+        });
+        return;
+    }
+    
     if (!user) {
+        console.log('❌ Kullanıcı giriş yapmamış');
         // Kullanıcı giriş yapmamış
         loadingState.style.display = 'none';
         accessDenied.style.display = 'block';
@@ -248,6 +331,7 @@ function initializeDashboard(user) {
         return;
     }
     
+    console.log('✅ Kullanıcı giriş yapmış, dashboard yükleniyor...');
     // Kullanıcı giriş yapmış
     loadingState.style.display = 'none';
     accessDenied.style.display = 'none';
@@ -255,6 +339,16 @@ function initializeDashboard(user) {
     
     // Dashboard verilerini yükle
     loadDashboardData(user);
+    
+    // Gerçek zamanlı güncelleme için listener ekle
+    const userDocRef = firebase.firestore().collection('users').doc(user.uid);
+    userDocRef.onSnapshot((doc) => {
+        if (doc.exists) {
+            console.log('🔄 Dashboard verileri gerçek zamanlı güncellendi');
+            const userData = doc.data();
+            updateDashboardDisplay(userData);
+        }
+    });
 }
 
 // ===== EVENT LISTENERS =====
@@ -288,6 +382,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Firebase auth state listener
     firebase.auth().onAuthStateChanged((user) => {
         console.log('🔄 Auth state changed in dashboard:', user ? user.email : 'No user');
+        console.log('🔄 User object:', user);
+        
+        if (user) {
+            console.log('✅ User authenticated:', {
+                uid: user.uid,
+                email: user.email,
+                emailVerified: user.emailVerified
+            });
+        } else {
+            console.log('❌ No user authenticated');
+        }
+        
         initializeDashboard(user);
     });
 });

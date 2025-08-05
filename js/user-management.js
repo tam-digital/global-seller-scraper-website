@@ -222,9 +222,33 @@ auth.onAuthStateChanged(async (user) => {
                     currentUserData = { uid: user.uid, ...userDoc.data() };
                     console.log('📊 Kullanıcı verileri yüklendi:', currentUserData);
                 } else {
-                    // Eğer kullanıcı verisi yoksa default değerler ile oluştur
-                    console.log('⚠️ Kullanıcı verisi Firestore\'da bulunamadı, default değerler kullanılıyor');
-                    currentUserData = { uid: user.uid, plan: 'Free Plan', email: user.email };
+                    // Eğer kullanıcı verisi yoksa yeni doküman oluştur
+                    console.log('⚠️ Kullanıcı verisi Firestore\'da bulunamadı, yeni doküman oluşturuluyor...');
+                    
+                    const newUserData = {
+                        email: user.email,
+                        name: user.displayName || user.email.split('@')[0],
+                        company: 'Belirtilmemiş',
+                        created_at: firebase.firestore.FieldValue.serverTimestamp(),
+                        trial_status: 'free',
+                        monthly_usage: {
+                            asin_scans: 0,
+                            product_scans: 0,
+                            seller_searches: 0
+                        },
+                        limits: {
+                            asin_scans: 10000,
+                            product_scans: 10000,
+                            seller_searches: 0
+                        },
+                        last_login: firebase.firestore.FieldValue.serverTimestamp()
+                    };
+                    
+                    // Firestore'a kaydet
+                    await db.collection('users').doc(user.uid).set(newUserData);
+                    console.log('✅ Yeni kullanıcı dokümanı oluşturuldu');
+                    
+                    currentUserData = { uid: user.uid, ...newUserData };
                 }
                 
                 // Last login güncelle (opsiyonel)

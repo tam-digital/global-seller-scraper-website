@@ -78,6 +78,23 @@ class TutorialsManager {
         const accessDenied = document.getElementById('accessDenied');
         const tutorialsSection = document.getElementById('tutorialsSection');
         
+        // Element kontrolü
+        if (!authCheck || !accessDenied || !tutorialsSection) {
+            console.error('❌ Tutorials sayfası elementleri bulunamadı:', {
+                authCheck: !!authCheck,
+                accessDenied: !!accessDenied,
+                tutorialsSection: !!tutorialsSection
+            });
+            
+            // Eğer tutorials sayfasında değilsek, fonksiyonu sonlandır
+            if (!window.location.pathname.includes('tutorials.html')) {
+                console.log('✅ Tutorials sayfasında değil, fonksiyon sonlandırılıyor');
+                return;
+            }
+            
+            return;
+        }
+        
         // Auth check göster
         authCheck.style.display = 'flex';
         
@@ -120,8 +137,10 @@ class TutorialsManager {
         document.getElementById('videoTitle').textContent = videoData.title;
         document.getElementById('videoDescription').textContent = videoData.description;
         
-        // Güvenlik onayı sadece kurulum videolarında göster
+        // Güvenlik onayı ve görsel sadece kurulum videolarında göster
         const securityNote = document.querySelector('.video-info div[style*="background: rgba(57, 239, 215, 0.1)"]');
+        const setupImage = document.querySelector('.video-info div[style*="text-align: center"]');
+        
         if (securityNote) {
             if (videoId === 'mac-install' || videoId === 'windows-install') {
                 securityNote.style.display = 'block';
@@ -151,6 +170,15 @@ class TutorialsManager {
                 }
             } else {
                 securityNote.style.display = 'none';
+            }
+        }
+        
+        // Kurulum görselini sadece macOS kurulum videosunda göster
+        if (setupImage) {
+            if (videoId === 'mac-install') {
+                setupImage.style.display = 'block';
+            } else {
+                setupImage.style.display = 'none';
             }
         }
 
@@ -250,18 +278,24 @@ class TutorialsManager {
 
     showVideo(videoId) {
         // Tüm video embed'lerini gizle
-        document.querySelectorAll('.video-embed').forEach(embed => {
-            embed.style.display = 'none';
-        });
+        const videoEmbeds = document.querySelectorAll('.video-embed');
+        if (videoEmbeds.length > 0) {
+            videoEmbeds.forEach(embed => {
+                embed.style.display = 'none';
+            });
+        }
         
         // Seçilen video'yu göster
         if (videoId === 'mac-install') {
-            document.getElementById('mac-video').style.display = 'block';
+            const macVideo = document.getElementById('mac-video');
+            if (macVideo) macVideo.style.display = 'block';
         } else if (videoId === 'windows-install') {
-            document.getElementById('windows-video').style.display = 'block';
+            const windowsVideo = document.getElementById('windows-video');
+            if (windowsVideo) windowsVideo.style.display = 'block';
         } else {
             // Diğer videolar için placeholder göster
-            document.getElementById('other-videos').style.display = 'block';
+            const otherVideos = document.getElementById('other-videos');
+            if (otherVideos) otherVideos.style.display = 'block';
         }
     }
 
