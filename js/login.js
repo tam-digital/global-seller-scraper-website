@@ -121,7 +121,13 @@ function showAuthForms() {
 // ===== FORGOT PASSWORD =====
 async function sendPasswordResetEmail(email) {
     try {
-        await auth.sendPasswordResetEmail(email);
+        // Custom action URL ile şifre sıfırlama
+        const actionCodeSettings = {
+            url: 'https://globalsellerscraper.com/login.html',
+            handleCodeInApp: false
+        };
+        
+        await auth.sendPasswordResetEmail(email, actionCodeSettings);
         return true, 'Şifre sıfırlama linki email adresinize gönderildi!';
     } catch (error) {
         console.error('Şifre sıfırlama hatası:', error);
@@ -323,7 +329,7 @@ async function registerUser() {
         
         try {
             const actionCodeSettings = {
-                url: 'https://tam-digital.github.io/global-seller-scraper-website/trial.html?verified=true',
+                url: 'https://globalsellerscraper.com/dashboard.html?verified=true',
                 handleCodeInApp: false
             };
             
