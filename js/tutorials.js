@@ -38,7 +38,7 @@ class TutorialsManager {
                 title: 'Envanter Tarama',
                 description: 'Satıcıların envanterlerini tarama ve analiz etme süreci',
                 duration: '7:28',
-                videoId: '1106883237' // Envanter tarama video ID'si
+                videoId: '1107504281' // Envanter tarama video ID'si - güncellendi
             },
             'asin-check': {
                 title: 'ASIN Kontrol Sistemi',
@@ -304,6 +304,9 @@ class TutorialsManager {
         } else if (videoId === 'seller-finder') {
             const sellerFinderVideo = document.getElementById('seller-finder-video');
             if (sellerFinderVideo) sellerFinderVideo.style.display = 'block';
+        } else if (videoId === 'inventory-scan') {
+            const inventoryScanVideo = document.getElementById('inventory-scan-video');
+            if (inventoryScanVideo) inventoryScanVideo.style.display = 'block';
         } else {
             // Diğer videolar için placeholder göster
             const otherVideos = document.getElementById('other-videos');
