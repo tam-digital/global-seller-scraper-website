@@ -45,6 +45,12 @@ class TutorialsManager {
                 description: 'ASIN kontrol sistemi ile benzersiz ürünleri filtreleme',
                 duration: '4:55',
                 videoId: '1107522062' // ASIN kontrol video ID'si - güncellendi
+            },
+            'free-resources': {
+                title: 'Ücretsiz Kaynaklar ve Destek',
+                description: 'Ücretsiz kaynaklar, destek kanalları ve danışmanlık hizmetleri',
+                duration: '3:45',
+                videoId: '1107531092' // Ücretsiz kaynaklar video ID'si
             }
         };
         
@@ -310,6 +316,9 @@ class TutorialsManager {
         } else if (videoId === 'asin-check') {
             const asinCheckVideo = document.getElementById('asin-check-video');
             if (asinCheckVideo) asinCheckVideo.style.display = 'block';
+        } else if (videoId === 'free-resources') {
+            const freeResourcesVideo = document.getElementById('free-resources-video');
+            if (freeResourcesVideo) freeResourcesVideo.style.display = 'block';
         } else {
             // Diğer videolar için placeholder göster
             const otherVideos = document.getElementById('other-videos');
@@ -334,7 +343,8 @@ class TutorialsManager {
             'first-login': 'https://example.com/first-login-guide.pdf',
             'seller-finder': 'https://example.com/seller-finder-guide.pdf',
             'inventory-scan': 'https://example.com/inventory-scan-guide.pdf',
-            'asin-check': 'https://example.com/asin-check-guide.pdf'
+            'asin-check': 'https://example.com/asin-check-guide.pdf',
+            'free-resources': 'https://example.com/free-resources-guide.pdf'
         };
 
         const link = downloadLinks[this.currentVideo];
