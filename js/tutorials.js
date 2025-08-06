@@ -7,44 +7,50 @@ class TutorialsManager {
             'registration-activation': {
                 title: 'Kayıt ve Hesap Doğrulama',
                 description: 'Global Seller Scraper\'a kayıt olma ve hesap doğrulama süreci',
-                duration: '4:20',
+                duration: '1:54',
                 videoId: '1107481351' // Kayıt ve aktivasyon video ID'si
             },
             'mac-install': {
                 title: 'macOS Kurulum Rehberi',
                 description: 'macOS işletim sisteminde Global Seller Scraper yazılımının kurulum adımları ve gerekli ayarlar',
-                duration: '5:32',
+                duration: '2:10',
                 videoId: '1107065389' // macOS kurulum video ID'si - doğru ID
             },
             'windows-install': {
                 title: 'Windows Kurulum',
                 description: 'Windows işletim sisteminde yazılımın kurulum adımları ve gerekli ayarlar',
-                duration: '4:18',
+                duration: '3:09',
                 videoId: '1107134277' // Windows kurulum video ID'si - güncellendi
             },
 
             'seller-finder': {
                 title: 'Rakip Araştırma',
                 description: 'Rakip satıcıları bulma ve analiz etme özelliğinin kullanımı',
-                duration: '6:12',
+                duration: '6:45',
                 videoId: '1107493295' // Satıcı bulucu video ID'si - güncellendi
             },
             'inventory-scan': {
                 title: 'Envanter Tarama',
                 description: 'Satıcıların envanterlerini tarama ve analiz etme süreci',
-                duration: '7:28',
+                duration: '11:14',
                 videoId: '1107504281' // Envanter tarama video ID'si - güncellendi
+            },
+            'location-settings': {
+                title: 'AU ve UK Konum Ayarlama',
+                description: 'Avustralya ve Birleşik Krallık pazarları için konum ayarlama ve yapılandırma',
+                duration: '3:44',
+                videoId: '1107691901' // AU ve UK konum ayarlama video ID'si
             },
             'asin-check': {
                 title: 'ASIN Kontrol Sistemi',
                 description: 'ASIN kontrol sistemi ile benzersiz ürünleri filtreleme',
-                duration: '4:55',
+                duration: '9:03',
                 videoId: '1107522062' // ASIN kontrol video ID'si - güncellendi
             },
             'free-resources': {
                 title: 'Ücretsiz Kaynaklar ve Destek',
                 description: 'Ücretsiz kaynaklar, destek kanalları ve danışmanlık hizmetleri',
-                duration: '3:45',
+                duration: '6:24',
                 videoId: '1107531092' // Ücretsiz kaynaklar video ID'si
             }
         };
@@ -325,6 +331,9 @@ class TutorialsManager {
         } else if (videoId === 'inventory-scan') {
             const inventoryScanVideo = document.getElementById('inventory-scan-video');
             if (inventoryScanVideo) inventoryScanVideo.style.display = 'block';
+        } else if (videoId === 'location-settings') {
+            const locationSettingsVideo = document.getElementById('location-settings-video');
+            if (locationSettingsVideo) locationSettingsVideo.style.display = 'block';
         } else if (videoId === 'asin-check') {
             const asinCheckVideo = document.getElementById('asin-check-video');
             if (asinCheckVideo) asinCheckVideo.style.display = 'block';
