@@ -101,4 +101,113 @@ window.forceShowPaymentForm = async () => {
     }
 };
 
+// ===== REGISTRATION FUNCTION =====
+async function registerUser() {
+    const name = document.getElementById('signupName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value;
+    const confirmPassword = document.getElementById('signupConfirmPassword').value;
+
+    if (!name || !email || !password) {
+        showMessage('Lütfen zorunlu alanları doldurun!', 'error');
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        showMessage('Şifreler eşleşmiyor!', 'error');
+        return;
+    }
+
+    if (password.length < 6) {
+        showMessage('Şifre en az 6 karakter olmalıdır!', 'error');
+        return;
+    }
+
+    try {
+        showMessage('Hesap oluşturuluyor...', 'info');
+        
+        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        // Firestore'a kullanıcı verilerini kaydet
+        try {
+            console.log('💾 Firestore\'a kullanıcı verileri kaydediliyor...');
+            console.log('💾 User UID:', user.uid);
+            
+            await firebase.firestore().collection('users').doc(user.uid).set({
+                email: email,
+                name: name,
+                company: '',
+                trial_status: "free",
+                created_at: firebase.firestore.FieldValue.serverTimestamp(),
+                last_login: firebase.firestore.FieldValue.serverTimestamp(),
+                email_verified: false,
+                monthly_usage: {
+                    asin_scans: 0,
+                    product_scans: 0,
+                    seller_searches: 0
+                },
+                limits: {
+                    asin_scans: 10000,
+                    product_scans: 10000,
+                    seller_searches: 0
+                },
+                abuse_score: 0,
+                is_verified: false,
+                is_active: true,
+                is_admin: false
+            });
+            
+            console.log('✅ Firestore\'a kullanıcı verileri başarıyla kaydedildi');
+            showMessage('✅ Hesabınız başarıyla oluşturuldu!', 'success');
+            
+        } catch (firestoreError) {
+            console.error('❌ Firestore kaydetme hatası:', firestoreError);
+            showMessage('Hesap oluşturuldu ama veri kaydetme hatası!', 'error');
+        }
+        
+    } catch (error) {
+        console.error('Kayıt hatası:', error);
+        let errorMessage = 'Hesap oluşturulurken hata oluştu!';
+        
+        switch (error.code) {
+            case 'auth/email-already-in-use':
+                errorMessage = 'Bu email adresi zaten kullanımda!';
+                break;
+            case 'auth/invalid-email':
+                errorMessage = 'Geçersiz email adresi!';
+                break;
+            case 'auth/weak-password':
+                errorMessage = 'Şifre çok zayıf!';
+                break;
+        }
+        
+        showMessage(errorMessage, 'error');
+    }
+}
+
+// ===== MESSAGE FUNCTION =====
+function showMessage(message, type = 'info') {
+    const authMessage = document.getElementById('authMessage');
+    if (authMessage) {
+        authMessage.innerHTML = `<div class="message ${type}">${message}</div>`;
+        authMessage.style.display = 'block';
+        setTimeout(() => {
+            authMessage.style.display = 'none';
+        }, 5000);
+    }
+}
+
+// ===== EVENT LISTENERS =====
+document.addEventListener('DOMContentLoaded', () => {
+    // Kayıt formu event listener
+    const signupForm = document.getElementById('signupForm');
+    if (signupForm) {
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            registerUser();
+        });
+    }
+});
+
 console.log('💳 Simple payment script loaded'); 
