@@ -99,13 +99,13 @@ Amazon satıcı analiz aracının resmi websitesi. 8 farklı ülke pazarında Am
 
 #### **macOS**
 - **Gereksinimler**: macOS 10.15+ (Catalina ve üzeri)
-- **İndir**: [Releases](https://github.com/tam-digital/global-seller-scraper-website/releases) sayfasından `GlobalSellerScraper.dmg`
+- **İndir**: [Releases](https://github.com/tam-digital/global-seller-scraper-website/releases) sayfasından `Global.Seller.Scraper.dmg`
 - **Kurulum**: DMG dosyasını aç → Applications klasörüne sürükle
 - **Çalıştır**: Applications klasöründen Global Seller Scraper'ı aç
 
 #### **Windows**
 - **Gereksinimler**: Windows 10/11 (64-bit), 4GB RAM
-- **İndir**: [Releases](https://github.com/tam-digital/global-seller-scraper-website/releases) sayfasından `GlobalSellerScraper_Windows.rar`
+- **İndir**: [Releases](https://github.com/tam-digital/global-seller-scraper-website/releases) sayfasından `Global.Seller.Scraper.rar`
 - **Kurulum**: RAR dosyasını aç → exe dosyasını çıkar
 - **Çalıştır**: Yönetici olarak çalıştır
 - **Detaylı talimatlar**: [WINDOWS_KURULUM_TALIMATLARI.txt](WINDOWS_KURULUM_TALIMATLARI.txt)
