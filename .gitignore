@@ -16,6 +16,8 @@
 !js/**
 !images/
 !images/**
+!policies/
+!policies/**
 !README.md
 !.gitignore
 !.nojekyll
