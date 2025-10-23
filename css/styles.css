@@ -2146,6 +2146,95 @@ section.feature-section .feature-content.reverse .feature-visual {
     }
 }
 
+/* ===== VERSION HISTORY ===== */
+.version-history {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--panel-dark);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+}
+
+.version-history h3 {
+    color: var(--text-white);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.version-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.version-item {
+    display: grid;
+    grid-template-columns: auto auto auto 1fr;
+    gap: var(--spacing-sm);
+    align-items: center;
+    padding: var(--spacing-sm);
+    background: var(--background-dark);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.version-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(57, 239, 215, 0.1);
+}
+
+.version-platform {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: var(--font-size-sm);
+    min-width: 60px;
+}
+
+.version-number {
+    font-weight: 600;
+    color: var(--text-white);
+    font-size: var(--font-size-sm);
+    min-width: 50px;
+}
+
+.version-date {
+    color: var(--text-gray);
+    font-size: var(--font-size-xs);
+    min-width: 80px;
+}
+
+.version-description {
+    color: var(--text-gray);
+    font-size: var(--font-size-sm);
+    line-height: 1.4;
+}
+
+/* Responsive version history */
+@media (max-width: 768px) {
+    .version-item {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xs);
+        text-align: left;
+    }
+    
+    .version-platform,
+    .version-number,
+    .version-date {
+        min-width: auto;
+    }
+    
+    .version-description {
+        margin-top: var(--spacing-xs);
+        padding-top: var(--spacing-xs);
+        border-top: 1px solid var(--border-color);
+    }
+}
+
 /* ===== UPDATE BANNER ===== */
 .update-banner {
     background: var(--background-dark);
