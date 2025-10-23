@@ -407,6 +407,30 @@ function initializeDashboard(user) {
     });
 }
 
+// ===== UPDATE BANNER =====
+function initializeUpdateBanner() {
+    const banner = document.getElementById('updateBanner');
+    const closeBtn = document.getElementById('bannerClose');
+    
+    if (!banner || !closeBtn) return;
+    
+    // Cookie kontrolü - banner daha önce kapatıldı mı?
+    const bannerClosed = localStorage.getItem('updateBannerClosed');
+    if (bannerClosed === 'true') {
+        banner.style.display = 'none';
+        return;
+    }
+    
+    // Kapatma butonu event listener
+    closeBtn.addEventListener('click', () => {
+        banner.style.animation = 'slideUp 0.3s ease-out';
+        setTimeout(() => {
+            banner.style.display = 'none';
+            localStorage.setItem('updateBannerClosed', 'true');
+        }, 300);
+    });
+}
+
 // ===== EVENT LISTENERS =====
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🚀 Dashboard sayfası yüklendi');
@@ -473,6 +497,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         initializeDashboard(user);
     });
+    
+    // Initialize update banner
+    initializeUpdateBanner();
 });
 
 console.log('✅ Dashboard script yüklendi'); 

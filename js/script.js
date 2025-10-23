@@ -1095,6 +1095,30 @@ const styleSheet = document.createElement('style');
 styleSheet.textContent = additionalStyles;
 document.head.appendChild(styleSheet);
 
+// ===== UPDATE BANNER =====
+function initializeUpdateBanner() {
+    const banner = document.getElementById('updateBanner');
+    const closeBtn = document.getElementById('bannerClose');
+    
+    if (!banner || !closeBtn) return;
+    
+    // Cookie kontrolü - banner daha önce kapatıldı mı?
+    const bannerClosed = localStorage.getItem('updateBannerClosed');
+    if (bannerClosed === 'true') {
+        banner.style.display = 'none';
+        return;
+    }
+    
+    // Kapatma butonu event listener
+    closeBtn.addEventListener('click', () => {
+        banner.style.animation = 'slideUp 0.3s ease-out';
+        setTimeout(() => {
+            banner.style.display = 'none';
+            localStorage.setItem('updateBannerClosed', 'true');
+        }, 300);
+    });
+}
+
 // ===== INITIALIZATION =====
 console.log('Script loaded!'); // Test için
 
@@ -1149,4 +1173,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Test Firebase Auth
             testFirebaseAuth();
+            
+            // Initialize update banner
+            initializeUpdateBanner();
 }); 
