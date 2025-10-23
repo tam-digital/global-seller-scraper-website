@@ -2148,12 +2148,13 @@ section.feature-section .feature-content.reverse .feature-visual {
 
 /* ===== UPDATE BANNER ===== */
 .update-banner {
-    background: linear-gradient(135deg, #39efd7, #00d4ff);
-    color: white;
+    background: var(--background-dark);
+    border-bottom: 1px solid var(--primary-color);
+    color: var(--text-white);
     padding: var(--spacing-sm) 0;
     position: relative;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(57, 239, 215, 0.3);
+    box-shadow: 0 2px 20px rgba(57, 239, 215, 0.1);
     animation: slideDown 0.5s ease-out;
 }
 
@@ -2163,52 +2164,54 @@ section.feature-section .feature-content.reverse .feature-visual {
     padding: 0 var(--spacing-md);
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: var(--spacing-sm);
 }
 
-.banner-icon {
-    font-size: var(--font-size-lg);
-    opacity: 0.9;
-}
-
 .banner-text {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
+    gap: 6px;
 }
 
 .banner-title {
     font-weight: 600;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
+    color: var(--text-white);
 }
 
-.update-items {
+.banner-updates {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 3px;
 }
 
-.update-item {
-    font-size: var(--font-size-xs);
-    opacity: 0.9;
+.banner-update {
+    font-size: var(--font-size-sm);
+    color: var(--text-gray);
     line-height: 1.3;
 }
 
 .banner-close {
     background: none;
     border: none;
-    color: white;
-    font-size: var(--font-size-sm);
+    color: var(--text-gray);
+    font-size: var(--font-size-lg);
     cursor: pointer;
     padding: var(--spacing-xs);
     border-radius: var(--radius-sm);
-    transition: background-color 0.2s ease;
-    opacity: 0.8;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .banner-close:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(57, 239, 215, 0.1);
+    color: var(--primary-color);
     opacity: 1;
 }
 
@@ -2249,15 +2252,15 @@ section.feature-section .feature-content.reverse .feature-visual {
     
     .banner-close {
         order: 2;
-        align-self: flex-end;
+        align-self: center;
     }
     
-    .update-items {
-        gap: 4px;
+    .banner-title {
+        font-size: var(--font-size-sm);
     }
     
-    .update-item {
-        font-size: 0.7rem;
+    .banner-update {
+        font-size: var(--font-size-xs);
     }
 }
 
